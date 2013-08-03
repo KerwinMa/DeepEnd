@@ -30,8 +30,6 @@
 		F5E582A217AC0BFB00D9409B /* Lossless_UDP.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829117AC0BFB00D9409B /* Lossless_UDP.c */; };
 		F5E582A317AC0BFB00D9409B /* Lossless_UDP.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829117AC0BFB00D9409B /* Lossless_UDP.c */; };
 		F5E582A417AC0BFB00D9409B /* Lossless_UDP.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829217AC0BFB00D9409B /* Lossless_UDP.h */; };
-		F5E582A517AC0BFB00D9409B /* Messenger.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829317AC0BFB00D9409B /* Messenger.c */; };
-		F5E582A617AC0BFB00D9409B /* Messenger.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829317AC0BFB00D9409B /* Messenger.c */; };
 		F5E582A717AC0BFB00D9409B /* Messenger.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829417AC0BFB00D9409B /* Messenger.h */; };
 		F5E582A817AC0BFB00D9409B /* friend_requests.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829517AC0BFB00D9409B /* friend_requests.c */; };
 		F5E582A917AC0BFB00D9409B /* friend_requests.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829517AC0BFB00D9409B /* friend_requests.c */; };
@@ -45,6 +43,8 @@
 		F5E582B317AC288800D9409B /* DESSelf.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E582B117AC288800D9409B /* DESSelf.h */; };
 		F5E582B417AC288800D9409B /* DESSelf.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E582B217AC288800D9409B /* DESSelf.m */; };
 		F5E582B517AC288800D9409B /* DESSelf.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E582B217AC288800D9409B /* DESSelf.m */; };
+		F5E8975A17AD8886008313D5 /* Messenger.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E8975917AD8886008313D5 /* Messenger.c */; };
+		F5E8975B17AD8886008313D5 /* Messenger.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E8975917AD8886008313D5 /* Messenger.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,7 +79,6 @@
 		F5E5829017AC0BFB00D9409B /* LAN_discovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAN_discovery.h; sourceTree = "<group>"; };
 		F5E5829117AC0BFB00D9409B /* Lossless_UDP.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Lossless_UDP.c; sourceTree = "<group>"; };
 		F5E5829217AC0BFB00D9409B /* Lossless_UDP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lossless_UDP.h; sourceTree = "<group>"; };
-		F5E5829317AC0BFB00D9409B /* Messenger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Messenger.c; sourceTree = "<group>"; };
 		F5E5829417AC0BFB00D9409B /* Messenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messenger.h; sourceTree = "<group>"; };
 		F5E5829517AC0BFB00D9409B /* friend_requests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = friend_requests.c; sourceTree = "<group>"; };
 		F5E5829617AC0BFB00D9409B /* friend_requests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = friend_requests.h; sourceTree = "<group>"; };
@@ -89,6 +88,7 @@
 		F5E5829A17AC0BFB00D9409B /* network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = network.h; sourceTree = "<group>"; };
 		F5E582B117AC288800D9409B /* DESSelf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESSelf.h; sourceTree = "<group>"; };
 		F5E582B217AC288800D9409B /* DESSelf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESSelf.m; sourceTree = "<group>"; };
+		F5E8975917AD8886008313D5 /* Messenger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Messenger.c; path = Common/Messenger.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,7 +182,7 @@
 				F5E5829017AC0BFB00D9409B /* LAN_discovery.h */,
 				F5E5829117AC0BFB00D9409B /* Lossless_UDP.c */,
 				F5E5829217AC0BFB00D9409B /* Lossless_UDP.h */,
-				F5E5829317AC0BFB00D9409B /* Messenger.c */,
+				F5E8975917AD8886008313D5 /* Messenger.c */,
 				F5E5829417AC0BFB00D9409B /* Messenger.h */,
 				F5E5829517AC0BFB00D9409B /* friend_requests.c */,
 				F5E5829617AC0BFB00D9409B /* friend_requests.h */,
@@ -304,11 +304,11 @@
 				F5E5829C17AC0BFB00D9409B /* DHT.c in Sources */,
 				F5E5829F17AC0BFB00D9409B /* LAN_discovery.c in Sources */,
 				F5E582A217AC0BFB00D9409B /* Lossless_UDP.c in Sources */,
-				F5E582A517AC0BFB00D9409B /* Messenger.c in Sources */,
 				F5E582A817AC0BFB00D9409B /* friend_requests.c in Sources */,
 				F5E582AB17AC0BFB00D9409B /* net_crypto.c in Sources */,
 				F5E582AE17AC0BFB00D9409B /* network.c in Sources */,
 				F5E582B417AC288800D9409B /* DESSelf.m in Sources */,
+				F5E8975A17AD8886008313D5 /* Messenger.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,11 +323,11 @@
 				F5E5829D17AC0BFB00D9409B /* DHT.c in Sources */,
 				F5E582A017AC0BFB00D9409B /* LAN_discovery.c in Sources */,
 				F5E582A317AC0BFB00D9409B /* Lossless_UDP.c in Sources */,
-				F5E582A617AC0BFB00D9409B /* Messenger.c in Sources */,
 				F5E582A917AC0BFB00D9409B /* friend_requests.c in Sources */,
 				F5E582AC17AC0BFB00D9409B /* net_crypto.c in Sources */,
 				F5E582AF17AC0BFB00D9409B /* network.c in Sources */,
 				F5E582B517AC288800D9409B /* DESSelf.m in Sources */,
+				F5E8975B17AD8886008313D5 /* Messenger.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
