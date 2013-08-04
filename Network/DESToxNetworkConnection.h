@@ -1,12 +1,12 @@
 #import <Foundation/Foundation.h>
 
-@class DESFriendManager, DESFriend;
+@class DESFriendManager, DESFriend, DESSelf;
 @interface DESToxNetworkConnection : NSObject
 
 /* Returns the shared instance of DESToxNetworkConnection */
 + (instancetype)sharedConnection;
 
-@property (strong, readonly) DESFriend *me;
+@property (strong, readonly) DESSelf *me;
 
 /* Gets the instance of DESFriendManager associated with this connection. */
 @property (strong, readonly) DESFriendManager *friendManager;

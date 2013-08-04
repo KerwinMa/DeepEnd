@@ -18,7 +18,7 @@
 
 - (NSString *)privateKey {
     uint8_t *theData = malloc(crypto_box_SECRETKEYBYTES);
-    memcpy(theData, self_public_key, crypto_box_SECRETKEYBYTES);
+    memcpy(theData, self_secret_key, crypto_box_SECRETKEYBYTES);
     NSString *theString = DESConvertPrivateKeyToString(theData);
     free(theData);
     return theString;
@@ -29,7 +29,7 @@
 }
 
 - (int)friendNumber {
-    return DES_FRIEND_SELF;
+    return DESFriendSelf;
 }
 
 - (BOOL)sendMessage:(NSString *)theMessage {

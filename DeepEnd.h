@@ -24,9 +24,11 @@ FOUNDATION_EXPORT size_t DESPublicKeySize;
 FOUNDATION_EXPORT size_t DESPrivateKeySize;
 
 /* Notifications posted by DESToxNetworkConection. */
-FOUNDATION_EXPORT NSString *const DESConnectSucceededNotification;
-FOUNDATION_EXPORT NSString *const DESConnectFailedNotification;
-FOUNDATION_EXPORT NSString *const DESConnectionTerminatedNotification;
+FOUNDATION_EXPORT NSString *const DESConnectionDidInitNotification;
+FOUNDATION_EXPORT NSString *const DESConnectionDidConnectNotification;
+FOUNDATION_EXPORT NSString *const DESConnectionDidFailNotification;
+FOUNDATION_EXPORT NSString *const DESConnectionDidTerminateNotification;
+
 FOUNDATION_EXPORT NSString *const DESFriendMessageReceived;
 FOUNDATION_EXPORT NSString *const DESFriendRequestReceived;
 
@@ -44,6 +46,8 @@ typedef NS_ENUM(NSInteger, DESFriendStatus) {
 
 #import <DeepEnd/DESToxNetworkConnection.h>
 #import <DeepEnd/DESFriendManager.h>
+#import <DeepEnd/DESFriend.h>
+#import <DeepEnd/DESSelf.h>
 
 /**** KEY FUNCTIONS (DESKeyFunctions.m) ****/
 

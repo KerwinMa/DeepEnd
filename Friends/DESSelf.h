@@ -3,7 +3,7 @@
 
 @interface DESSelf : DESFriend
 
-/* Our private key. [DESToxNetworkConnection setPrivateKey:publicKey:] to set it. */
-@property (strong, readonly) NSString *privateKey;
+@property (strong, readwrite) NSString *displayName;
+@property (strong, readwrite) NSString *userStatus;
 
 @end

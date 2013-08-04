@@ -1,19 +1,21 @@
 #import "DeepEnd.h"
 #import "DESToxNetworkConnection.h"
 #import "DESFriendManager.h"
+#import "DESSelf.h"
 #import "Messenger.h"
 #include <arpa/inet.h>
 
 static DESToxNetworkConnection *sharedInstance = nil;
-NSString *const DESConnectSucceededNotification = @"DESConnectSucceededNotification";
-NSString *const DESConnectFailedNotification = @"DESConnectFailedNotification";
-NSString *const DESConnectionTerminatedNotification = @"DESConnectionTerminatedNotification";
+NSString *const DESConnectionDidInitNotification = @"DESConnectionDidInitNotification";
+NSString *const DESConnectionDidConnectNotification = @"DESConnectionDidConnectNotification";
+NSString *const DESConnectionDidFailNotification = @"DESConnectionDidFailNotification";
+NSString *const DESConnectionDidTerminateNotification = @"DESConnectionDidTerminateNotification";
 
 @implementation DESToxNetworkConnection {
     dispatch_queue_t messengerQueue;
     dispatch_source_t messengerTick;
     DESFriendManager *_friendManager;
-    DESFriend *_currentUser;
+    DESSelf *_currentUser;
     NSDate *bootstrapStartTime;
     BOOL wasConnected;
 }
@@ -36,11 +38,11 @@ NSString *const DESConnectionTerminatedNotification = @"DESConnectionTerminatedN
             if (!wasConnected && [self connected]) {
                 /* DHT bootstrap succeeded... */
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectSucceededNotification object:self];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidConnectNotification object:self];
                 });
             } else if (![self connected] && floor([bootstrapStartTime timeIntervalSinceNow] * -1.0) > 5.0) {
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectFailedNotification object:self];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidFailNotification object:self];
                 });
             }
         });
@@ -56,7 +58,7 @@ NSString *const DESConnectionTerminatedNotification = @"DESConnectionTerminatedN
     return _friendManager;
 }
 
-- (DESFriend *)me {
+- (DESSelf *)me {
     return _currentUser;
 }
 
@@ -78,7 +80,9 @@ NSString *const DESConnectionTerminatedNotification = @"DESConnectionTerminatedN
 - (void)connect {
     dispatch_sync(messengerQueue, ^{
         initMessenger();
+        _currentUser = [[DESSelf alloc] init];
     });
+    [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidInitNotification object:self];
     dispatch_resume(messengerTick);
 }
 
@@ -104,7 +108,7 @@ NSString *const DESConnectionTerminatedNotification = @"DESConnectionTerminatedN
 - (void)disconnect {
     dispatch_source_cancel(messengerTick);
     dispatch_sync(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectFailedNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidTerminateNotification object:self];
     });
 }
 

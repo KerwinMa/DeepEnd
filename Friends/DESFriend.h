@@ -32,6 +32,9 @@
 /* The public key. */
 @property (strong, readonly) NSString *publicKey;
 
+/* The private key. Only available on DESSelf, will return nil anywhere else. */
+@property (strong, readonly) NSString *privateKey;
+
 /* The friend's status. See DeepEnd.h for possible values. */
 @property (readonly) DESFriendStatus status;
 

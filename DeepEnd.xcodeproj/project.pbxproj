@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F500603317ADBD9800C864C4 /* libDeepEnd-iOS.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E5826217AC0A4300D9409B /* libDeepEnd-iOS.a */; };
 		F5E5826417AC0A4300D9409B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E5826317AC0A4300D9409B /* Foundation.framework */; };
 		F5E5826F17AC0A8F00D9409B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E5826317AC0A4300D9409B /* Foundation.framework */; };
 		F5E5827D17AC0ABB00D9409B /* DESKeyFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E5827117AC0ABB00D9409B /* DESKeyFunctions.m */; };
@@ -40,7 +41,7 @@
 		F5E582AE17AC0BFB00D9409B /* network.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829917AC0BFB00D9409B /* network.c */; };
 		F5E582AF17AC0BFB00D9409B /* network.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829917AC0BFB00D9409B /* network.c */; };
 		F5E582B017AC0BFB00D9409B /* network.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829A17AC0BFB00D9409B /* network.h */; };
-		F5E582B317AC288800D9409B /* DESSelf.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E582B117AC288800D9409B /* DESSelf.h */; };
+		F5E582B317AC288800D9409B /* DESSelf.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E582B117AC288800D9409B /* DESSelf.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E582B417AC288800D9409B /* DESSelf.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E582B217AC288800D9409B /* DESSelf.m */; };
 		F5E582B517AC288800D9409B /* DESSelf.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E582B217AC288800D9409B /* DESSelf.m */; };
 		F5E8975A17AD8886008313D5 /* Messenger.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E8975917AD8886008313D5 /* Messenger.c */; };
@@ -54,6 +55,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				F500603317ADBD9800C864C4 /* libDeepEnd-iOS.a in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,11 +86,11 @@
 		F5E5829617AC0BFB00D9409B /* friend_requests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = friend_requests.h; sourceTree = "<group>"; };
 		F5E5829717AC0BFB00D9409B /* net_crypto.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = net_crypto.c; sourceTree = "<group>"; };
 		F5E5829817AC0BFB00D9409B /* net_crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = net_crypto.h; sourceTree = "<group>"; };
-		F5E5829917AC0BFB00D9409B /* network.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = network.c; sourceTree = "<group>"; };
+		F5E5829917AC0BFB00D9409B /* network.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = network.c; path = Patches/network.c; sourceTree = SOURCE_ROOT; };
 		F5E5829A17AC0BFB00D9409B /* network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = network.h; sourceTree = "<group>"; };
 		F5E582B117AC288800D9409B /* DESSelf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESSelf.h; sourceTree = "<group>"; };
 		F5E582B217AC288800D9409B /* DESSelf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESSelf.m; sourceTree = "<group>"; };
-		F5E8975917AD8886008313D5 /* Messenger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Messenger.c; path = Common/Messenger.c; sourceTree = SOURCE_ROOT; };
+		F5E8975917AD8886008313D5 /* Messenger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Messenger.c; path = Patches/Messenger.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 			files = (
 				F5E5828117AC0ABB00D9409B /* DeepEnd.h in Headers */,
 				F5E5828217AC0ABB00D9409B /* DESFriend.h in Headers */,
+				F5E582B317AC288800D9409B /* DESSelf.h in Headers */,
 				F5E5828517AC0ABB00D9409B /* DESFriendManager.h in Headers */,
 				F5E5828817AC0ABB00D9409B /* DESToxNetworkConnection.h in Headers */,
 				F5E5829E17AC0BFB00D9409B /* DHT.h in Headers */,
@@ -213,7 +216,6 @@
 				F5E582AA17AC0BFB00D9409B /* friend_requests.h in Headers */,
 				F5E582AD17AC0BFB00D9409B /* net_crypto.h in Headers */,
 				F5E582B017AC0BFB00D9409B /* network.h in Headers */,
-				F5E582B317AC288800D9409B /* DESSelf.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,9 +434,11 @@
 		F5E5826D17AC0A4300D9409B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/DeepEnd_iOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -445,6 +449,7 @@
 		F5E5826E17AC0A4300D9409B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/DeepEnd_iOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;

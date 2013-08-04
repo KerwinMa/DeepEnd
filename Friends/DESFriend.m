@@ -98,6 +98,10 @@ int set_friend_userstatus(int friendnumber, uint8_t * status, uint16_t length);
     return _publicKey;
 }
 
+- (NSString *)privateKey {
+    return nil;
+}
+
 - (BOOL) CALLS_INTO_CORE_FUNCTIONS sendMessage:(NSString *)message {
     if (self.status != DESFriendStatusOnline) {
         return NO;
