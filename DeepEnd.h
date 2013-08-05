@@ -71,3 +71,4 @@ NSString *DESConvertPublicKeyToString(const uint8_t *theData);
 
 /* Convert a Tox private key from Core to its 64-character hex representation. */
 NSString *DESConvertPrivateKeyToString(const uint8_t *theData);
+BOOL DESValidateKeyPair(const uint8_t *privateKey, const uint8_t *publicKey);

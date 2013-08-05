@@ -14,6 +14,9 @@
 /* Whether the bootstrap is complete (the client can use the network) */
 @property (readonly) BOOL connected;
 
+/* The number of nodes we are connected to (DHT) */
+@property (readonly) NSNumber *connectedNodeCount;
+
 /* Set the public and private keys. They must be a valid pair or things will break. */
 - (void)setPrivateKey:(NSString *)thePrivateKey publicKey:(NSString *)thePublicKey;
 

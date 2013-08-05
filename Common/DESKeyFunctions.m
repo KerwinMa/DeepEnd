@@ -1,5 +1,6 @@
 #import "DeepEnd.h"
 #import "net_crypto.h"
+#import <sodium/crypto_box.h>
 
 /* Declaration of constants in DeepEnd.h */
 size_t DESPublicKeySize = crypto_box_PUBLICKEYBYTES;
@@ -69,4 +70,36 @@ NSString *DESConvertPrivateKeyToString(const uint8_t *theData) {
         [theString appendFormat:@"%02X", theData[idx]];
     }
     return (NSString*)theString;
+}
+
+BOOL DESValidateKeyPair(const uint8_t *privateKey, const uint8_t *publicKey) {
+    /* This function is a bit... expensive. */
+    uint8_t *temp_pub = malloc(DESPublicKeySize);
+    uint8_t *temp_priv = malloc(DESPrivateKeySize);
+    int success = crypto_box_keypair(temp_pub, temp_priv);
+    if (success != 0) {
+        free(temp_priv);
+        free(temp_pub);
+        return NO;
+    }
+    uint8_t *nonce = malloc(crypto_box_NONCEBYTES);
+    random_nonce(nonce);
+    NSString *challenge = @"DESKeyIsValid-af893fhwoeg8u"; /* Maybe generate a random string instead. */
+    size_t mlen = crypto_box_ZEROBYTES + [challenge lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+    uint8_t *encrypted = calloc(mlen, 1);
+    uint8_t *message = calloc(mlen, 1);
+    memcpy(message + crypto_box_ZEROBYTES, [challenge UTF8String], [challenge lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+    crypto_box(encrypted, message, mlen, nonce, publicKey, temp_priv);
+    memset(message, 0, mlen);
+    crypto_box_open(message, encrypted, mlen, nonce, temp_pub, privateKey);
+    NSString *verify = [[NSString alloc] initWithBytes:message + crypto_box_ZEROBYTES length:mlen - crypto_box_ZEROBYTES encoding:NSUTF8StringEncoding];
+    free(temp_priv);
+    free(temp_pub);
+    free(message);
+    free(encrypted);
+    free(nonce);
+    if ([verify isEqualToString:challenge])
+        return YES;
+    else
+        return NO;
 }

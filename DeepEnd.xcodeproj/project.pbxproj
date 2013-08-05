@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		F500603317ADBD9800C864C4 /* libDeepEnd-iOS.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E5826217AC0A4300D9409B /* libDeepEnd-iOS.a */; };
+		F5E486CD17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */; };
+		F5E486CE17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */; };
+		F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */; };
+		F5E486D117AF2D1A00A0BF9F /* DESDHTHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */; };
 		F5E5826417AC0A4300D9409B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E5826317AC0A4300D9409B /* Foundation.framework */; };
 		F5E5826F17AC0A8F00D9409B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E5826317AC0A4300D9409B /* Foundation.framework */; };
 		F5E5827D17AC0ABB00D9409B /* DESKeyFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E5827117AC0ABB00D9409B /* DESKeyFunctions.m */; };
@@ -22,8 +26,6 @@
 		F5E5828817AC0ABB00D9409B /* DESToxNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5827B17AC0ABB00D9409B /* DESToxNetworkConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E5828917AC0ABB00D9409B /* DESToxNetworkConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E5827C17AC0ABB00D9409B /* DESToxNetworkConnection.m */; };
 		F5E5828A17AC0ABB00D9409B /* DESToxNetworkConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E5827C17AC0ABB00D9409B /* DESToxNetworkConnection.m */; };
-		F5E5829C17AC0BFB00D9409B /* DHT.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5828D17AC0BFB00D9409B /* DHT.c */; };
-		F5E5829D17AC0BFB00D9409B /* DHT.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5828D17AC0BFB00D9409B /* DHT.c */; };
 		F5E5829E17AC0BFB00D9409B /* DHT.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5828E17AC0BFB00D9409B /* DHT.h */; };
 		F5E5829F17AC0BFB00D9409B /* LAN_discovery.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5828F17AC0BFB00D9409B /* LAN_discovery.c */; };
 		F5E582A017AC0BFB00D9409B /* LAN_discovery.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5828F17AC0BFB00D9409B /* LAN_discovery.c */; };
@@ -44,8 +46,6 @@
 		F5E582B317AC288800D9409B /* DESSelf.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E582B117AC288800D9409B /* DESSelf.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E582B417AC288800D9409B /* DESSelf.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E582B217AC288800D9409B /* DESSelf.m */; };
 		F5E582B517AC288800D9409B /* DESSelf.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E582B217AC288800D9409B /* DESSelf.m */; };
-		F5E8975A17AD8886008313D5 /* Messenger.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E8975917AD8886008313D5 /* Messenger.c */; };
-		F5E8975B17AD8886008313D5 /* Messenger.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E8975917AD8886008313D5 /* Messenger.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +62,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DESMessengerHack.c; sourceTree = "<group>"; };
+		F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DESDHTHack.c; sourceTree = "<group>"; };
 		F5E5824617AC095E00D9409B /* DeepEnd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeepEnd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E5826217AC0A4300D9409B /* libDeepEnd-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libDeepEnd-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E5826317AC0A4300D9409B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,7 +92,7 @@
 		F5E5829A17AC0BFB00D9409B /* network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = network.h; sourceTree = "<group>"; };
 		F5E582B117AC288800D9409B /* DESSelf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESSelf.h; sourceTree = "<group>"; };
 		F5E582B217AC288800D9409B /* DESSelf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESSelf.m; sourceTree = "<group>"; };
-		F5E8975917AD8886008313D5 /* Messenger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Messenger.c; path = Patches/Messenger.c; sourceTree = SOURCE_ROOT; };
+		F5E8975917AD8886008313D5 /* Messenger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Messenger.c; path = "ProjectTox-Core/core/Messenger.c"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F5E486CB17AF2BAB00A0BF9F /* Core Patches */ = {
+			isa = PBXGroup;
+			children = (
+				F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */,
+				F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */,
+			);
+			name = "Core Patches";
+			path = Patches;
+			sourceTree = "<group>";
+		};
 		F5E5823C17AC095E00D9409B = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +134,7 @@
 				F5E5827017AC0ABB00D9409B /* Common */,
 				F5E5827517AC0ABB00D9409B /* Friends */,
 				F5E5827A17AC0ABB00D9409B /* Network */,
+				F5E486CB17AF2BAB00A0BF9F /* Core Patches */,
 				F5E5828B17AC0BFB00D9409B /* ToxCore */,
 				F5E5824817AC095E00D9409B /* Frameworks */,
 				F5E5824717AC095E00D9409B /* Products */,
@@ -303,14 +316,14 @@
 				F5E5828317AC0ABB00D9409B /* DESFriend.m in Sources */,
 				F5E5828617AC0ABB00D9409B /* DESFriendManager.m in Sources */,
 				F5E5828917AC0ABB00D9409B /* DESToxNetworkConnection.m in Sources */,
-				F5E5829C17AC0BFB00D9409B /* DHT.c in Sources */,
 				F5E5829F17AC0BFB00D9409B /* LAN_discovery.c in Sources */,
 				F5E582A217AC0BFB00D9409B /* Lossless_UDP.c in Sources */,
 				F5E582A817AC0BFB00D9409B /* friend_requests.c in Sources */,
 				F5E582AB17AC0BFB00D9409B /* net_crypto.c in Sources */,
 				F5E582AE17AC0BFB00D9409B /* network.c in Sources */,
 				F5E582B417AC288800D9409B /* DESSelf.m in Sources */,
-				F5E8975A17AD8886008313D5 /* Messenger.c in Sources */,
+				F5E486CD17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */,
+				F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,14 +335,14 @@
 				F5E5828417AC0ABB00D9409B /* DESFriend.m in Sources */,
 				F5E5828717AC0ABB00D9409B /* DESFriendManager.m in Sources */,
 				F5E5828A17AC0ABB00D9409B /* DESToxNetworkConnection.m in Sources */,
-				F5E5829D17AC0BFB00D9409B /* DHT.c in Sources */,
 				F5E582A017AC0BFB00D9409B /* LAN_discovery.c in Sources */,
 				F5E582A317AC0BFB00D9409B /* Lossless_UDP.c in Sources */,
 				F5E582A917AC0BFB00D9409B /* friend_requests.c in Sources */,
 				F5E582AC17AC0BFB00D9409B /* net_crypto.c in Sources */,
 				F5E582AF17AC0BFB00D9409B /* network.c in Sources */,
 				F5E582B517AC288800D9409B /* DESSelf.m in Sources */,
-				F5E8975B17AD8886008313D5 /* Messenger.c in Sources */,
+				F5E486CE17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */,
+				F5E486D117AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,8 +424,10 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "DeepEnd-Info.plist";
+				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ProjectTox-Core/core\"";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -425,8 +440,10 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "DeepEnd-Info.plist";
+				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ProjectTox-Core/core\"";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -443,6 +460,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ProjectTox-Core/core\"";
 			};
 			name = Debug;
 		};
@@ -457,6 +475,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ProjectTox-Core/core\"";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

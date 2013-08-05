@@ -6,9 +6,9 @@
 int DESFriendInvalid = -1;
 int DESFriendSelf = -2;
 
-/* Prototype for private messenger functions, made public for use in decoding. */
-int setfriendname(int friendnumber, uint8_t * name);
-int set_friend_userstatus(int friendnumber, uint8_t * status, uint16_t length);
+/* Private functions implemented in DESMessengerHack.c. */
+int __DESSetNameOfFriend(int friendnumber, uint8_t * name);
+int __DESSetUserStatusOfFriend(int friendnumber, uint8_t * status, uint16_t length);
 
 @implementation DESFriend
 
@@ -63,11 +63,11 @@ int set_friend_userstatus(int friendnumber, uint8_t * status, uint16_t length);
             if (displayName) {
                 uint8_t *nameBuf = malloc(MAX_NAME_LENGTH);
                 memcpy(nameBuf, [displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
-                setfriendname(newNum, nameBuf);
+                __DESSetNameOfFriend(newNum, nameBuf);
                 free(nameBuf);
             }
             if (userStatus) {
-                set_friend_userstatus(newNum, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+                __DESSetUserStatusOfFriend(newNum, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
             }
         }
     }

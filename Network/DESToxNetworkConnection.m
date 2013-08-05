@@ -11,6 +11,9 @@ NSString *const DESConnectionDidConnectNotification = @"DESConnectionDidConnectN
 NSString *const DESConnectionDidFailNotification = @"DESConnectionDidFailNotification";
 NSString *const DESConnectionDidTerminateNotification = @"DESConnectionDidTerminateNotification";
 
+/* Private function implemented in DESDHTHack.c. */
+uint16_t __DESGetNumberOfConnectedNodes(void);
+
 @implementation DESToxNetworkConnection {
     dispatch_queue_t messengerQueue;
     dispatch_source_t messengerTick;
@@ -43,6 +46,14 @@ NSString *const DESConnectionDidTerminateNotification = @"DESConnectionDidTermin
             } else if (![self connected] && floor([bootstrapStartTime timeIntervalSinceNow] * -1.0) > 5.0) {
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidFailNotification object:self];
+                });
+            }
+            NSInteger cn = __DESGetNumberOfConnectedNodes();
+            if (cn != [_connectedNodeCount integerValue]) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self willChangeValueForKey:@"connectedNodeCount"];
+                    _connectedNodeCount = [NSNumber numberWithInteger:cn];
+                    [self didChangeValueForKey:@"connectedNodeCount"];
                 });
             }
         });
