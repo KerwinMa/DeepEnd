@@ -1,4 +1,5 @@
 #import "DeepEnd.h"
+#import "DeepEnd-Private.h"
 #import "DESToxNetworkConnection.h"
 #import "DESFriendManager.h"
 #import "DESSelf.h"
@@ -6,13 +7,34 @@
 #include <arpa/inet.h>
 
 static DESToxNetworkConnection *sharedInstance = nil;
+
+/* Declaration of constants in DeepEnd.h. */
+
 NSString *const DESConnectionDidInitNotification = @"DESConnectionDidInitNotification";
 NSString *const DESConnectionDidConnectNotification = @"DESConnectionDidConnectNotification";
 NSString *const DESConnectionDidFailNotification = @"DESConnectionDidFailNotification";
 NSString *const DESConnectionDidTerminateNotification = @"DESConnectionDidTerminateNotification";
 
-/* Private function implemented in DESDHTHack.c. */
-uint16_t __DESGetNumberOfConnectedNodes(void);
+#define FRIEND_ONLINE 4
+#define FRIEND_CONFIRMED 3
+#define FRIEND_REQUESTED 2
+#define FRIEND_ADDED 1
+#define NOFRIEND 0
+
+DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
+    switch (theStatus) {
+        case FRIEND_ONLINE:
+            return DESFriendStatusOnline;
+        case FRIEND_CONFIRMED:
+            return DESFriendStatusConfirmed;
+        case FRIEND_REQUESTED:
+            return DESFriendStatusRequestSent;
+        case FRIEND_ADDED:
+            return DESFriendStatusRequestSent;
+        default:
+            return DESFriendStatusOffline;
+    }
+}
 
 @implementation DESToxNetworkConnection {
     dispatch_queue_t messengerQueue;
@@ -56,6 +78,12 @@ uint16_t __DESGetNumberOfConnectedNodes(void);
                     [self didChangeValueForKey:@"connectedNodeCount"];
                 });
             }
+            __DESEnumerateFriendStatusesUsingBlock(^(int idx, int status, char *stop) {
+                DESFriend *theFriend = [self.friendManager friendWithNumber:idx];
+                if (theFriend.status != __DESCoreStatusToDESStatus(status)) {
+                    theFriend.status = status;
+                }
+            });
         });
     }
     return self;

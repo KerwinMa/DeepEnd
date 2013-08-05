@@ -45,12 +45,29 @@
     }
 }
 
-- (void) CALLS_INTO_CORE_FUNCTIONS setUserStatus:(NSString *)userStatus {
+- (void)setUserStatus:(NSString *)userStatus {
+    [self setUserStatus:userStatus kind:0];
+}
+
+- (void)setStatusType:(DESStatusType)statusType {
+    [self setUserStatus:self.userStatus kind:statusType];
+}
+
+- (void) CALLS_INTO_CORE_FUNCTIONS setUserStatus:(NSString *)userStatus kind:(DESStatusType)kind {
     [self willChangeValueForKey:@"userStatus"];
     int fail = m_set_userstatus((uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
     if (!fail) {
         _userStatus = userStatus;
         [self didChangeValueForKey:@"userStatus"];
+    }
+    
+    if (kind != 0) {
+        [self willChangeValueForKey:@"statusType"];
+        fail = 0;
+        if (!fail) {
+            _statusType = kind;
+            [self didChangeValueForKey:@"statusType"];
+        }
     }
 }
 

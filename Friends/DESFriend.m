@@ -1,14 +1,11 @@
 #import "DeepEnd.h"
+#import "DeepEnd-Private.h"
 #import "DESFriend.h"
 #import "Messenger.h"
 
 /* Declaration of constants in DeepEnd.h */
-int DESFriendInvalid = -1;
-int DESFriendSelf = -2;
-
-/* Private functions implemented in DESMessengerHack.c. */
-int __DESSetNameOfFriend(int friendnumber, uint8_t * name);
-int __DESSetUserStatusOfFriend(int friendnumber, uint8_t * status, uint16_t length);
+const int DESFriendInvalid = -1;
+const int DESFriendSelf = -2;
 
 @implementation DESFriend
 
@@ -161,6 +158,12 @@ int __DESSetUserStatusOfFriend(int friendnumber, uint8_t * status, uint16_t leng
     [self willChangeValueForKey:@"status"];
     _status = status;
     [self didChangeValueForKey:@"status"];
+}
+
+- (void)setStatusType:(DESStatusType)kind {
+    [self willChangeValueForKey:@"statusType"];
+    _statusType = kind;
+    [self didChangeValueForKey:@"statusType"];
 }
 
 @end

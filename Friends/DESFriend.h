@@ -18,6 +18,7 @@
     NSString *_publicKey;
     int _friendNumber;
     DESFriendStatus _status;
+    DESStatusType _statusType;
 }
 
 /* The friend number from Core. */
@@ -28,6 +29,7 @@
 
 /* The user status. */
 @property (strong, readonly) NSString *userStatus;
+@property (readonly) DESStatusType statusType;
 
 /* The public key. */
 @property (strong, readonly) NSString *publicKey;

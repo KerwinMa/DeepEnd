@@ -1,15 +1,7 @@
 #import "DeepEnd.h"
+#import "DeepEnd-Private.h"
 #import "DESFriend.h"
 #import "Messenger.h"
-
-@interface DESFriend (PrivateSetters)
-
-/* Implemented in DESFriend.m */
-- (void)setDisplayName:(NSString *)displayName;
-- (void)setUserStatus:(NSString *)userStatus;
-- (void)setStatus:(DESFriendStatus)status;
-
-@end
 
 @implementation DESFriendManager {
     NSMutableArray *_friends;
@@ -113,7 +105,7 @@
 }
 
 - (DESFriend *)friendWithNumber:(int)theNumber {
-    for (DESFriend *theFriend in self.friends) {
+    for (DESFriend *theFriend in _friends) {
         if (theFriend.friendNumber == theNumber) {
             return theFriend;
         }

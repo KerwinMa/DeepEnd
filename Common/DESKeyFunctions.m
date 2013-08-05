@@ -3,8 +3,8 @@
 #import <sodium/crypto_box.h>
 
 /* Declaration of constants in DeepEnd.h */
-size_t DESPublicKeySize = crypto_box_PUBLICKEYBYTES;
-size_t DESPrivateKeySize = crypto_box_SECRETKEYBYTES;
+const size_t DESPublicKeySize = crypto_box_PUBLICKEYBYTES;
+const size_t DESPrivateKeySize = crypto_box_SECRETKEYBYTES;
 
 BOOL DESPublicKeyIsValid(NSString *theKey) {
     if ([theKey length] != 64) {

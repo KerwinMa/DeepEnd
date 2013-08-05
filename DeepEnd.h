@@ -11,17 +11,17 @@
 #define CALLS_INTO_CORE_FUNCTIONS
 /* Adjust to make doMessenger run more or less. Lower second number = slower loop.
  * May help performance of slow systems. */
-#define MESSENGER_TICK_RATE (1.0 / 200.0)
+#define MESSENGER_TICK_RATE (1.0 / 100.0)
 #define MAX_MESSAGE_LENGTH (MAX_DATA_SIZE - 17)
 #define DES_FRIEND_INVALID -1
 /* Alternatively: DES_FRIEND_VERY_INVALID */
 #define DES_FRIEND_SELF -2
 
-FOUNDATION_EXPORT int DESFriendInvalid;
-FOUNDATION_EXPORT int DESFriendSelf;
+FOUNDATION_EXPORT const int DESFriendInvalid;
+FOUNDATION_EXPORT const int DESFriendSelf;
 
-FOUNDATION_EXPORT size_t DESPublicKeySize;
-FOUNDATION_EXPORT size_t DESPrivateKeySize;
+FOUNDATION_EXPORT const size_t DESPublicKeySize;
+FOUNDATION_EXPORT const size_t DESPrivateKeySize;
 
 /* Notifications posted by DESToxNetworkConection. */
 FOUNDATION_EXPORT NSString *const DESConnectionDidInitNotification;
@@ -41,6 +41,19 @@ typedef NS_ENUM(NSInteger, DESFriendStatus) {
     DESFriendStatusConfirmed, /* We accepted the request, but first nickname/status packets were not received. */
     DESFriendStatusSelf, /* This friend is us. Always and only returned by DESSelf. */
 };
+
+typedef uint8_t DESStatusType;
+/* Equivalent to USERSTATUS_KIND of Messenger.h
+ * Pending merge of https://github.com/irungentoo/ProjectTox-Core/pull/341 */
+
+/*typedef NS_ENUM(uint8_t, DESStatusType) {
+    DESStatusTypeOnline = USERSTATUS_KIND_ONLINE,
+    DESStatusTypeAway = USERSTATUS_KIND_AWAY,
+    DESStatusTypeBusy = USERSTATUS_KIND_BUSY,
+    DESStatusTypeOffline = USERSTATUS_KIND_OFFLINE,
+    DESStatusTypeRetain = USERSTATUS_KIND_RETAIN,
+    DESStatusTypeInvalid = USERSTATUS_KIND_INVALID,
+};*/
 
 /**** DEEPEND CORE CLASSES ****/
 
