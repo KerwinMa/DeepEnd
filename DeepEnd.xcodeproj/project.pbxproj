@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		F500603317ADBD9800C864C4 /* libDeepEnd-iOS.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E5826217AC0A4300D9409B /* libDeepEnd-iOS.a */; };
 		F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; };
+		F57B5E1B17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
+		F57B5E1C17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
+		F57B5E1D17B083E800BE87AC /* ping.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E1817B083E700BE87AC /* ping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F57B5E1E17B083E800BE87AC /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1917B083E800BE87AC /* util.c */; };
+		F57B5E1F17B083E800BE87AC /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1917B083E800BE87AC /* util.c */; };
+		F57B5E2017B083E800BE87AC /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E1A17B083E800BE87AC /* util.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F57B5E2417B0859E00BE87AC /* Messenger.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E2317B0859E00BE87AC /* Messenger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E486CD17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */; };
 		F5E486CE17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */; };
 		F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */; };
@@ -27,23 +34,22 @@
 		F5E5828817AC0ABB00D9409B /* DESToxNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5827B17AC0ABB00D9409B /* DESToxNetworkConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E5828917AC0ABB00D9409B /* DESToxNetworkConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E5827C17AC0ABB00D9409B /* DESToxNetworkConnection.m */; };
 		F5E5828A17AC0ABB00D9409B /* DESToxNetworkConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E5827C17AC0ABB00D9409B /* DESToxNetworkConnection.m */; };
-		F5E5829E17AC0BFB00D9409B /* DHT.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5828E17AC0BFB00D9409B /* DHT.h */; };
+		F5E5829E17AC0BFB00D9409B /* DHT.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5828E17AC0BFB00D9409B /* DHT.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E5829F17AC0BFB00D9409B /* LAN_discovery.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5828F17AC0BFB00D9409B /* LAN_discovery.c */; };
 		F5E582A017AC0BFB00D9409B /* LAN_discovery.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5828F17AC0BFB00D9409B /* LAN_discovery.c */; };
-		F5E582A117AC0BFB00D9409B /* LAN_discovery.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829017AC0BFB00D9409B /* LAN_discovery.h */; };
+		F5E582A117AC0BFB00D9409B /* LAN_discovery.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829017AC0BFB00D9409B /* LAN_discovery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E582A217AC0BFB00D9409B /* Lossless_UDP.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829117AC0BFB00D9409B /* Lossless_UDP.c */; };
 		F5E582A317AC0BFB00D9409B /* Lossless_UDP.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829117AC0BFB00D9409B /* Lossless_UDP.c */; };
-		F5E582A417AC0BFB00D9409B /* Lossless_UDP.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829217AC0BFB00D9409B /* Lossless_UDP.h */; };
-		F5E582A717AC0BFB00D9409B /* Messenger.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829417AC0BFB00D9409B /* Messenger.h */; };
+		F5E582A417AC0BFB00D9409B /* Lossless_UDP.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829217AC0BFB00D9409B /* Lossless_UDP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E582A817AC0BFB00D9409B /* friend_requests.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829517AC0BFB00D9409B /* friend_requests.c */; };
 		F5E582A917AC0BFB00D9409B /* friend_requests.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829517AC0BFB00D9409B /* friend_requests.c */; };
-		F5E582AA17AC0BFB00D9409B /* friend_requests.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829617AC0BFB00D9409B /* friend_requests.h */; };
+		F5E582AA17AC0BFB00D9409B /* friend_requests.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829617AC0BFB00D9409B /* friend_requests.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E582AB17AC0BFB00D9409B /* net_crypto.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829717AC0BFB00D9409B /* net_crypto.c */; };
 		F5E582AC17AC0BFB00D9409B /* net_crypto.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829717AC0BFB00D9409B /* net_crypto.c */; };
-		F5E582AD17AC0BFB00D9409B /* net_crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829817AC0BFB00D9409B /* net_crypto.h */; };
+		F5E582AD17AC0BFB00D9409B /* net_crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829817AC0BFB00D9409B /* net_crypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E582AE17AC0BFB00D9409B /* network.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829917AC0BFB00D9409B /* network.c */; };
 		F5E582AF17AC0BFB00D9409B /* network.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E5829917AC0BFB00D9409B /* network.c */; };
-		F5E582B017AC0BFB00D9409B /* network.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829A17AC0BFB00D9409B /* network.h */; };
+		F5E582B017AC0BFB00D9409B /* network.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829A17AC0BFB00D9409B /* network.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E582B317AC288800D9409B /* DESSelf.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E582B117AC288800D9409B /* DESSelf.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E582B417AC288800D9409B /* DESSelf.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E582B217AC288800D9409B /* DESSelf.m */; };
 		F5E582B517AC288800D9409B /* DESSelf.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E582B217AC288800D9409B /* DESSelf.m */; };
@@ -64,6 +70,11 @@
 
 /* Begin PBXFileReference section */
 		F552EFDB17B057800043E169 /* DeepEnd-Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeepEnd-Private.h"; sourceTree = "<group>"; };
+		F57B5E1717B083E700BE87AC /* ping.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ping.c; sourceTree = "<group>"; };
+		F57B5E1817B083E700BE87AC /* ping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ping.h; sourceTree = "<group>"; };
+		F57B5E1917B083E800BE87AC /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		F57B5E1A17B083E800BE87AC /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		F57B5E2317B0859E00BE87AC /* Messenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messenger.h; sourceTree = "<group>"; };
 		F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DESMessengerHack.c; sourceTree = "<group>"; };
 		F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DESDHTHack.c; sourceTree = "<group>"; };
 		F5E5824617AC095E00D9409B /* DeepEnd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeepEnd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,7 +96,6 @@
 		F5E5829017AC0BFB00D9409B /* LAN_discovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAN_discovery.h; sourceTree = "<group>"; };
 		F5E5829117AC0BFB00D9409B /* Lossless_UDP.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Lossless_UDP.c; sourceTree = "<group>"; };
 		F5E5829217AC0BFB00D9409B /* Lossless_UDP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lossless_UDP.h; sourceTree = "<group>"; };
-		F5E5829417AC0BFB00D9409B /* Messenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messenger.h; sourceTree = "<group>"; };
 		F5E5829517AC0BFB00D9409B /* friend_requests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = friend_requests.c; sourceTree = "<group>"; };
 		F5E5829617AC0BFB00D9409B /* friend_requests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = friend_requests.h; sourceTree = "<group>"; };
 		F5E5829717AC0BFB00D9409B /* net_crypto.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = net_crypto.c; sourceTree = "<group>"; };
@@ -201,13 +211,17 @@
 				F5E5829117AC0BFB00D9409B /* Lossless_UDP.c */,
 				F5E5829217AC0BFB00D9409B /* Lossless_UDP.h */,
 				F5E8975917AD8886008313D5 /* Messenger.c */,
-				F5E5829417AC0BFB00D9409B /* Messenger.h */,
+				F57B5E2317B0859E00BE87AC /* Messenger.h */,
 				F5E5829517AC0BFB00D9409B /* friend_requests.c */,
 				F5E5829617AC0BFB00D9409B /* friend_requests.h */,
 				F5E5829717AC0BFB00D9409B /* net_crypto.c */,
 				F5E5829817AC0BFB00D9409B /* net_crypto.h */,
 				F5E5829917AC0BFB00D9409B /* network.c */,
 				F5E5829A17AC0BFB00D9409B /* network.h */,
+				F57B5E1717B083E700BE87AC /* ping.c */,
+				F57B5E1817B083E700BE87AC /* ping.h */,
+				F57B5E1917B083E800BE87AC /* util.c */,
+				F57B5E1A17B083E800BE87AC /* util.h */,
 			);
 			name = ToxCore;
 			path = "ProjectTox-Core/core";
@@ -225,13 +239,15 @@
 				F5E582B317AC288800D9409B /* DESSelf.h in Headers */,
 				F5E5828517AC0ABB00D9409B /* DESFriendManager.h in Headers */,
 				F5E5828817AC0ABB00D9409B /* DESToxNetworkConnection.h in Headers */,
+				F57B5E2417B0859E00BE87AC /* Messenger.h in Headers */,
 				F5E5829E17AC0BFB00D9409B /* DHT.h in Headers */,
 				F5E582A117AC0BFB00D9409B /* LAN_discovery.h in Headers */,
 				F5E582A417AC0BFB00D9409B /* Lossless_UDP.h in Headers */,
-				F5E582A717AC0BFB00D9409B /* Messenger.h in Headers */,
 				F5E582AA17AC0BFB00D9409B /* friend_requests.h in Headers */,
 				F5E582AD17AC0BFB00D9409B /* net_crypto.h in Headers */,
 				F5E582B017AC0BFB00D9409B /* network.h in Headers */,
+				F57B5E1D17B083E800BE87AC /* ping.h in Headers */,
+				F57B5E2017B083E800BE87AC /* util.h in Headers */,
 				F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +344,8 @@
 				F5E582B417AC288800D9409B /* DESSelf.m in Sources */,
 				F5E486CD17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */,
 				F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
+				F57B5E1B17B083E800BE87AC /* ping.c in Sources */,
+				F57B5E1E17B083E800BE87AC /* util.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +365,8 @@
 				F5E582B517AC288800D9409B /* DESSelf.m in Sources */,
 				F5E486CE17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */,
 				F5E486D117AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
+				F57B5E1C17B083E800BE87AC /* ping.c in Sources */,
+				F57B5E1F17B083E800BE87AC /* util.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +407,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = /usr/local/lib/libsodium.a;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ProjectTox-Core/core\"/**";
 			};
 			name = Debug;
 		};
@@ -417,6 +438,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = /usr/local/lib/libsodium.a;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ProjectTox-Core/core\"/**";
 			};
 			name = Release;
 		};
@@ -427,6 +449,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "DeepEnd-Info.plist";
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -443,6 +466,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "DeepEnd-Info.plist";
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;

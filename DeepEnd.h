@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import "Messenger.h"
 /* Older OS X and iOS SDKs. */
 #ifndef NS_ENUM
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
@@ -42,18 +43,17 @@ typedef NS_ENUM(NSInteger, DESFriendStatus) {
     DESFriendStatusSelf, /* This friend is us. Always and only returned by DESSelf. */
 };
 
-typedef uint8_t DESStatusType;
 /* Equivalent to USERSTATUS_KIND of Messenger.h
- * Pending merge of https://github.com/irungentoo/ProjectTox-Core/pull/341 */
+ **/
 
-/*typedef NS_ENUM(uint8_t, DESStatusType) {
+typedef NS_ENUM(USERSTATUS_KIND, DESStatusType) {
     DESStatusTypeOnline = USERSTATUS_KIND_ONLINE,
     DESStatusTypeAway = USERSTATUS_KIND_AWAY,
     DESStatusTypeBusy = USERSTATUS_KIND_BUSY,
     DESStatusTypeOffline = USERSTATUS_KIND_OFFLINE,
     DESStatusTypeRetain = USERSTATUS_KIND_RETAIN,
     DESStatusTypeInvalid = USERSTATUS_KIND_INVALID,
-};*/
+};
 
 /**** DEEPEND CORE CLASSES ****/
 
