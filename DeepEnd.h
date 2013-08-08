@@ -30,8 +30,9 @@ FOUNDATION_EXPORT NSString *const DESConnectionDidConnectNotification;
 FOUNDATION_EXPORT NSString *const DESConnectionDidFailNotification;
 FOUNDATION_EXPORT NSString *const DESConnectionDidTerminateNotification;
 
-FOUNDATION_EXPORT NSString *const DESFriendMessageReceived;
-FOUNDATION_EXPORT NSString *const DESFriendRequestReceived;
+FOUNDATION_EXPORT NSString *const DESDidReceiveMessageFromFriendNotification;
+FOUNDATION_EXPORT NSString *const DESFriendRequestArrayDidChangeNotification;
+FOUNDATION_EXPORT NSString *const DESFriendArrayDidChangeNotification;
 
 /* Status enum used by DESFriend. */
 typedef NS_ENUM(NSInteger, DESFriendStatus) {
@@ -61,6 +62,7 @@ typedef NS_ENUM(USERSTATUS_KIND, DESStatusType) {
 #import <DeepEnd/DESFriendManager.h>
 #import <DeepEnd/DESFriend.h>
 #import <DeepEnd/DESSelf.h>
+#import <DeepEnd/DESChatContext.h>
 
 /**** KEY FUNCTIONS (DESKeyFunctions.m) ****/
 
@@ -85,3 +87,5 @@ NSString *DESConvertPublicKeyToString(const uint8_t *theData);
 /* Convert a Tox private key from Core to its 64-character hex representation. */
 NSString *DESConvertPrivateKeyToString(const uint8_t *theData);
 BOOL DESValidateKeyPair(const uint8_t *privateKey, const uint8_t *publicKey);
+
+BOOL DESIsDebugBuild(void);

@@ -9,13 +9,30 @@ const int DESFriendSelf = -2;
 
 @implementation DESFriend
 
-- (instancetype) CALLS_INTO_CORE_FUNCTIONS initWithNumber:(int)friendNumber {
++ (instancetype)friendRequestWithKey:(NSString *)aKey message:(NSString *)theMessage owner:(DESFriendManager *)theOwner {
+    DESFriend *req = [super alloc];
+    req->owner = theOwner;
+    req->_friendNumber = DESFriendInvalid;
+    req->_status = DESFriendStatusRequestReceived;
+    req->_publicKey = aKey;
+    req->_displayName = @"";
+    req->_userStatus = theMessage;
+    req->_dateReceived = [NSDate date];
+    return req;
+}
+
+- (instancetype)initWithNumber:(int)friendNumber {
+    return [self initWithNumber:friendNumber owner:[DESToxNetworkConnection sharedConnection].friendManager];
+}
+
+- (instancetype) CALLS_INTO_CORE_FUNCTIONS initWithNumber:(int)friendNumber owner:(DESFriendManager *)manager {
     self = [super init];
     if (self) {
+        owner = manager;
         _friendNumber = friendNumber;
         uint8_t *theKey = malloc(crypto_box_PUBLICKEYBYTES);
         int isValidFriend = getclient_id(friendNumber, theKey);
-        if (!isValidFriend) {
+        if (isValidFriend == -1) {
             free(theKey);
             [[[NSException alloc] initWithName:NSInvalidArgumentException reason:@"Invalid friend number" userInfo:nil] raise];
             return nil;
@@ -30,6 +47,7 @@ const int DESFriendSelf = -2;
         m_copy_userstatus(friendNumber, theStatus, m_get_userstatus_size(friendNumber));
         _userStatus = [NSString stringWithCString:(const char*)theStatus encoding:NSUTF8StringEncoding];
         free(theStatus);
+        _dateReceived = nil;
     }
     return self;
 }
@@ -99,7 +117,7 @@ const int DESFriendSelf = -2;
     return nil;
 }
 
-- (BOOL) CALLS_INTO_CORE_FUNCTIONS sendMessage:(NSString *)message {
+- (NSUInteger) CALLS_INTO_CORE_FUNCTIONS sendMessage:(NSString *)message {
     if (self.status != DESFriendStatusOnline) {
         return NO;
     }
@@ -108,6 +126,7 @@ const int DESFriendSelf = -2;
     uint8_t *theBuffer = NULL;
     NSUInteger builtLength = 0;
     NSUInteger wordLength = 0;
+    uint32_t receipt = 0;
     NSMutableArray *partialMessage = [[NSMutableArray alloc] initWithCapacity:[words count]];
     for (NSString *theWord in words) {
         wordLength = [theWord lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
@@ -117,10 +136,10 @@ const int DESFriendSelf = -2;
             len = [thePayload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1;
             theBuffer = malloc(len);
             memcpy(theBuffer, [thePayload UTF8String], len);
-            int success = m_sendmessage(self.friendNumber, theBuffer, (uint16_t)len);
+            receipt = m_sendmessage(self.friendNumber, theBuffer, (uint16_t)len);
             free(theBuffer);
             builtLength = 0;
-            if (!success) return NO;
+            if (!receipt) return 0;
         }
         [partialMessage addObject:theWord];
         builtLength += wordLength + 1;
@@ -131,11 +150,11 @@ const int DESFriendSelf = -2;
         len = [thePayload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1;
         theBuffer = malloc(len);
         memcpy(theBuffer, [thePayload UTF8String], len);
-        int success = m_sendmessage(self.friendNumber, theBuffer, (uint16_t)len);
+        receipt = m_sendmessage(self.friendNumber, theBuffer, (uint16_t)len);
         free(theBuffer);
-        if (!success) return NO;
+        if (!receipt) return 0;
     }
-    return YES;
+    return receipt;
 }
 
 @end

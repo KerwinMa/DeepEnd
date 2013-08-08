@@ -11,6 +11,7 @@
  * Most properties on DESFriend are KVO-observable.
  */
 
+@class DESChatContext;
 @interface DESFriend : NSObject <NSSecureCoding> {
     @protected
     NSString *_displayName;
@@ -19,6 +20,7 @@
     int _friendNumber;
     DESFriendStatus _status;
     DESStatusType _statusType;
+    DESFriendManager *owner;
 }
 
 /* The friend number from Core. */
@@ -40,9 +42,14 @@
 /* The friend's status. See DeepEnd.h for possible values. */
 @property (readonly) DESFriendStatus status;
 
+/* The date at which the request was received. Only valid when the friend object is a request. */
+@property (readonly) NSDate *dateReceived;
+
++ (instancetype)friendRequestWithKey:(NSString *)aKey message:(NSString *)theMessage owner:(DESFriendManager *)theOwner;
 - (instancetype)initWithNumber:(int)friendNumber;
+- (instancetype)initWithNumber:(int)friendNumber owner:(DESFriendManager *)manager;
 
 /* Send a message to this friend. Returns success or failure.
  * If the message is too long, it will be split up into multiple messages. */
-- (BOOL)sendMessage:(NSString *)theMessage;
+- (NSUInteger)sendMessage:(NSString *)theMessage;
 @end

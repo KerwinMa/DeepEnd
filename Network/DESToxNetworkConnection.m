@@ -51,13 +51,14 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     }
 }
 
-- (instancetype)init {
+- (instancetype) CALLS_INTO_CORE_FUNCTIONS init {
     self = [super init];
     if (self) {
         messengerQueue = dispatch_queue_create("ca.kirara.DESRunLoop", NULL);
         messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, messengerQueue);
         dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), MESSENGER_TICK_RATE * NSEC_PER_SEC, 0.5 * NSEC_PER_SEC);
         wasConnected = NO;
+        _friendManager = [[DESFriendManager alloc] initWithConnection:self];
         dispatch_source_set_event_handler(messengerTick, ^{
             doMessenger();
             if (!wasConnected && [self connected]) {
@@ -81,7 +82,9 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
             __DESEnumerateFriendStatusesUsingBlock(^(int idx, int status, char *stop) {
                 DESFriend *theFriend = [self.friendManager friendWithNumber:idx];
                 if (theFriend.status != __DESCoreStatusToDESStatus(status)) {
-                    theFriend.status = status;
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        theFriend.status = __DESCoreStatusToDESStatus(status);
+                    });
                 }
             });
         });
@@ -105,7 +108,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     return DHT_isconnected();
 }
 
-- (void)setPrivateKey:(NSString *)thePrivateKey publicKey:(NSString *)thePublicKey {
+- (void) CALLS_INTO_CORE_FUNCTIONS setPrivateKey:(NSString *)thePrivateKey publicKey:(NSString *)thePublicKey {
     dispatch_sync(messengerQueue, ^{
         [self willChangeValueForKey:@"privateKey"];
         [self willChangeValueForKey:@"publicKey"];
@@ -116,16 +119,20 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     });
 }
 
-- (void)connect {
+- (void) CALLS_INTO_CORE_FUNCTIONS connect {
     dispatch_sync(messengerQueue, ^{
         initMessenger();
+        m_callback_friendmessage(__DESCallbackMessage);
+        m_callback_friendrequest(__DESCallbackFriendRequest);
+        m_callback_namechange(__DESCallbackNameChange);
+        m_callback_userstatus(__DESCallbackUserStatus);
         _currentUser = [[DESSelf alloc] init];
     });
     [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidInitNotification object:self];
     dispatch_resume(messengerTick);
 }
 
-- (void)bootstrapWithAddress:(NSString *)theAddress port:(NSInteger)thePort publicKey:(NSString *)theKey {
+- (void) CALLS_INTO_CORE_FUNCTIONS bootstrapWithAddress:(NSString *)theAddress port:(NSInteger)thePort publicKey:(NSString *)theKey {
     dispatch_sync(messengerQueue, ^{
         IP_Port bootstrapInfo;
         bootstrapInfo.ip.i = inet_addr([theAddress UTF8String]);
@@ -152,3 +159,34 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 @end
+
+/* Callbacks begin */
+
+void __DESCallbackFriendRequest(uint8_t *publicKey, uint8_t *payload, uint16_t length) {
+    NSString *theKey = DESConvertPublicKeyToString(publicKey);
+    NSString *thePayload = [[[NSString alloc] initWithBytes:payload length:length encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\0"]]; /* Tox encodes strings with NULs for some reason. */
+    [[DESToxNetworkConnection sharedConnection].friendManager didReceiveNewRequestWithKey:theKey message:thePayload];
+}
+
+void __DESCallbackNameChange(int friend, uint8_t *payload, uint16_t length) {
+    NSString *thePayload = [[[NSString alloc] initWithBytes:payload length:length encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\0"]]; /* Tox encodes strings with NULs for some reason. */
+    DESFriend *theFriend = [[DESToxNetworkConnection sharedConnection].friendManager friendWithNumber:friend];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        theFriend.displayName = thePayload;
+    });
+}
+
+void __DESCallbackUserStatus(int friend, USERSTATUS_KIND kind, uint8_t *payload, uint16_t length) {
+    NSString *thePayload = [[[NSString alloc] initWithBytes:payload length:length encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\0"]]; /* Tox encodes strings with NULs for some reason. */
+    DESFriend *theFriend = [[DESToxNetworkConnection sharedConnection].friendManager friendWithNumber:friend];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        theFriend.userStatus = thePayload;
+    });
+}
+
+void __DESCallbackMessage(int friend, uint8_t *payload, uint16_t length) {
+    NSString *thePayload = [[[NSString alloc] initWithBytes:payload length:length encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\0"]]; /* Tox encodes strings with NULs for some reason. */
+    DESFriend *theFriend = [[DESToxNetworkConnection sharedConnection].friendManager friendWithNumber:friend];
+    [[[DESToxNetworkConnection sharedConnection].friendManager chatContextForFriend:theFriend] pushMessage:thePayload fromParticipant:theFriend];
+}
+

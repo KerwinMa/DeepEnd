@@ -16,6 +16,11 @@
 		F57B5E1F17B083E800BE87AC /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1917B083E800BE87AC /* util.c */; };
 		F57B5E2017B083E800BE87AC /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E1A17B083E800BE87AC /* util.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F57B5E2417B0859E00BE87AC /* Messenger.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E2317B0859E00BE87AC /* Messenger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
+		F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
+		F5B9112F17B1B3BF00E29017 /* DESChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5B9112D17B1B3BF00E29017 /* DESChatContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5B9113017B1B3BF00E29017 /* DESChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B9112E17B1B3BF00E29017 /* DESChatContext.m */; };
+		F5B9113117B1B3BF00E29017 /* DESChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B9112E17B1B3BF00E29017 /* DESChatContext.m */; };
 		F5E486CD17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */; };
 		F5E486CE17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */; };
 		F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */; };
@@ -75,6 +80,9 @@
 		F57B5E1917B083E800BE87AC /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
 		F57B5E1A17B083E800BE87AC /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		F57B5E2317B0859E00BE87AC /* Messenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messenger.h; sourceTree = "<group>"; };
+		F5A3A86617B358690068AFA0 /* DESInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESInfo.m; sourceTree = "<group>"; };
+		F5B9112D17B1B3BF00E29017 /* DESChatContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESChatContext.h; sourceTree = "<group>"; };
+		F5B9112E17B1B3BF00E29017 /* DESChatContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESChatContext.m; sourceTree = "<group>"; };
 		F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DESMessengerHack.c; sourceTree = "<group>"; };
 		F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DESDHTHack.c; sourceTree = "<group>"; };
 		F5E5824617AC095E00D9409B /* DeepEnd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeepEnd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +182,7 @@
 		F5E5827017AC0ABB00D9409B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F5A3A86617B358690068AFA0 /* DESInfo.m */,
 				F5E5827117AC0ABB00D9409B /* DESKeyFunctions.m */,
 			);
 			path = Common;
@@ -197,6 +206,8 @@
 			children = (
 				F5E5827B17AC0ABB00D9409B /* DESToxNetworkConnection.h */,
 				F5E5827C17AC0ABB00D9409B /* DESToxNetworkConnection.m */,
+				F5B9112D17B1B3BF00E29017 /* DESChatContext.h */,
+				F5B9112E17B1B3BF00E29017 /* DESChatContext.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -239,6 +250,7 @@
 				F5E582B317AC288800D9409B /* DESSelf.h in Headers */,
 				F5E5828517AC0ABB00D9409B /* DESFriendManager.h in Headers */,
 				F5E5828817AC0ABB00D9409B /* DESToxNetworkConnection.h in Headers */,
+				F5B9112F17B1B3BF00E29017 /* DESChatContext.h in Headers */,
 				F57B5E2417B0859E00BE87AC /* Messenger.h in Headers */,
 				F5E5829E17AC0BFB00D9409B /* DHT.h in Headers */,
 				F5E582A117AC0BFB00D9409B /* LAN_discovery.h in Headers */,
@@ -346,6 +358,8 @@
 				F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
 				F57B5E1B17B083E800BE87AC /* ping.c in Sources */,
 				F57B5E1E17B083E800BE87AC /* util.c in Sources */,
+				F5B9113017B1B3BF00E29017 /* DESChatContext.m in Sources */,
+				F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +381,8 @@
 				F5E486D117AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
 				F57B5E1C17B083E800BE87AC /* ping.c in Sources */,
 				F57B5E1F17B083E800BE87AC /* util.c in Sources */,
+				F5B9113117B1B3BF00E29017 /* DESChatContext.m in Sources */,
+				F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,10 +408,6 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "DeepEnd-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

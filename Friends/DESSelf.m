@@ -8,6 +8,10 @@
     return [[DESToxNetworkConnection sharedConnection] me];
 }
 
++ (DESFriend *)selfWithConnection:(DESToxNetworkConnection *)connection {
+    return [connection me];
+}
+
 - (NSString *)publicKey {
     uint8_t *theData = malloc(crypto_box_PUBLICKEYBYTES);
     memcpy(theData, self_public_key, crypto_box_PUBLICKEYBYTES);
@@ -32,13 +36,13 @@
     return DESFriendSelf;
 }
 
-- (BOOL)sendMessage:(NSString *)theMessage {
+- (NSUInteger)sendMessage:(NSString *)theMessage {
     return NO; /* We cannot send messages to ourself. */
 }
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setDisplayName:(NSString *)displayName {
     [self willChangeValueForKey:@"displayName"];
-    int fail = setname((uint8_t*)[displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+    int fail = setname((uint8_t*)[displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (!fail) {
         _displayName = displayName;
         [self didChangeValueForKey:@"displayName"];
@@ -55,7 +59,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setUserStatus:(NSString *)userStatus kind:(DESStatusType)kind {
     [self willChangeValueForKey:@"userStatus"];
-    int fail = m_set_userstatus((USERSTATUS_KIND)kind, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+    int fail = m_set_userstatus((USERSTATUS_KIND)kind, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (!fail) {
         _userStatus = userStatus;
         [self didChangeValueForKey:@"userStatus"];
