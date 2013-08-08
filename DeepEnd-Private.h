@@ -35,5 +35,9 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus);
 /* Private callbacks implemented in DESToxNetworkConnection.m */
 void __DESCallbackFriendRequest(uint8_t *publicKey, uint8_t *payload, uint16_t length);
 void __DESCallbackNameChange(int friend, uint8_t *payload, uint16_t length);
-void __DESCallbackUserStatus(int friend, USERSTATUS_KIND kind, uint8_t *payload, uint16_t length);
+void __DESCallbackUserStatusKind(int friend, USERSTATUS kind);
+void __DESCallbackUserStatus(int friend, uint8_t *payload, uint16_t length);
 void __DESCallbackMessage(int friend, uint8_t *payload, uint16_t length);
+/* Temporary: declare function missing from header file Messenger.h */
+void m_callback_userstatus(void (*function)(int, USERSTATUS));
+

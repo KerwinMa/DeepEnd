@@ -40,6 +40,11 @@
     return NO; /* We cannot send messages to ourself. */
 }
 
+- (void)setUserStatus:(NSString *)userStatus kind:(DESStatusType)kind {
+    [self setUserStatus:userStatus];
+    [self setStatusType:kind];
+}
+
 - (void) CALLS_INTO_CORE_FUNCTIONS setDisplayName:(NSString *)displayName {
     [self willChangeValueForKey:@"displayName"];
     int fail = setname((uint8_t*)[displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
@@ -49,29 +54,21 @@
     }
 }
 
-- (void)setUserStatus:(NSString *)userStatus {
-    [self setUserStatus:userStatus kind:DESStatusTypeRetain];
-}
-
-- (void)setStatusType:(DESStatusType)statusType {
-    [self setUserStatus:self.userStatus kind:statusType];
-}
-
-- (void) CALLS_INTO_CORE_FUNCTIONS setUserStatus:(NSString *)userStatus kind:(DESStatusType)kind {
+- (void) CALLS_INTO_CORE_FUNCTIONS setUserStatus:(NSString *)userStatus {
     [self willChangeValueForKey:@"userStatus"];
-    int fail = m_set_userstatus((USERSTATUS_KIND)kind, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    int fail = m_set_statusmessage((uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (!fail) {
         _userStatus = userStatus;
         [self didChangeValueForKey:@"userStatus"];
     }
-    
-    if (kind != DESStatusTypeRetain) {
-        [self willChangeValueForKey:@"statusType"];
-        fail = 0;
-        if (!fail) {
-            _statusType = kind;
-            [self didChangeValueForKey:@"statusType"];
-        }
+}
+
+- (void) CALLS_INTO_CORE_FUNCTIONS setStatusType:(DESStatusType)statusType {
+    [self willChangeValueForKey:@"statusType"];
+    int fail = m_set_userstatus((USERSTATUS)statusType);
+    if (!fail) {
+        _statusType = statusType;
+        [self didChangeValueForKey:@"statusType"];
     }
 }
 

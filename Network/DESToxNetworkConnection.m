@@ -125,7 +125,8 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         m_callback_friendmessage(__DESCallbackMessage);
         m_callback_friendrequest(__DESCallbackFriendRequest);
         m_callback_namechange(__DESCallbackNameChange);
-        m_callback_userstatus(__DESCallbackUserStatus);
+        m_callback_statusmessage(__DESCallbackUserStatus);
+        m_callback_userstatus(__DESCallbackUserStatusKind);
         _currentUser = [[DESSelf alloc] init];
     });
     [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidInitNotification object:self];
@@ -176,7 +177,14 @@ void __DESCallbackNameChange(int friend, uint8_t *payload, uint16_t length) {
     });
 }
 
-void __DESCallbackUserStatus(int friend, USERSTATUS_KIND kind, uint8_t *payload, uint16_t length) {
+void __DESCallbackUserStatusKind(int friend, USERSTATUS kind) {
+    DESFriend *theFriend = [[DESToxNetworkConnection sharedConnection].friendManager friendWithNumber:friend];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        theFriend.statusType = (DESStatusType)kind;
+    });
+}
+
+void __DESCallbackUserStatus(int friend, uint8_t *payload, uint16_t length) {
     NSString *thePayload = [[[NSString alloc] initWithBytes:payload length:length encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\0"]]; /* Tox encodes strings with NULs for some reason. */
     DESFriend *theFriend = [[DESToxNetworkConnection sharedConnection].friendManager friendWithNumber:friend];
     dispatch_sync(dispatch_get_main_queue(), ^{

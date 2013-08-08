@@ -47,13 +47,11 @@ typedef NS_ENUM(NSInteger, DESFriendStatus) {
 /* Equivalent to USERSTATUS_KIND of Messenger.h
  **/
 
-typedef NS_ENUM(USERSTATUS_KIND, DESStatusType) {
-    DESStatusTypeOnline = USERSTATUS_KIND_ONLINE,
-    DESStatusTypeAway = USERSTATUS_KIND_AWAY,
-    DESStatusTypeBusy = USERSTATUS_KIND_BUSY,
-    DESStatusTypeOffline = USERSTATUS_KIND_OFFLINE,
-    DESStatusTypeRetain = USERSTATUS_KIND_RETAIN,
-    DESStatusTypeInvalid = USERSTATUS_KIND_INVALID,
+typedef NS_ENUM(USERSTATUS, DESStatusType) {
+    DESStatusTypeOnline = USERSTATUS_NONE,
+    DESStatusTypeAway = USERSTATUS_AWAY,
+    DESStatusTypeBusy = USERSTATUS_BUSY,
+    DESStatusTypeInvalid = USERSTATUS_INVALID,
 };
 
 /**** DEEPEND CORE CLASSES ****/

@@ -7,7 +7,7 @@ int __DESSetNameOfFriend(int friendnumber, uint8_t *name) {
 }
 
 int __DESSetUserStatusOfFriend(int friendnumber, uint8_t *status, uint16_t length) {
-    return set_friend_userstatus(friendnumber, status, length);
+    return set_friend_statusmessage(friendnumber, status, length);
 }
 
 void __DESEnumerateFriendStatusesUsingBlock(void(^block)(int idx, int status, char *stop)) {
