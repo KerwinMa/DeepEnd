@@ -76,10 +76,11 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
     int friendNumber = 0;
     @synchronized(self) {
         friendNumber = m_addfriend(buffer, (uint8_t*)[theMessage UTF8String], [theMessage lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
-        if (friendNumber > 0) {
+        if (friendNumber > -1) {
             DESFriend *newFriend = [[DESFriend alloc] initWithNumber:friendNumber owner:self];
             newFriend.status = DESFriendStatusRequestSent;
             [_friends addObject:newFriend];
+            [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
         }
     }
     free(buffer);
