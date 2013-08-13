@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 
+@class DESMessage;
 @interface DESChatContext : NSObject
 
 /* A set of DESFriend objects assigned to this context. */
@@ -9,8 +10,9 @@
 /* The maximum size of the backlog array. Oldest messages will be deleted if it
  * gets larger than this. */
 @property NSUInteger maximumBacklogSize;
-@property (readonly) BOOL isPersonalChatContext;
+@property (assign) DESFriendManager *friendManager;
 
+- (instancetype)initWithPartner:(DESFriend *)aFriend;
 - (instancetype)initWithParticipants:(NSArray *)participants;
 
 /* Add a friend to this chat context. Currently Tox only supports 1-1 chat,
@@ -18,10 +20,6 @@
 - (void)addParticipant:(DESFriend *)theFriend;
 - (void)removeParticipant:(DESFriend *)theFriend;
 
-/* Return a subset of the backlog containing only messages newer than aDate. */
-- (NSArray *)backlogStartingFromDate:(NSDate *)aDate;
-
-/* Put a message into this context. */
-- (void)pushMessage:(NSString *)aMessage fromParticipant:(DESFriend *)theFriend;
+- (void)sendMessage:(NSString *)message;
 
 @end

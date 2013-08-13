@@ -12,7 +12,9 @@
  */
 
 @class DESChatContext;
-@interface DESFriend : NSObject <NSSecureCoding> {
+@interface DESFriend : NSObject {
+    @public
+    DESFriendManager *owner;
     @protected
     NSString *_displayName;
     NSString *_userStatus;
@@ -20,7 +22,6 @@
     int _friendNumber;
     DESFriendStatus _status;
     DESStatusType _statusType;
-    DESFriendManager *owner;
 }
 
 /* The friend number from Core. */
@@ -39,17 +40,19 @@
 /* The private key. Only available on DESSelf, will return nil anywhere else. */
 @property (strong, readonly) NSString *privateKey;
 
+/* The friend address. */
+@property (strong, readonly) NSString *friendAddress;
+
 /* The friend's status. See DeepEnd.h for possible values. */
 @property (readonly) DESFriendStatus status;
 
 /* The date at which the request was received. Only valid when the friend object is a request. */
 @property (readonly) NSDate *dateReceived;
+@property (readonly) NSString *requestInfo;
 
-+ (instancetype)friendRequestWithKey:(NSString *)aKey message:(NSString *)theMessage owner:(DESFriendManager *)theOwner;
+@property (readonly) DESChatContext *chatContext;
+
 - (instancetype)initWithNumber:(int)friendNumber;
 - (instancetype)initWithNumber:(int)friendNumber owner:(DESFriendManager *)manager;
 
-/* Send a message to this friend. Returns success or failure.
- * If the message is too long, it will be split up into multiple messages. */
-- (NSUInteger)sendMessage:(NSString *)theMessage;
 @end

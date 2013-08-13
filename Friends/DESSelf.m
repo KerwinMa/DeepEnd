@@ -1,4 +1,5 @@
 #import "DeepEnd.h"
+#import "DeepEnd-Private.h"
 #import "DESSelf.h"
 #import "Messenger.h"
 
@@ -10,6 +11,14 @@
 
 + (DESFriend *)selfWithConnection:(DESToxNetworkConnection *)connection {
     return [connection me];
+}
+
+- (NSString *)friendAddress {
+    uint8_t *theData = malloc(DESFriendAddressSize);
+    getaddress(owner.connection.m, theData);
+    NSString *theString = DESConvertFriendAddressToString(theData);
+    free(theData);
+    return theString;
 }
 
 - (NSString *)publicKey {
@@ -47,7 +56,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setDisplayName:(NSString *)displayName {
     [self willChangeValueForKey:@"displayName"];
-    int fail = setname((uint8_t*)[displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    int fail = setname(owner.connection.m, (uint8_t*)[displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (!fail) {
         _displayName = displayName;
         [self didChangeValueForKey:@"displayName"];
@@ -56,7 +65,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setUserStatus:(NSString *)userStatus {
     [self willChangeValueForKey:@"userStatus"];
-    int fail = m_set_statusmessage((uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    int fail = m_set_statusmessage(owner.connection.m, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (!fail) {
         _userStatus = userStatus;
         [self didChangeValueForKey:@"userStatus"];
@@ -65,7 +74,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setStatusType:(DESStatusType)statusType {
     [self willChangeValueForKey:@"statusType"];
-    int fail = m_set_userstatus((USERSTATUS)statusType);
+    int fail = m_set_userstatus(owner.connection.m, (USERSTATUS)statusType);
     if (!fail) {
         _statusType = statusType;
         [self didChangeValueForKey:@"statusType"];

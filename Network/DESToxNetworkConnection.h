@@ -17,6 +17,8 @@
 /* The number of nodes we are connected to (DHT) */
 @property (readonly) NSNumber *connectedNodeCount;
 
+@property (readonly) dispatch_queue_t messengerQueue;
+
 /* Set the public and private keys. They must be a valid pair or things will break. */
 - (void)setPrivateKey:(NSString *)thePrivateKey publicKey:(NSString *)thePublicKey;
 

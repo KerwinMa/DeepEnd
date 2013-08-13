@@ -3,7 +3,6 @@
 #import "DESFriend.h"
 #import "Messenger.h"
 
-NSString *const DESDidReceiveMessageFromFriendNotification = @"DESDidReceiveMessageFromFriendNotification";
 NSString *const DESFriendRequestArrayDidChangeNotification = @"DESFriendRequestArrayDidChangeNotification";
 NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeNotification";
 
@@ -26,33 +25,9 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
         _friends = [[NSMutableArray alloc] initWithCapacity:8];
         _requests = [[NSMutableArray alloc] initWithCapacity:8];
         _blockedKeys = [[NSMutableArray alloc] initWithCapacity:8];
+        _contexts = [[NSMutableArray alloc] initWithCapacity:8];
     }
     return self;
-}
-
-#pragma mark - NSCoding
-/* Warning: NSCoding methods are outdated, and not all data is saved.
- * Someday they may be updated, but for now, consider serializing data
- * yourself, or use Kudryavka.framework. */
-
-+ (BOOL)supportsSecureCoding {
-    return YES;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super init];
-    if (self) {
-        NSArray *friendArray = [aDecoder decodeObjectOfClass:[NSArray class] forKey:@"friends"];
-        _friends = (NSMutableArray*)friendArray;
-        NSArray *blockedKeys = [aDecoder decodeObjectOfClass:[NSArray class] forKey:@"blocked"];
-        _blockedKeys = (NSMutableArray*)blockedKeys;
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:(NSArray*)_friends forKey:@"friends"];
-    [aCoder encodeObject:(NSArray*)_blockedKeys forKey:@"blocked"];
 }
 
 - (NSArray *)friends {
@@ -67,31 +42,61 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
     return (NSArray*)[_blockedKeys copy];
 }
 
-- (void) CALLS_INTO_CORE_FUNCTIONS addFriendWithPublicKey:(NSString *)theKey message:(NSString *)theMessage {
-    if ([self friendWithPublicKey:theKey]) {
+- (void) CALLS_INTO_CORE_FUNCTIONS addFriendWithAddress:(NSString *)theKey message:(NSString *)theMessage {
+    theKey = [theKey uppercaseString];
+    if ([self friendWithPublicKey:[theKey substringToIndex:DESPublicKeySize * 2]]) {
         return;
     }
-    uint8_t *buffer = malloc(crypto_box_PUBLICKEYBYTES);
-    DESConvertPublicKeyToData(theKey, buffer);
+    DESFriend *existentRequest = nil;
+    @synchronized(self) {
+        for (DESFriend *theRequest in _requests) {
+            if ([theRequest.friendAddress isEqualToString:theKey]) {
+                existentRequest = theRequest;
+                break;
+            }
+        }
+    }
+    if (existentRequest) {
+        [self acceptRequestFromFriend:existentRequest];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
+        });
+        return;
+    }
+    uint8_t *buffer = malloc(DESFriendAddressSize);
+    DESConvertFriendAddressToData(theKey, buffer);
     int friendNumber = 0;
     @synchronized(self) {
-        friendNumber = m_addfriend(buffer, (uint8_t*)[theMessage UTF8String], [theMessage lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+        friendNumber = m_addfriend(self.connection.m, buffer, (uint8_t*)[theMessage UTF8String], [theMessage lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
         if (friendNumber > -1) {
             DESFriend *newFriend = [[DESFriend alloc] initWithNumber:friendNumber owner:self];
             newFriend.status = DESFriendStatusRequestSent;
             [_friends addObject:newFriend];
-            [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
+            });
         }
     }
     free(buffer);
 }
 
 - (void)removeFriend:(DESFriend *)theFriend {
+    @synchronized(self) {
+        if ([_requests containsObject:theFriend]) {
+            [_requests removeObject:theFriend];
+        }
+    }
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
+    });
     if ([_friends containsObject:theFriend]) {
         @synchronized(self) {
-            m_delfriend(theFriend.friendNumber);
+            m_delfriend(self.connection.m, theFriend.friendNumber);
             [_friends removeObject:theFriend];
         }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
+        });
         [_contexts filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
             if ([((DESChatContext*)evaluatedObject).participants containsObject:theFriend]) {
                 [evaluatedObject removeParticipant:theFriend];
@@ -108,14 +113,16 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
     uint8_t *buffer = malloc(crypto_box_PUBLICKEYBYTES);
     DESConvertPublicKeyToData(theFriend.publicKey, buffer);
     @synchronized(self) {
-        int friendID = m_addfriend_norequest(buffer);
+        int friendID = m_addfriend_norequest(self.connection.m, buffer);
         if ([_requests containsObject:theFriend]) {
             [_requests removeObject:theFriend];
         }
         [_friends addObject:[theFriend initWithNumber:friendID owner:self]];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
+    });
     free(buffer);
 }
 
@@ -127,7 +134,9 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
             [_requests removeObject:theFriend];
         }
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
+    });
 }
 
 - (DESFriend *)friendWithPublicKey:(NSString *)theKey {
@@ -135,7 +144,7 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
     DESConvertPublicKeyToData(theKey, buffer);
     int friendID = DESFriendInvalid;
     @synchronized(self) {
-        friendID = getfriend_id(buffer);
+        friendID = getfriend_id(self.connection.m, buffer);
     }
     free(buffer);
     return [self friendWithNumber:friendID];
@@ -157,16 +166,7 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
 }
 
 - (DESChatContext *)chatContextForFriend:(DESFriend *)theFriend {
-    DESChatContext *ctx = nil;
-    @synchronized(self) {
-        for (DESChatContext *actx in _contexts) {
-            if (ctx.isPersonalChatContext && [actx.participants containsObject:theFriend]) {
-                ctx = actx;
-                break;
-            }
-        }
-    }
-    return ctx;
+    return theFriend.chatContext;
 }
 
 - (NSArray *)chatContextsContainingFriend:(DESFriend *)theFriend {
@@ -177,10 +177,19 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
     }
 }
 
-- (void)didReceiveNewRequestWithKey:(NSString *)theKey message:(NSString *)thePayload {
-    DESFriend *newFriend = [DESFriend friendRequestWithKey:theKey message:thePayload owner:self];
+- (void)addContext:(DESChatContext *)context {
+    @synchronized(self) {
+        context.friendManager = self;
+        [_contexts addObject:context];
+    }
+}
+
+- (void)didReceiveNewRequestWithAddress:(NSString *)theKey message:(NSString *)thePayload {
+    DESFriend *newFriend = [DESFriend friendRequestWithAddress:theKey message:thePayload owner:self];
     [_requests addObject:newFriend];
-    [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
+    });
 }
 
 @end

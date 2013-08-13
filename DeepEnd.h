@@ -13,14 +13,17 @@
 /* Adjust to make doMessenger run more or less. Lower second number = slower loop.
  * May help performance of slow systems. */
 #define MESSENGER_TICK_RATE (1.0 / 100.0)
-#define MAX_MESSAGE_LENGTH (MAX_DATA_SIZE - 17)
+#define MAX_MESSAGE_LENGTH (MAX_DATA_SIZE - 21)
 #define DES_FRIEND_INVALID -1
 /* Alternatively: DES_FRIEND_VERY_INVALID */
 #define DES_FRIEND_SELF -2
 
+/* Assigned in DESFriend.m */
+FOUNDATION_EXPORT const size_t DESFriendAddressSize;
 FOUNDATION_EXPORT const int DESFriendInvalid;
 FOUNDATION_EXPORT const int DESFriendSelf;
 
+/* Assigned in DESKeyFunctions.m */
 FOUNDATION_EXPORT const size_t DESPublicKeySize;
 FOUNDATION_EXPORT const size_t DESPrivateKeySize;
 
@@ -30,7 +33,7 @@ FOUNDATION_EXPORT NSString *const DESConnectionDidConnectNotification;
 FOUNDATION_EXPORT NSString *const DESConnectionDidFailNotification;
 FOUNDATION_EXPORT NSString *const DESConnectionDidTerminateNotification;
 
-FOUNDATION_EXPORT NSString *const DESDidReceiveMessageFromFriendNotification;
+FOUNDATION_EXPORT NSString *const DESDidPushMessageToContextNotification;
 FOUNDATION_EXPORT NSString *const DESFriendRequestArrayDidChangeNotification;
 FOUNDATION_EXPORT NSString *const DESFriendArrayDidChangeNotification;
 
@@ -44,14 +47,23 @@ typedef NS_ENUM(NSInteger, DESFriendStatus) {
     DESFriendStatusSelf, /* This friend is us. Always and only returned by DESSelf. */
 };
 
-/* Equivalent to USERSTATUS_KIND of Messenger.h
- **/
+/* Equivalent to USERSTATUS_KIND of Messenger.h */
 
 typedef NS_ENUM(USERSTATUS, DESStatusType) {
     DESStatusTypeOnline = USERSTATUS_NONE,
     DESStatusTypeAway = USERSTATUS_AWAY,
     DESStatusTypeBusy = USERSTATUS_BUSY,
     DESStatusTypeInvalid = USERSTATUS_INVALID,
+};
+
+typedef NS_ENUM(NSInteger, DESMessageType) {
+    DESMessageTypeChat,
+    DESMessageTypeAction,
+    DESMessageTypeNicknameChange,
+    DESMessageTypeStatusChange,
+    DESMessageTypeUserStatusChange,
+    DESmessageTypeStatusTypeChange,
+    DESMessageTypeSystem,
 };
 
 /**** DEEPEND CORE CLASSES ****/
@@ -61,6 +73,7 @@ typedef NS_ENUM(USERSTATUS, DESStatusType) {
 #import <DeepEnd/DESFriend.h>
 #import <DeepEnd/DESSelf.h>
 #import <DeepEnd/DESChatContext.h>
+#import <DeepEnd/DESMessage.h>
 
 /**** KEY FUNCTIONS (DESKeyFunctions.m) ****/
 
@@ -68,6 +81,7 @@ typedef NS_ENUM(USERSTATUS, DESStatusType) {
  * DeepEndConvertPublicKeyString. */
 BOOL DESPublicKeyIsValid(NSString *theKey);
 BOOL DESPrivateKeyIsValid(NSString *theKey);
+BOOL DESFriendAddressIsValid(NSString *theAddr);
 
 /* Convert a 64-character hex string into bytes, and place it into theOutput.
  * theOutput will be at least crypto_box_PUBLICKEYSIZE in size.
@@ -78,12 +92,15 @@ void DESConvertPublicKeyToData(NSString *theString, uint8_t *theOutput);
  * theOutput will be at least crypto_box_SECRETKEYSIZE in size.
  */
 void DESConvertPrivateKeyToData(NSString *theString, uint8_t *theOutput);
+void DESConvertFriendAddressToData(NSString *theString, uint8_t *theOutput);
 
 /* Convert a Tox public key from Core to its 64-character hex representation. */
 NSString *DESConvertPublicKeyToString(const uint8_t *theData);
 
 /* Convert a Tox private key from Core to its 64-character hex representation. */
 NSString *DESConvertPrivateKeyToString(const uint8_t *theData);
+NSString *DESConvertFriendAddressToString(const uint8_t *theData);
+
 BOOL DESValidateKeyPair(const uint8_t *privateKey, const uint8_t *publicKey);
 
 BOOL DESIsDebugBuild(void);

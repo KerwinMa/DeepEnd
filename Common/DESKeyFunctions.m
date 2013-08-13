@@ -1,4 +1,5 @@
 #import "DeepEnd.h"
+#import "DeepEnd-Private.h"
 #import "net_crypto.h"
 #import <sodium/crypto_box.h>
 
@@ -7,17 +8,40 @@ const size_t DESPublicKeySize = crypto_box_PUBLICKEYBYTES;
 const size_t DESPrivateKeySize = crypto_box_SECRETKEYBYTES;
 
 BOOL DESPublicKeyIsValid(NSString *theKey) {
-    if ([theKey length] != 64) {
+    if ([theKey length] != DESPublicKeySize * 2) {
         return NO;
     } else {
-        NSCharacterSet *validSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefABCDEF1234567890"];
-        int i = 0;
-        while(i < [theKey length]) {
-            if (![validSet characterIsMember:[theKey characterAtIndex:i]]) {
-                return NO;
-            }
-            i++;
+        return DESHexStringIsValid(theKey);
+    }
+    return YES;
+}
+
+BOOL DESPrivateKeyIsValid(NSString *theKey) {
+    if ([theKey length] != DESPrivateKeySize * 2) {
+        return NO;
+    } else {
+        return DESHexStringIsValid(theKey);
+    }
+    return YES;
+}
+
+BOOL DESFriendAddressIsValid(NSString *theAddr) {
+    if ([theAddr length] != DESFriendAddressSize * 2) {
+        return NO;
+    } else {
+        return DESHexStringIsValid(theAddr);
+    }
+    return YES;
+}
+
+BOOL DESHexStringIsValid(NSString *hex) {
+    NSCharacterSet *validSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefABCDEF1234567890"];
+    int i = 0;
+    while(i < [hex length]) {
+        if (![validSet characterIsMember:[hex characterAtIndex:i]]) {
+            return NO;
         }
+        i++;
     }
     return YES;
 }
@@ -26,7 +50,7 @@ void DESConvertPublicKeyToData(NSString *theString, uint8_t *theOutput) {
     const char *chars = [theString UTF8String];
     int i = 0, j = 0;
     NSUInteger len = [theString length];
-    if ([theString length] != DESPublicKeySize * 2) {
+    if (!DESPublicKeyIsValid(theString)) {
         [[[NSException alloc] initWithName:NSInvalidArgumentException reason:@"Malformed public key" userInfo:nil] raise];
     }
     char byteChars[3] = {'\0','\0','\0'};
@@ -43,8 +67,25 @@ void DESConvertPrivateKeyToData(NSString *theString, uint8_t *theOutput) {
     const char *chars = [theString UTF8String];
     int i = 0, j = 0;
     NSUInteger len = [theString length];
-    if ([theString length] != DESPrivateKeySize * 2) {
+    if (!DESPrivateKeyIsValid(theString)) {
         [[[NSException alloc] initWithName:NSInvalidArgumentException reason:@"Malformed private key" userInfo:nil] raise];
+    }
+    char byteChars[3] = {'\0','\0','\0'};
+    unsigned long wholeByte = 0;
+    while (i < len) {
+        byteChars[0] = chars[i++];
+        byteChars[1] = chars[i++];
+        wholeByte = strtoul(byteChars, NULL, 16);
+        theOutput[j++] = wholeByte;
+    }
+}
+
+void DESConvertFriendAddressToData(NSString *theString, uint8_t *theOutput) {
+    const char *chars = [theString UTF8String];
+    int i = 0, j = 0;
+    NSUInteger len = [theString length];
+    if (!DESFriendAddressIsValid(theString)) {
+        [[[NSException alloc] initWithName:NSInvalidArgumentException reason:@"Malformed friend address" userInfo:nil] raise];
     }
     char byteChars[3] = {'\0','\0','\0'};
     unsigned long wholeByte = 0;
@@ -67,6 +108,14 @@ NSString *DESConvertPublicKeyToString(const uint8_t *theData) {
 NSString *DESConvertPrivateKeyToString(const uint8_t *theData) {
     NSMutableString *theString = [NSMutableString stringWithCapacity:DESPrivateKeySize * 2];
     for (NSInteger idx = 0; idx < DESPrivateKeySize; ++idx) {
+        [theString appendFormat:@"%02X", theData[idx]];
+    }
+    return (NSString*)theString;
+}
+
+NSString *DESConvertFriendAddressToString(const uint8_t *theData) {
+    NSMutableString *theString = [NSMutableString stringWithCapacity:DESFriendAddressSize * 2];
+    for (NSInteger idx = 0; idx < DESFriendAddressSize; ++idx) {
         [theString appendFormat:@"%02X", theData[idx]];
     }
     return (NSString*)theString;
