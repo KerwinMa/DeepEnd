@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, DESMessageType) {
     DESMessageTypeNicknameChange,
     DESMessageTypeStatusChange,
     DESMessageTypeUserStatusChange,
-    DESmessageTypeStatusTypeChange,
+    DESMessageTypeStatusTypeChange,
     DESMessageTypeSystem,
 };
 

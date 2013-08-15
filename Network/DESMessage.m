@@ -19,7 +19,7 @@
 }
 
 + (instancetype)userStatusTypeChangeFromSender:(DESFriend *)aFriend newStatusType:(DESStatusType)type {
-    return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeUserStatusChange userStatusType:type];
+    return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeStatusTypeChange userStatusType:type];
 }
 
 + (instancetype)statusChangeFromSender:(DESFriend *)aFriend newStatus:(DESFriendStatus)status {
