@@ -5,8 +5,10 @@
 @property (assign) DESFriend *sender;
 @property (readonly) DESMessageType type;
 @property (strong, readonly) NSString *content;
-@property (readonly) DESStatusType statusType;
-@property (readonly) DESFriendStatus friendStatus;
+@property (strong, readonly) NSString *previousAttribute;
+@property (strong, readonly) NSString *currentAttribute;
+@property (readonly) NSInteger oldValue;
+@property (readonly) NSInteger newValue;
 @property (readonly) NSDate *dateReceived;
 @property (readonly) BOOL read;
 @property (readonly) BOOL failed;

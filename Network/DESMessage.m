@@ -7,15 +7,15 @@
 }
 
 + (instancetype)actionFromSender:(DESFriend *)aFriend content:(NSString *)aString {
-    return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeAction payload:aString];
+    return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeAction payload:aString messageID:-1];
 }
 
 + (instancetype)nickChangeFromSender:(DESFriend *)aFriend newNick:(NSString *)aString {
-    return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeNicknameChange payload:aString];
+    return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeNicknameChange oldAttr:aFriend.displayName newAttr:aString];
 }
 
 + (instancetype)userStatusChangeFromSender:(DESFriend *)aFriend newStatus:(NSString *)aString {
-    return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeUserStatusChange payload:aString];
+    return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeUserStatusChange oldAttr:aFriend.userStatus newAttr:aString];
 }
 
 + (instancetype)userStatusTypeChangeFromSender:(DESFriend *)aFriend newStatusType:(DESStatusType)type {
@@ -26,8 +26,15 @@
     return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeStatusChange friendStatus:status];
 }
 
-- (instancetype)initWithSender:(DESFriend *)aFriend messageType:(DESMessageType)type payload:(NSString *)aString {
-    self = [self initWithSender:aFriend messageType:type payload:aString messageID:-1];
+- (instancetype)initWithSender:(DESFriend *)aFriend messageType:(DESMessageType)type oldAttr:(NSString *)aString newAttr:(NSString *)anotherString {
+    self = [super init];
+    if (self) {
+        _sender = aFriend;
+        _previousAttribute = aString;
+        _currentAttribute = anotherString;
+        _type = type;
+        _dateReceived = [NSDate date];
+    }
     return self;
 }
 
@@ -47,7 +54,8 @@
     self = [super init];
     if (self) {
         _sender = aFriend;
-        _statusType = aStatus;
+        _oldValue = aFriend.statusType;
+        _newValue = aStatus;
         _type = type;
         _messageID = -1;
         _dateReceived = [NSDate date];
@@ -59,7 +67,8 @@
     self = [super init];
     if (self) {
         _sender = aFriend;
-        _friendStatus = aStatus;
+        _oldValue = aFriend.status;
+        _newValue = aStatus;
         _type = type;
         _messageID = -1;
         _dateReceived = [NSDate date];
