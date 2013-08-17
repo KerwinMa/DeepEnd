@@ -98,9 +98,9 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
             [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
         });
         [_contexts filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-            if ([((DESChatContext*)evaluatedObject).participants containsObject:theFriend]) {
+            if ([((id<DESChatContext>)evaluatedObject).participants containsObject:theFriend]) {
                 [evaluatedObject removeParticipant:theFriend];
-                return [((DESChatContext*)evaluatedObject).participants count] != 0;
+                return [((id<DESChatContext>)evaluatedObject).participants count] != 0;
             }
             return YES;
         }]];
@@ -165,19 +165,19 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
     }
 }
 
-- (DESChatContext *)chatContextForFriend:(DESFriend *)theFriend {
+- (id<DESChatContext>)chatContextForFriend:(DESFriend *)theFriend {
     return theFriend.chatContext;
 }
 
 - (NSArray *)chatContextsContainingFriend:(DESFriend *)theFriend {
     @synchronized(self) {
-        return [_contexts filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(DESChatContext *evaluatedObject, NSDictionary *bindings) {
+        return [_contexts filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id<DESChatContext> evaluatedObject, NSDictionary *bindings) {
             return [evaluatedObject.participants containsObject:theFriend];
         }]];
     }
 }
 
-- (void)addContext:(DESChatContext *)context {
+- (void)addContext:(id<DESChatContext>)context {
     @synchronized(self) {
         context.friendManager = self;
         [_contexts addObject:context];

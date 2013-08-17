@@ -1,4 +1,5 @@
 #import "DeepEnd.h"
+#import "DESChatContext.h"
 
 /*
  * The DESFriend class represents a user of the Tox network.
@@ -11,7 +12,6 @@
  * Most properties on DESFriend are KVO-observable.
  */
 
-@class DESChatContext;
 @interface DESFriend : NSObject {
     @public
     DESFriendManager *owner;
@@ -50,7 +50,7 @@
 @property (readonly) NSDate *dateReceived;
 @property (readonly) NSString *requestInfo;
 
-@property (readonly) DESChatContext *chatContext;
+@property (readonly) id<DESChatContext> chatContext;
 
 - (instancetype)initWithNumber:(int)friendNumber;
 - (instancetype)initWithNumber:(int)friendNumber owner:(DESFriendManager *)manager;

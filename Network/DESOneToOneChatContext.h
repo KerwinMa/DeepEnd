@@ -1,5 +1,6 @@
 #import "DeepEnd.h"
+#import "DeepEnd-Private.h"
 
-@interface DESOneToOneChatContext : DESChatContext
+@interface DESOneToOneChatContext : NSObject <DESChatContext>
 
 @end

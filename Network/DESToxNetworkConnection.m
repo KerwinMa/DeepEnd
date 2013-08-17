@@ -15,6 +15,9 @@ NSString *const DESConnectionDidConnectNotification = @"DESConnectionDidConnectN
 NSString *const DESConnectionDidFailNotification = @"DESConnectionDidFailNotification";
 NSString *const DESConnectionDidTerminateNotification = @"DESConnectionDidTerminateNotification";
 
+/* This one is related to the DESChatContext protocol. */
+NSString *const DESDidPushMessageToContextNotification = @"DESDidPushMessageToContextNotification";
+
 DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     switch (theStatus) {
         case FRIEND_ONLINE:

@@ -20,13 +20,7 @@
 @interface DESFriendManager ()
 
 - (void)didReceiveNewRequestWithAddress:(NSString *)theKey message:(NSString *)thePayload;
-- (void)addContext:(DESChatContext *)context;
-
-@end
-
-@interface DESChatContext ()
-
-- (void)pushMessage:(DESMessage *)aMessage;
+- (void)addContext:(id<DESChatContext>)context;
 
 @end
 

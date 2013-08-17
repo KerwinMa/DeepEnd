@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
+#import "DeepEnd.h"
+#import "DESChatContext.h"
 
-@class DESToxNetworkConnection, DESFriend, DESChatContext;
+@class DESToxNetworkConnection, DESFriend;
 @interface DESFriendManager : NSObject
 
 /* Not thread-safe! Use a copy or methods that wrap these arrays below! */
@@ -33,7 +35,7 @@
 /* Find the friend object with theKey. Returns nil on failure. */
 - (DESFriend *)friendWithNumber:(int)theNumber;
 
-- (DESChatContext *)chatContextForFriend:(DESFriend *)theFriend;
+- (id<DESChatContext>)chatContextForFriend:(DESFriend *)theFriend;
 - (NSArray *)chatContextsContainingFriend:(DESFriend *)theFriend;
 
 @end

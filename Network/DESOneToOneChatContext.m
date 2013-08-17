@@ -4,9 +4,15 @@
 @implementation DESOneToOneChatContext {
     DESFriend *partner;
     NSMutableArray *_backlog;
-    NSMutableSet *retentionPool;
 }
+
 @synthesize maximumBacklogSize = _maximumBacklogSize;
+@synthesize backlog;
+@synthesize friendManager;
+
+- (instancetype)initWithParticipants:(NSArray *)participants {
+    return [self initWithPartner:participants[0]];
+}
 
 - (instancetype)initWithPartner:(DESFriend *)aFriend {
     self = [super init];

@@ -10,7 +10,7 @@
 		F500603317ADBD9800C864C4 /* libDeepEnd-iOS.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E5826217AC0A4300D9409B /* libDeepEnd-iOS.a */; };
 		F52DF77317BAA3910088DDDB /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = F52DF77117BAA3910088DDDB /* timer.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
 		F52DF77417BAA3910088DDDB /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = F52DF77117BAA3910088DDDB /* timer.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		F52DF77517BAA3910088DDDB /* timer.h in Headers */ = {isa = PBXBuildFile; fileRef = F52DF77217BAA3910088DDDB /* timer.h */; };
+		F52DF77517BAA3910088DDDB /* timer.h in Headers */ = {isa = PBXBuildFile; fileRef = F52DF77217BAA3910088DDDB /* timer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; };
 		F57B5E1B17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
 		F57B5E1C17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
@@ -22,8 +22,6 @@
 		F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
 		F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
 		F5B9112F17B1B3BF00E29017 /* DESChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5B9112D17B1B3BF00E29017 /* DESChatContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5B9113017B1B3BF00E29017 /* DESChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B9112E17B1B3BF00E29017 /* DESChatContext.m */; };
-		F5B9113117B1B3BF00E29017 /* DESChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B9112E17B1B3BF00E29017 /* DESChatContext.m */; };
 		F5D4201F17B725E900587ABE /* DESOneToOneChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */; };
 		F5D4202017B725E900587ABE /* DESOneToOneChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */; };
 		F5D4202117B725E900587ABE /* DESOneToOneChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */; };
@@ -93,7 +91,6 @@
 		F57B5E2317B0859E00BE87AC /* Messenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messenger.h; sourceTree = "<group>"; };
 		F5A3A86617B358690068AFA0 /* DESInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESInfo.m; sourceTree = "<group>"; };
 		F5B9112D17B1B3BF00E29017 /* DESChatContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESChatContext.h; sourceTree = "<group>"; };
-		F5B9112E17B1B3BF00E29017 /* DESChatContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESChatContext.m; sourceTree = "<group>"; };
 		F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESOneToOneChatContext.h; sourceTree = "<group>"; };
 		F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESOneToOneChatContext.m; sourceTree = "<group>"; };
 		F5D4202317B72E4700587ABE /* DESMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESMessage.h; sourceTree = "<group>"; };
@@ -222,7 +219,6 @@
 				F5E5827B17AC0ABB00D9409B /* DESToxNetworkConnection.h */,
 				F5E5827C17AC0ABB00D9409B /* DESToxNetworkConnection.m */,
 				F5B9112D17B1B3BF00E29017 /* DESChatContext.h */,
-				F5B9112E17B1B3BF00E29017 /* DESChatContext.m */,
 				F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */,
 				F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */,
 				F5D4202317B72E4700587ABE /* DESMessage.h */,
@@ -280,11 +276,11 @@
 				F5E582AA17AC0BFB00D9409B /* friend_requests.h in Headers */,
 				F5E582AD17AC0BFB00D9409B /* net_crypto.h in Headers */,
 				F5E582B017AC0BFB00D9409B /* network.h in Headers */,
+				F52DF77517BAA3910088DDDB /* timer.h in Headers */,
 				F57B5E1D17B083E800BE87AC /* ping.h in Headers */,
 				F57B5E2017B083E800BE87AC /* util.h in Headers */,
 				F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */,
 				F5D4201F17B725E900587ABE /* DESOneToOneChatContext.h in Headers */,
-				F52DF77517BAA3910088DDDB /* timer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +378,6 @@
 				F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
 				F57B5E1B17B083E800BE87AC /* ping.c in Sources */,
 				F57B5E1E17B083E800BE87AC /* util.c in Sources */,
-				F5B9113017B1B3BF00E29017 /* DESChatContext.m in Sources */,
 				F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */,
 				F5D4202017B725E900587ABE /* DESOneToOneChatContext.m in Sources */,
 				F5D4202617B72E4700587ABE /* DESMessage.m in Sources */,
@@ -408,7 +403,6 @@
 				F5E486D117AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
 				F57B5E1C17B083E800BE87AC /* ping.c in Sources */,
 				F57B5E1F17B083E800BE87AC /* util.c in Sources */,
-				F5B9113117B1B3BF00E29017 /* DESChatContext.m in Sources */,
 				F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */,
 				F5D4202117B725E900587ABE /* DESOneToOneChatContext.m in Sources */,
 				F5D4202717B72E4700587ABE /* DESMessage.m in Sources */,

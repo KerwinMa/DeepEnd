@@ -1,8 +1,10 @@
 #import <Foundation/Foundation.h>
+#import "DeepEnd.h"
 
 @class DESMessage;
-@interface DESChatContext : NSObject
+@protocol DESChatContext <NSObject>
 
+@required
 /* A set of DESFriend objects assigned to this context. */
 @property (readonly) NSSet *participants;
 /* Messages received so far. */
@@ -21,5 +23,6 @@
 - (void)removeParticipant:(DESFriend *)theFriend;
 
 - (void)sendMessage:(NSString *)message;
+- (void)pushMessage:(DESMessage *)aMessage;
 
 @end
