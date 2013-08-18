@@ -5,8 +5,8 @@
 @property (assign) DESFriend *sender;
 @property (readonly) DESMessageType type;
 @property (strong, readonly) NSString *content;
-@property (strong, readonly) NSString *previousAttribute;
-@property (strong, readonly) NSString *currentAttribute;
+@property (strong, readonly) NSString *oldAttribute;
+@property (strong, readonly, getter=theNewAttribute) NSString *newAttribute;
 @property (readonly) NSInteger oldValue;
 @property (readonly) NSInteger newValue;
 @property (readonly) NSDate *dateReceived;

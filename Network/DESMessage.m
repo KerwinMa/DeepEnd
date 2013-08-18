@@ -30,8 +30,8 @@
     self = [super init];
     if (self) {
         _sender = aFriend;
-        _previousAttribute = aString;
-        _currentAttribute = anotherString;
+        _oldAttribute = aString;
+        _newAttribute = anotherString;
         _type = type;
         _dateReceived = [NSDate date];
     }
