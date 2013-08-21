@@ -58,9 +58,14 @@
         if (messageLength + [word lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1 > MAX_MESSAGE_LENGTH) {
             NSString *payload = [partial componentsJoinedByString:@" "];
             uint32_t returnValue = m_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[payload UTF8String], (uint16_t)[payload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
-            DESMessage *constructed = [DESMessage messageFromSender:sender content:payload messageID:returnValue];
-            [self pushMessage:constructed];
+            if (returnValue != 0) {
+                DESMessage *constructed = [DESMessage messageFromSender:sender content:payload messageID:returnValue];
+                [self pushMessage:constructed];
+            } else {
+                // hmm
+            }
             [partial removeAllObjects];
+            messageLength = 0;
         }
         [partial addObject:word];
         messageLength += [word lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1;
@@ -68,21 +73,27 @@
     if ([partial count] != 0) {
         NSString *payload = [partial componentsJoinedByString:@" "];
         uint32_t returnValue = m_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[payload UTF8String], (uint16_t)[payload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
-        DESMessage *constructed = [DESMessage messageFromSender:sender content:payload messageID:returnValue];
-        [self pushMessage:constructed];
+        if (returnValue != 0) {
+            DESMessage *constructed = [DESMessage messageFromSender:sender content:payload messageID:returnValue];
+            [self pushMessage:constructed];
+        } else {
+            // hmm
+        }
         [partial removeAllObjects];
     }
 }
 
 /* Put a message into this context. */
 - (void)pushMessage:(DESMessage *)aMessage {
-    if (_backlog.count > self.maximumBacklogSize - 1) {
-        [_backlog removeObjectAtIndex:0];
+    @synchronized (self) {
+        if (_backlog.count > self.maximumBacklogSize - 1) {
+            [_backlog removeObjectAtIndex:0];
+        }
+        NSLog(@"ChatContext pushed message %@.", aMessage);
+        [_backlog addObject:aMessage];
     }
-    NSLog(@"ChatContext pushed message %@.", aMessage);
-    [_backlog addObject:aMessage];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:DESDidPushMessageToContextNotification object:self userInfo:@{@"message": aMessage}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:DESDidPushMessageToContextNotification object:self userInfo:@{@"message":aMessage}];
     });
 }
 

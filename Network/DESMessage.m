@@ -26,6 +26,10 @@
     return [[DESMessage alloc] initWithSender:aFriend messageType:DESMessageTypeStatusChange friendStatus:status];
 }
 
++ (instancetype)systemMessageWithSeverity:(DESSystemMessageType)type content:(NSString *)errorString {
+    return [[DESMessage alloc] initWithSeverity:type content:errorString];
+}
+
 - (instancetype)initWithSender:(DESFriend *)aFriend messageType:(DESMessageType)type oldAttr:(NSString *)aString newAttr:(NSString *)anotherString {
     self = [super init];
     if (self) {
@@ -72,6 +76,16 @@
         _type = type;
         _messageID = -1;
         _dateReceived = [NSDate date];
+    }
+    return self;
+}
+
+- (instancetype)initWithSeverity:(DESSystemMessageType)type content:(NSString *)aString {
+    self = [super init];
+    if (self) {
+        _content = aString;
+        _type = DESMessageTypeSystem;
+        _newValue = type;
     }
     return self;
 }

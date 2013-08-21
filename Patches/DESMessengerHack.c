@@ -17,3 +17,7 @@ void __DESEnumerateFriendStatusesUsingBlock(Messenger *m, void(^block)(int idx, 
         if (stop) break;
     }
 }
+
+uint16_t __DESChecksumAddress(uint8_t *address, uint32_t len) {
+    return address_checksum(address, len);
+}

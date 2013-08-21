@@ -20,5 +20,6 @@
 + (instancetype)userStatusChangeFromSender:(DESFriend *)aFriend newStatus:(NSString *)aString;
 + (instancetype)userStatusTypeChangeFromSender:(DESFriend *)aFriend newStatusType:(DESStatusType)type;
 + (instancetype)statusChangeFromSender:(DESFriend *)aFriend newStatus:(DESFriendStatus)status;
++ (instancetype)systemMessageWithSeverity:(DESSystemMessageType)type content:(NSString *)errorString;
 
 @end

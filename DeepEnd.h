@@ -66,6 +66,13 @@ typedef NS_ENUM(NSInteger, DESMessageType) {
     DESMessageTypeSystem,
 };
 
+typedef NS_ENUM(NSInteger, DESSystemMessageType) {
+    DESSystemMessageInfo,
+    DESSystemMessageWarning,
+    DESSystemMessageError,
+    DESSystemMessageCritical,
+};
+
 /**** DEEPEND CORE CLASSES ****/
 
 #import <DeepEnd/DESToxNetworkConnection.h>

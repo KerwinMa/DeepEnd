@@ -1,11 +1,13 @@
 #import "DeepEnd.h"
 #import "DeepEnd-Private.h"
 #import "net_crypto.h"
+#import "Messenger.h"
 #import <sodium/crypto_box.h>
 
 /* Declaration of constants in DeepEnd.h */
 const size_t DESPublicKeySize = crypto_box_PUBLICKEYBYTES;
 const size_t DESPrivateKeySize = crypto_box_SECRETKEYBYTES;
+uint16_t __DESChecksumAddress(uint8_t *address, uint32_t len);
 
 BOOL DESPublicKeyIsValid(NSString *theKey) {
     if ([theKey length] != DESPublicKeySize * 2) {
@@ -29,7 +31,15 @@ BOOL DESFriendAddressIsValid(NSString *theAddr) {
     if ([theAddr length] != DESFriendAddressSize * 2) {
         return NO;
     } else {
-        return DESHexStringIsValid(theAddr);
+        if (!DESHexStringIsValid(theAddr)) {
+            return NO;
+        }
+        uint8_t *bytes = malloc(DESFriendAddressSize);
+        DESConvertFriendAddressToData(theAddr, bytes);
+        uint16_t check, checksum = __DESChecksumAddress(bytes, (uint32_t)DESFriendAddressSize - sizeof(checksum));
+        memcpy(&check, bytes + crypto_box_PUBLICKEYBYTES + sizeof(uint32_t), sizeof(check));
+        free(bytes);
+        return (check == checksum);
     }
     return YES;
 }
@@ -84,7 +94,7 @@ void DESConvertFriendAddressToData(NSString *theString, uint8_t *theOutput) {
     const char *chars = [theString UTF8String];
     int i = 0, j = 0;
     NSUInteger len = [theString length];
-    if (!DESFriendAddressIsValid(theString)) {
+    if (!DESHexStringIsValid(theString) || [theString length] != DESFriendAddressSize * 2) {
         [[[NSException alloc] initWithName:NSInvalidArgumentException reason:@"Malformed friend address" userInfo:nil] raise];
     }
     char byteChars[3] = {'\0','\0','\0'};
