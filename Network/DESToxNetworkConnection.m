@@ -67,7 +67,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidFailNotification object:self];
                 });
             }
-            NSInteger cn = __DESGetNumberOfConnectedNodes();
+            NSInteger cn = __DESGetNumberOfConnectedNodes(self.m->dht);
             if (cn != [_connectedNodeCount integerValue]) {
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [self willChangeValueForKey:@"connectedNodeCount"];
@@ -101,15 +101,15 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 - (BOOL)connected {
-    return DHT_isconnected();
+    return DHT_isconnected(self.m->dht);
 }
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setPrivateKey:(NSString *)thePrivateKey publicKey:(NSString *)thePublicKey {
     dispatch_sync(_messengerQueue, ^{
         [self willChangeValueForKey:@"privateKey"];
         [self willChangeValueForKey:@"publicKey"];
-        DESConvertPrivateKeyToData(thePrivateKey, self_secret_key);
-        DESConvertPublicKeyToData(thePublicKey, self_public_key);
+        DESConvertPrivateKeyToData(thePrivateKey, self.m->net_crypto->self_secret_key);
+        DESConvertPublicKeyToData(thePublicKey, self.m->net_crypto->self_public_key);
         [self didChangeValueForKey:@"privateKey"];
         [self didChangeValueForKey:@"publicKey"];
     });
@@ -141,7 +141,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         uint8_t *theData = malloc(crypto_box_PUBLICKEYBYTES);
         DESConvertPublicKeyToData(theKey, theData);
         bootstrapStartTime = [NSDate date];
-        DHT_bootstrap(bootstrapInfo, theData);
+        DHT_bootstrap(self.m->dht, bootstrapInfo, theData);
         free(theData);
     });
 }

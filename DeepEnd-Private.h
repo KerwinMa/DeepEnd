@@ -37,7 +37,7 @@ int __DESSetNameOfFriend(Messenger *m, int friendnumber, uint8_t * name);
 //int __DESSetUserStatusOfFriend(int friendnumber, USERSTATUS_KIND kind, uint8_t * status, uint16_t length);
 int __DESSetUserStatusOfFriend(Messenger *m, int friendnumber, uint8_t * status, uint16_t length);
 /* Private function implemented in DESDHTHack.c. */
-uint16_t __DESGetNumberOfConnectedNodes(void);
+uint16_t __DESGetNumberOfConnectedNodes(DHT *dht);
 /* Private function implemented in DESMessengerHack.c. */
 void __DESEnumerateFriendStatusesUsingBlock(Messenger *m, void(^block)(int idx, int status, char *stop));
 /* Private function implemented in DESToxNetworkConnection.m. */

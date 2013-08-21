@@ -23,7 +23,7 @@
 
 - (NSString *)publicKey {
     uint8_t *theData = malloc(crypto_box_PUBLICKEYBYTES);
-    memcpy(theData, self_public_key, crypto_box_PUBLICKEYBYTES);
+    memcpy(theData, self->owner.connection.m->net_crypto->self_public_key, crypto_box_PUBLICKEYBYTES);
     NSString *theString = DESConvertPublicKeyToString(theData);
     free(theData);
     return theString;
@@ -31,7 +31,7 @@
 
 - (NSString *)privateKey {
     uint8_t *theData = malloc(crypto_box_SECRETKEYBYTES);
-    memcpy(theData, self_secret_key, crypto_box_SECRETKEYBYTES);
+    memcpy(theData, self->owner.connection.m->net_crypto->self_secret_key, crypto_box_SECRETKEYBYTES);
     NSString *theString = DESConvertPrivateKeyToString(theData);
     free(theData);
     return theString;

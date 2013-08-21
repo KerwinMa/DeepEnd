@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F500603317ADBD9800C864C4 /* libDeepEnd-iOS.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E5826217AC0A4300D9409B /* libDeepEnd-iOS.a */; };
-		F52DF77317BAA3910088DDDB /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = F52DF77117BAA3910088DDDB /* timer.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		F52DF77417BAA3910088DDDB /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = F52DF77117BAA3910088DDDB /* timer.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
-		F52DF77517BAA3910088DDDB /* timer.h in Headers */ = {isa = PBXBuildFile; fileRef = F52DF77217BAA3910088DDDB /* timer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; };
 		F57B5E1B17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
 		F57B5E1C17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
@@ -81,8 +78,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F52DF77117BAA3910088DDDB /* timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timer.c; sourceTree = "<group>"; };
-		F52DF77217BAA3910088DDDB /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
 		F552EFDB17B057800043E169 /* DeepEnd-Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeepEnd-Private.h"; sourceTree = "<group>"; };
 		F57B5E1717B083E700BE87AC /* ping.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ping.c; sourceTree = "<group>"; };
 		F57B5E1817B083E700BE87AC /* ping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ping.h; sourceTree = "<group>"; };
@@ -248,8 +243,6 @@
 				F57B5E1817B083E700BE87AC /* ping.h */,
 				F57B5E1917B083E800BE87AC /* util.c */,
 				F57B5E1A17B083E800BE87AC /* util.h */,
-				F52DF77117BAA3910088DDDB /* timer.c */,
-				F52DF77217BAA3910088DDDB /* timer.h */,
 			);
 			name = ToxCore;
 			path = "ProjectTox-Core/core";
@@ -276,7 +269,6 @@
 				F5E582AA17AC0BFB00D9409B /* friend_requests.h in Headers */,
 				F5E582AD17AC0BFB00D9409B /* net_crypto.h in Headers */,
 				F5E582B017AC0BFB00D9409B /* network.h in Headers */,
-				F52DF77517BAA3910088DDDB /* timer.h in Headers */,
 				F57B5E1D17B083E800BE87AC /* ping.h in Headers */,
 				F57B5E2017B083E800BE87AC /* util.h in Headers */,
 				F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */,
@@ -381,7 +373,6 @@
 				F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */,
 				F5D4202017B725E900587ABE /* DESOneToOneChatContext.m in Sources */,
 				F5D4202617B72E4700587ABE /* DESMessage.m in Sources */,
-				F52DF77317BAA3910088DDDB /* timer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +397,6 @@
 				F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */,
 				F5D4202117B725E900587ABE /* DESOneToOneChatContext.m in Sources */,
 				F5D4202717B72E4700587ABE /* DESMessage.m in Sources */,
-				F52DF77417BAA3910088DDDB /* timer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
