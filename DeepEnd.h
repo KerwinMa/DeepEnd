@@ -75,12 +75,12 @@ typedef NS_ENUM(NSInteger, DESSystemMessageType) {
 
 /**** DEEPEND CORE CLASSES ****/
 
-#import <DeepEnd/DESToxNetworkConnection.h>
-#import <DeepEnd/DESFriendManager.h>
-#import <DeepEnd/DESFriend.h>
-#import <DeepEnd/DESSelf.h>
-#import <DeepEnd/DESChatContext.h>
-#import <DeepEnd/DESMessage.h>
+#import "DESToxNetworkConnection.h"
+#import "DESFriendManager.h"
+#import "DESFriend.h"
+#import "DESSelf.h"
+#import "DESChatContext.h"
+#import "DESMessage.h"
 
 /**** KEY FUNCTIONS (DESKeyFunctions.m) ****/
 

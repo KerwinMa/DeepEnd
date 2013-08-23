@@ -9,6 +9,24 @@
 /* Begin PBXBuildFile section */
 		F500603317ADBD9800C864C4 /* libDeepEnd-iOS.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E5826217AC0A4300D9409B /* libDeepEnd-iOS.a */; };
 		F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; };
+		F55813EC17C7BA5E000D50CB /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; };
+		F55813ED17C7BA73000D50CB /* DESOneToOneChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */; };
+		F55813EE17C7BA8C000D50CB /* DeepEnd.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5827417AC0ABB00D9409B /* DeepEnd.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813EF17C7BA8C000D50CB /* DESFriend.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5827617AC0ABB00D9409B /* DESFriend.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F017C7BA8C000D50CB /* DESSelf.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E582B117AC288800D9409B /* DESSelf.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F117C7BA8C000D50CB /* DESFriendManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5827817AC0ABB00D9409B /* DESFriendManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F217C7BA8C000D50CB /* DESToxNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5827B17AC0ABB00D9409B /* DESToxNetworkConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F317C7BA8C000D50CB /* DESChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5B9112D17B1B3BF00E29017 /* DESChatContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F417C7BA8C000D50CB /* DESMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4202317B72E4700587ABE /* DESMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F517C7BA8C000D50CB /* DHT.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5828E17AC0BFB00D9409B /* DHT.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F617C7BA8C000D50CB /* LAN_discovery.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829017AC0BFB00D9409B /* LAN_discovery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F717C7BA8C000D50CB /* Lossless_UDP.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829217AC0BFB00D9409B /* Lossless_UDP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F817C7BA8C000D50CB /* Messenger.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E2317B0859E00BE87AC /* Messenger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813F917C7BA8C000D50CB /* friend_requests.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829617AC0BFB00D9409B /* friend_requests.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813FA17C7BA8C000D50CB /* net_crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829817AC0BFB00D9409B /* net_crypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813FB17C7BA8C000D50CB /* network.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5829A17AC0BFB00D9409B /* network.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813FC17C7BA8C000D50CB /* ping.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E1817B083E700BE87AC /* ping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F55813FD17C7BA8C000D50CB /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E1A17B083E800BE87AC /* util.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F57B5E1B17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
 		F57B5E1C17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
 		F57B5E1D17B083E800BE87AC /* ping.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E1817B083E700BE87AC /* ping.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -251,6 +269,31 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		F55813EB17C7BA51000D50CB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F55813EE17C7BA8C000D50CB /* DeepEnd.h in Headers */,
+				F55813EF17C7BA8C000D50CB /* DESFriend.h in Headers */,
+				F55813F017C7BA8C000D50CB /* DESSelf.h in Headers */,
+				F55813F117C7BA8C000D50CB /* DESFriendManager.h in Headers */,
+				F55813F217C7BA8C000D50CB /* DESToxNetworkConnection.h in Headers */,
+				F55813F317C7BA8C000D50CB /* DESChatContext.h in Headers */,
+				F55813F417C7BA8C000D50CB /* DESMessage.h in Headers */,
+				F55813F517C7BA8C000D50CB /* DHT.h in Headers */,
+				F55813F617C7BA8C000D50CB /* LAN_discovery.h in Headers */,
+				F55813F717C7BA8C000D50CB /* Lossless_UDP.h in Headers */,
+				F55813F817C7BA8C000D50CB /* Messenger.h in Headers */,
+				F55813F917C7BA8C000D50CB /* friend_requests.h in Headers */,
+				F55813FA17C7BA8C000D50CB /* net_crypto.h in Headers */,
+				F55813FB17C7BA8C000D50CB /* network.h in Headers */,
+				F55813FC17C7BA8C000D50CB /* ping.h in Headers */,
+				F55813FD17C7BA8C000D50CB /* util.h in Headers */,
+				F55813EC17C7BA5E000D50CB /* DeepEnd-Private.h in Headers */,
+				F55813ED17C7BA73000D50CB /* DESOneToOneChatContext.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5E5824317AC095E00D9409B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -304,6 +347,7 @@
 				F5E5825E17AC0A4300D9409B /* Sources */,
 				F5E5825F17AC0A4300D9409B /* Frameworks */,
 				F5E5826017AC0A4300D9409B /* CopyFiles */,
+				F55813EB17C7BA51000D50CB /* Headers */,
 			);
 			buildRules = (
 			);
@@ -516,6 +560,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/DeepEnd_iOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
@@ -532,6 +577,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/DeepEnd_iOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
