@@ -33,9 +33,17 @@ FOUNDATION_EXPORT NSString *const DESConnectionDidConnectNotification;
 FOUNDATION_EXPORT NSString *const DESConnectionDidFailNotification;
 FOUNDATION_EXPORT NSString *const DESConnectionDidTerminateNotification;
 
+/* Notification posted by classes implementing DESChatContext protocol. */
 FOUNDATION_EXPORT NSString *const DESDidPushMessageToContextNotification;
+
+/* Assigned in DESFriendManager.h */
 FOUNDATION_EXPORT NSString *const DESFriendRequestArrayDidChangeNotification;
 FOUNDATION_EXPORT NSString *const DESFriendArrayDidChangeNotification;
+/* Used in -userInfo of the above notifications. */
+FOUNDATION_EXPORT NSString *const DESArrayOperationKey;
+FOUNDATION_EXPORT NSString *const DESArrayOperationTypeAdd;
+FOUNDATION_EXPORT NSString *const DESArrayOperationTypeRemove;
+FOUNDATION_EXPORT NSString *const DESArrayFriendKey;
 
 /* Status enum used by DESFriend. */
 typedef NS_ENUM(NSInteger, DESFriendStatus) {

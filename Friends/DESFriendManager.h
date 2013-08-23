@@ -5,6 +5,8 @@
 @class DESToxNetworkConnection, DESFriend;
 @interface DESFriendManager : NSObject
 
+/* WARNING: THESE METHODS CANNOT BE CALLED ON THE MAIN THREAD */
+
 /* Not thread-safe! Use a copy or methods that wrap these arrays below! */
 @property (readonly) NSArray *friends;
 @property (readonly) NSArray *requests;

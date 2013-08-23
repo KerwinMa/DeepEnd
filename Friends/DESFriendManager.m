@@ -6,6 +6,12 @@
 NSString *const DESFriendRequestArrayDidChangeNotification = @"DESFriendRequestArrayDidChangeNotification";
 NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeNotification";
 
+NSString *const DESArrayOperationKey = @"operation";
+NSString *const DESArrayFriendKey = @"friend";
+
+NSString *const DESArrayOperationTypeAdd = @"add";
+NSString *const DESArrayOperationTypeRemove = @"remove";
+
 @implementation DESFriendManager {
     NSMutableArray *_friends;
     NSMutableArray *_requests;
@@ -58,9 +64,6 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
     }
     if (existentRequest) {
         [self acceptRequestFromFriend:existentRequest];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
-        });
         return;
     }
     uint8_t *buffer = malloc(DESFriendAddressSize);
@@ -72,31 +75,28 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
             DESFriend *newFriend = [[DESFriend alloc] initWithNumber:friendNumber owner:self];
             newFriend.status = DESFriendStatusRequestSent;
             [_friends addObject:newFriend];
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
-            });
+            NSNotification *theNotification = [NSNotification notificationWithName:DESFriendArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeAdd, DESArrayFriendKey: newFriend}];
+            [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
         }
     }
     free(buffer);
 }
 
 - (void)removeFriend:(DESFriend *)theFriend {
-    @synchronized(self) {
-        if ([_requests containsObject:theFriend]) {
+    if ([_requests containsObject:theFriend]) {
+        @synchronized(self) {
             [_requests removeObject:theFriend];
         }
+        NSNotification *theNotification = [NSNotification notificationWithName:DESFriendRequestArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeRemove, DESArrayFriendKey: theFriend}];
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
     }
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
-    });
     if ([_friends containsObject:theFriend]) {
         @synchronized(self) {
             m_delfriend(self.connection.m, theFriend.friendNumber);
             [_friends removeObject:theFriend];
         }
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
-        });
+        NSNotification *theNotification = [NSNotification notificationWithName:DESFriendArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeRemove, DESArrayFriendKey: theFriend}];
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
         [_contexts filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
             if ([((id<DESChatContext>)evaluatedObject).participants containsObject:theFriend]) {
                 [evaluatedObject removeParticipant:theFriend];
@@ -119,24 +119,23 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
         }
         [_friends addObject:[theFriend initWithNumber:friendID owner:self]];
     }
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendArrayDidChangeNotification object:self];
-    });
+    NSNotification *theNotification = [NSNotification notificationWithName:DESFriendRequestArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeRemove, DESArrayFriendKey: theFriend}];
+    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
+    theNotification = [NSNotification notificationWithName:DESFriendArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeAdd, DESArrayFriendKey: theFriend}];
+    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
     free(buffer);
 }
 
 - (void)rejectRequestFromFriend:(DESFriend *)theFriend {
     if (theFriend.status != DESFriendStatusRequestReceived)
         return; /* We can't accept this because it is not a request. */
-    @synchronized(self) {
-        if ([_requests containsObject:theFriend]) {
+    if ([_requests containsObject:theFriend]) {
+        @synchronized(self) {
             [_requests removeObject:theFriend];
         }
+        NSNotification *theNotification = [NSNotification notificationWithName:DESFriendRequestArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeRemove, DESArrayFriendKey: theFriend}];
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
     }
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
-    });
 }
 
 - (DESFriend *)friendWithPublicKey:(NSString *)theKey {
@@ -187,9 +186,8 @@ NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeN
 - (void)didReceiveNewRequestWithAddress:(NSString *)theKey message:(NSString *)thePayload {
     DESFriend *newFriend = [DESFriend friendRequestWithAddress:theKey message:thePayload owner:self];
     [_requests addObject:newFriend];
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:DESFriendRequestArrayDidChangeNotification object:self];
-    });
+    NSNotification *theNotification = [NSNotification notificationWithName:DESFriendRequestArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeAdd, DESArrayFriendKey: newFriend}];
+    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
 }
 
 @end
