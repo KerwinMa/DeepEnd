@@ -1,6 +1,7 @@
 #import "DeepEnd.h"
 #import "DeepEnd-Private.h"
 #import "DESSelf.h"
+#import "tox.h"
 #import "Messenger.h"
 
 @implementation DESSelf
@@ -15,23 +16,23 @@
 
 - (NSString *)friendAddress {
     uint8_t *theData = malloc(DESFriendAddressSize);
-    getaddress(owner.connection.m, theData);
+    tox_getaddress(owner.connection.m, theData);
     NSString *theString = DESConvertFriendAddressToString(theData);
     free(theData);
     return theString;
 }
 
 - (NSString *)publicKey {
-    uint8_t *theData = malloc(crypto_box_PUBLICKEYBYTES);
-    memcpy(theData, self->owner.connection.m->net_crypto->self_public_key, crypto_box_PUBLICKEYBYTES);
+    uint8_t *theData = malloc(DESPublicKeySize);
+    memcpy(theData, ((Messenger*)self->owner.connection.m)->net_crypto->self_public_key, crypto_box_PUBLICKEYBYTES);
     NSString *theString = DESConvertPublicKeyToString(theData);
     free(theData);
     return theString;
 }
 
 - (NSString *)privateKey {
-    uint8_t *theData = malloc(crypto_box_SECRETKEYBYTES);
-    memcpy(theData, self->owner.connection.m->net_crypto->self_secret_key, crypto_box_SECRETKEYBYTES);
+    uint8_t *theData = malloc(DESPrivateKeySize);
+    memcpy(theData, ((Messenger*)self->owner.connection.m)->net_crypto->self_secret_key, crypto_box_SECRETKEYBYTES);
     NSString *theString = DESConvertPrivateKeyToString(theData);
     free(theData);
     return theString;

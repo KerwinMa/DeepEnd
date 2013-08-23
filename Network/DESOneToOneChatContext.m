@@ -57,7 +57,7 @@
     for (NSString *word in messageWords) {
         if (messageLength + [word lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1 > MAX_MESSAGE_LENGTH) {
             NSString *payload = [partial componentsJoinedByString:@" "];
-            uint32_t returnValue = m_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[payload UTF8String], (uint16_t)[payload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+            uint32_t returnValue = tox_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[payload UTF8String], (uint16_t)[payload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
             if (returnValue != 0) {
                 DESMessage *constructed = [DESMessage messageFromSender:sender content:payload messageID:returnValue];
                 [self pushMessage:constructed];
@@ -72,7 +72,7 @@
     }
     if ([partial count] != 0) {
         NSString *payload = [partial componentsJoinedByString:@" "];
-        uint32_t returnValue = m_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[payload UTF8String], (uint16_t)[payload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+        uint32_t returnValue = tox_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[payload UTF8String], (uint16_t)[payload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
         if (returnValue != 0) {
             DESMessage *constructed = [DESMessage messageFromSender:sender content:payload messageID:returnValue];
             [self pushMessage:constructed];

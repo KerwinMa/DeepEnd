@@ -1,13 +1,13 @@
 #import "DeepEnd.h"
 #import "DeepEnd-Private.h"
 #import "DESFriend.h"
-#import "Messenger.h"
+#import "tox.h"
 #import "DESOneToOneChatContext.h"
 
 /* Declaration of constants in DeepEnd.h */
 const int DESFriendInvalid = -1;
 const int DESFriendSelf = -2;
-const size_t DESFriendAddressSize = FRIEND_ADDRESS_SIZE;
+const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
 
 @implementation DESFriend
 
@@ -33,8 +33,8 @@ const size_t DESFriendAddressSize = FRIEND_ADDRESS_SIZE;
     if (self) {
         owner = manager;
         _friendNumber = friendNumber;
-        uint8_t *theKey = malloc(crypto_box_PUBLICKEYBYTES);
-        int isValidFriend = getclient_id(owner.connection.m, friendNumber, theKey);
+        uint8_t *theKey = malloc(DESPublicKeySize);
+        int isValidFriend = tox_getclient_id(owner.connection.m, friendNumber, theKey);
         if (isValidFriend == -1) {
             free(theKey);
             [[[NSException alloc] initWithName:NSInvalidArgumentException reason:@"Invalid friend number" userInfo:nil] raise];
@@ -42,12 +42,12 @@ const size_t DESFriendAddressSize = FRIEND_ADDRESS_SIZE;
         }
         _publicKey = DESConvertPublicKeyToString(theKey);
         free(theKey);
-        uint8_t *theName = malloc(MAX_NAME_LENGTH);
-        getname(owner.connection.m, friendNumber, theName);
+        uint8_t *theName = malloc(TOX_MAX_NAME_LENGTH);
+        tox_getname(owner.connection.m, friendNumber, theName);
         _displayName = [NSString stringWithCString:(const char*)theName encoding:NSUTF8StringEncoding];
         free(theName);
-        uint8_t *theStatus = malloc(m_get_statusmessage_size(owner.connection.m, friendNumber));
-        m_copy_statusmessage(owner.connection.m, friendNumber, theStatus, m_get_statusmessage_size(owner.connection.m, friendNumber));
+        uint8_t *theStatus = malloc(tox_get_statusmessage_size(owner.connection.m, friendNumber));
+        tox_copy_statusmessage(owner.connection.m, friendNumber, theStatus, tox_get_statusmessage_size(owner.connection.m, friendNumber));
         _userStatus = [NSString stringWithCString:(const char*)theStatus encoding:NSUTF8StringEncoding];
         free(theStatus);
         _dateReceived = nil;

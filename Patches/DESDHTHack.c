@@ -1,6 +1,6 @@
 #include "DHT.c"
 
-uint16_t __DESGetNumberOfConnectedNodes(DHT *dht) {
+uint16_t __DESReallyGetNumberOfConnectedNodes(DHT *dht) {
     uint32_t i;
     uint64_t temp_time = unix_time();
     uint16_t count = 0;

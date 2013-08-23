@@ -1,7 +1,7 @@
 #import "DeepEnd.h"
 #import "DeepEnd-Private.h"
 #import "DESFriend.h"
-#import "Messenger.h"
+#import "tox.h"
 
 NSString *const DESFriendRequestArrayDidChangeNotification = @"DESFriendRequestArrayDidChangeNotification";
 NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeNotification";
@@ -70,7 +70,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     DESConvertFriendAddressToData(theKey, buffer);
     int friendNumber = 0;
     @synchronized(self) {
-        friendNumber = m_addfriend(self.connection.m, buffer, (uint8_t*)[theMessage UTF8String], [theMessage lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+        friendNumber = tox_addfriend(self.connection.m, buffer, (uint8_t*)[theMessage UTF8String], [theMessage lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
         if (friendNumber > -1) {
             DESFriend *newFriend = [[DESFriend alloc] initWithNumber:friendNumber owner:self];
             newFriend.status = DESFriendStatusRequestSent;
@@ -92,7 +92,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     }
     if ([_friends containsObject:theFriend]) {
         @synchronized(self) {
-            m_delfriend(self.connection.m, theFriend.friendNumber);
+            tox_delfriend(self.connection.m, theFriend.friendNumber);
             [_friends removeObject:theFriend];
         }
         NSNotification *theNotification = [NSNotification notificationWithName:DESFriendArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeRemove, DESArrayFriendKey: theFriend}];
@@ -110,10 +110,10 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
 - (void)acceptRequestFromFriend:(DESFriend *)theFriend {
     if (theFriend.status != DESFriendStatusRequestReceived)
         return; /* We can't accept this because it is not a request. */
-    uint8_t *buffer = malloc(crypto_box_PUBLICKEYBYTES);
+    uint8_t *buffer = malloc(DESPublicKeySize);
     DESConvertPublicKeyToData(theFriend.publicKey, buffer);
     @synchronized(self) {
-        int friendID = m_addfriend_norequest(self.connection.m, buffer);
+        int friendID = tox_addfriend_norequest(self.connection.m, buffer);
         if ([_requests containsObject:theFriend]) {
             [_requests removeObject:theFriend];
         }
@@ -139,11 +139,11 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
 }
 
 - (DESFriend *)friendWithPublicKey:(NSString *)theKey {
-    uint8_t *buffer = malloc(crypto_box_PUBLICKEYBYTES);
+    uint8_t *buffer = malloc(DESPublicKeySize);
     DESConvertPublicKeyToData(theKey, buffer);
     int friendID = DESFriendInvalid;
     @synchronized(self) {
-        friendID = getfriend_id(self.connection.m, buffer);
+        friendID = tox_getfriend_id(self.connection.m, buffer);
     }
     free(buffer);
     return [self friendWithNumber:friendID];

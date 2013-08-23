@@ -21,3 +21,10 @@ void __DESEnumerateFriendStatusesUsingBlock(Messenger *m, void(^block)(int idx, 
 uint16_t __DESChecksumAddress(uint8_t *address, uint32_t len) {
     return address_checksum(address, len);
 }
+
+/* Imp.: DESDHTHack.c. */
+uint16_t __DESReallyGetNumberOfConnectedNodes(DHT *dht);
+uint16_t __DESGetNumberOfConnectedNodes(void *tox) {
+    Messenger *m = tox;
+    return __DESReallyGetNumberOfConnectedNodes(m->dht);
+}

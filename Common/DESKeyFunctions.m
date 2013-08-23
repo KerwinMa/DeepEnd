@@ -1,7 +1,7 @@
 #import "DeepEnd.h"
 #import "DeepEnd-Private.h"
 #import "net_crypto.h"
-#import "Messenger.h"
+#import "tox.h"
 #import <sodium/crypto_box.h>
 
 /* Declaration of constants in DeepEnd.h */

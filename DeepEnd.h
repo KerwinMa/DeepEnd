@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "Messenger.h"
+#import "tox.h"
 /* Older OS X and iOS SDKs. */
 #ifndef NS_ENUM
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
@@ -13,7 +13,8 @@
 /* Adjust to make doMessenger run more or less. Lower second number = slower loop.
  * May help performance of slow systems. */
 #define MESSENGER_TICK_RATE (1.0 / 100.0)
-#define MAX_MESSAGE_LENGTH (MAX_DATA_SIZE - 21)
+/* FIXME: Find out where that symbol went. */
+#define MAX_MESSAGE_LENGTH (65535 - 21)
 #define DES_FRIEND_INVALID -1
 /* Alternatively: DES_FRIEND_VERY_INVALID */
 #define DES_FRIEND_SELF -2
@@ -55,13 +56,13 @@ typedef NS_ENUM(NSInteger, DESFriendStatus) {
     DESFriendStatusSelf, /* This friend is us. Always and only returned by DESSelf. */
 };
 
-/* Equivalent to USERSTATUS_KIND of Messenger.h */
+/* Equivalent to TOX_USERSTATUS_KIND of tox.h */
 
 typedef NS_ENUM(NSInteger, DESStatusType) {
-    DESStatusTypeOnline = USERSTATUS_NONE,
-    DESStatusTypeAway = USERSTATUS_AWAY,
-    DESStatusTypeBusy = USERSTATUS_BUSY,
-    DESStatusTypeInvalid = USERSTATUS_INVALID,
+    DESStatusTypeOnline = TOX_USERSTATUS_NONE,
+    DESStatusTypeAway = TOX_USERSTATUS_AWAY,
+    DESStatusTypeBusy = TOX_USERSTATUS_BUSY,
+    DESStatusTypeInvalid = TOX_USERSTATUS_INVALID,
 };
 
 typedef NS_ENUM(NSInteger, DESMessageType) {

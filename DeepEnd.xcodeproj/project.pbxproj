@@ -37,6 +37,10 @@
 		F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
 		F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
 		F5B9112F17B1B3BF00E29017 /* DESChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5B9112D17B1B3BF00E29017 /* DESChatContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5CC768A17C801E500038BA3 /* tox.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CC768817C801E500038BA3 /* tox.c */; };
+		F5CC768B17C801E500038BA3 /* tox.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CC768817C801E500038BA3 /* tox.c */; };
+		F5CC768C17C801E500038BA3 /* tox.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CC768917C801E500038BA3 /* tox.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5CC768D17C801E500038BA3 /* tox.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CC768917C801E500038BA3 /* tox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5D4201F17B725E900587ABE /* DESOneToOneChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */; };
 		F5D4202017B725E900587ABE /* DESOneToOneChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */; };
 		F5D4202117B725E900587ABE /* DESOneToOneChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */; };
@@ -104,6 +108,8 @@
 		F57B5E2317B0859E00BE87AC /* Messenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messenger.h; sourceTree = "<group>"; };
 		F5A3A86617B358690068AFA0 /* DESInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESInfo.m; sourceTree = "<group>"; };
 		F5B9112D17B1B3BF00E29017 /* DESChatContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESChatContext.h; sourceTree = "<group>"; };
+		F5CC768817C801E500038BA3 /* tox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tox.c; sourceTree = "<group>"; };
+		F5CC768917C801E500038BA3 /* tox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tox.h; sourceTree = "<group>"; };
 		F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESOneToOneChatContext.h; sourceTree = "<group>"; };
 		F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESOneToOneChatContext.m; sourceTree = "<group>"; };
 		F5D4202317B72E4700587ABE /* DESMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESMessage.h; sourceTree = "<group>"; };
@@ -261,6 +267,8 @@
 				F57B5E1817B083E700BE87AC /* ping.h */,
 				F57B5E1917B083E800BE87AC /* util.c */,
 				F57B5E1A17B083E800BE87AC /* util.h */,
+				F5CC768817C801E500038BA3 /* tox.c */,
+				F5CC768917C801E500038BA3 /* tox.h */,
 			);
 			name = ToxCore;
 			path = "ProjectTox-Core/core";
@@ -289,6 +297,7 @@
 				F55813FB17C7BA8C000D50CB /* network.h in Headers */,
 				F55813FC17C7BA8C000D50CB /* ping.h in Headers */,
 				F55813FD17C7BA8C000D50CB /* util.h in Headers */,
+				F5CC768D17C801E500038BA3 /* tox.h in Headers */,
 				F55813EC17C7BA5E000D50CB /* DeepEnd-Private.h in Headers */,
 				F55813ED17C7BA73000D50CB /* DESOneToOneChatContext.h in Headers */,
 			);
@@ -314,6 +323,7 @@
 				F5E582B017AC0BFB00D9409B /* network.h in Headers */,
 				F57B5E1D17B083E800BE87AC /* ping.h in Headers */,
 				F57B5E2017B083E800BE87AC /* util.h in Headers */,
+				F5CC768C17C801E500038BA3 /* tox.h in Headers */,
 				F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */,
 				F5D4201F17B725E900587ABE /* DESOneToOneChatContext.h in Headers */,
 			);
@@ -417,6 +427,7 @@
 				F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */,
 				F5D4202017B725E900587ABE /* DESOneToOneChatContext.m in Sources */,
 				F5D4202617B72E4700587ABE /* DESMessage.m in Sources */,
+				F5CC768A17C801E500038BA3 /* tox.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +452,7 @@
 				F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */,
 				F5D4202117B725E900587ABE /* DESOneToOneChatContext.m in Sources */,
 				F5D4202717B72E4700587ABE /* DESMessage.m in Sources */,
+				F5CC768B17C801E500038BA3 /* tox.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
