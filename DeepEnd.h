@@ -5,6 +5,12 @@
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
 #endif
 
+#ifdef DES_DEBUG
+#define DESDebug(fmt, ...) NSLog(@"[DeepEnd] in %s, line %i: " fmt, __func__, __LINE__, ##__VA_ARGS__)
+#else
+#define DESDebug(fmt, ...)
+#endif
+
 /**** CONSTANTS ****/
 
 /* Because Core changes every so often, this denotes a method/function that uses

@@ -79,6 +79,12 @@ const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
     return nil;
 }
 
+- (void)dealloc {
+    DESDebug(@"DESFriend %@ deallocated!", self.displayName);
+    _chatContext = nil;
+    owner = nil;
+}
+
 - (void)setDisplayName:(NSString *)displayName {
     [self willChangeValueForKey:@"displayName"];
     _displayName = displayName;
@@ -101,6 +107,12 @@ const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
     [self willChangeValueForKey:@"statusType"];
     _statusType = kind;
     [self didChangeValueForKey:@"statusType"];
+}
+
+- (void)setChatContext:(id<DESChatContext>)ctx {
+    [self willChangeValueForKey:@"chatContext"];
+    _chatContext = ctx;
+    [self didChangeValueForKey:@"chatContext"];
 }
 
 @end

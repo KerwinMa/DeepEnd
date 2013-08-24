@@ -102,4 +102,8 @@
     [self didChangeValueForKey:@"failed"];
 }
 
+- (void)dealloc {
+    DESDebug(@"DESMessage deallocated!");
+}
+
 @end

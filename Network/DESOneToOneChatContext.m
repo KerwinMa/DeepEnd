@@ -97,4 +97,8 @@
     });
 }
 
+- (void)dealloc {
+    DESDebug(@"O2OChatContext deallocated!");
+}
+
 @end

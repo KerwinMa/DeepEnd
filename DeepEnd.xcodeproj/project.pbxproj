@@ -490,6 +490,7 @@
 				OTHER_CFLAGS = (
 					"-Werror",
 					"-Wall",
+					"-DDES_DEBUG",
 				);
 				OTHER_LDFLAGS = /usr/local/lib/libsodium.a;
 				SDKROOT = macosx;

@@ -100,10 +100,17 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
         [_contexts filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
             if ([((id<DESChatContext>)evaluatedObject).participants containsObject:theFriend]) {
                 [evaluatedObject removeParticipant:theFriend];
-                return [((id<DESChatContext>)evaluatedObject).participants count] != 0;
             }
             return YES;
         }]];
+        [_contexts removeObject:theFriend.chatContext];
+        @synchronized(theFriend.chatContext) {
+            for (DESMessage *m in theFriend.chatContext.backlog) {
+                m.sender = nil;
+            }
+        }
+        theFriend.chatContext = nil;
+        theFriend->owner = nil;
     }
 }
 
