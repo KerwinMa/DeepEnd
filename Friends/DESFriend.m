@@ -9,11 +9,19 @@ const int DESFriendInvalid = -1;
 const int DESFriendSelf = -2;
 const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
 
-@implementation DESFriend
+@implementation DESFriend {
+    @protected
+    NSString *_displayName;
+    NSString *_userStatus;
+    NSString *_publicKey;
+    int _friendNumber;
+    DESFriendStatus _status;
+    DESStatusType _statusType;
+}
 
 + (instancetype)friendRequestWithAddress:(NSString *)aKey message:(NSString *)theMessage owner:(DESFriendManager *)theOwner {
     DESFriend *req = [super alloc];
-    req->owner = theOwner;
+    req.owner = theOwner;
     req->_friendNumber = DESFriendInvalid;
     req->_status = DESFriendStatusRequestReceived;
     req->_publicKey = aKey;
@@ -31,10 +39,10 @@ const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
 - (instancetype) CALLS_INTO_CORE_FUNCTIONS initWithNumber:(int)friendNumber owner:(DESFriendManager *)manager {
     self = [super init];
     if (self) {
-        owner = manager;
+        _owner = manager;
         _friendNumber = friendNumber;
         uint8_t *theKey = malloc(DESPublicKeySize);
-        int isValidFriend = tox_getclient_id(owner.connection.m, friendNumber, theKey);
+        int isValidFriend = tox_getclient_id(self.owner.connection.m, friendNumber, theKey);
         if (isValidFriend == -1) {
             free(theKey);
             [[[NSException alloc] initWithName:NSInvalidArgumentException reason:@"Invalid friend number" userInfo:nil] raise];
@@ -43,17 +51,17 @@ const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
         _publicKey = DESConvertPublicKeyToString(theKey);
         free(theKey);
         uint8_t *theName = malloc(TOX_MAX_NAME_LENGTH);
-        tox_getname(owner.connection.m, friendNumber, theName);
+        tox_getname(self.owner.connection.m, friendNumber, theName);
         _displayName = [NSString stringWithCString:(const char*)theName encoding:NSUTF8StringEncoding];
         free(theName);
-        uint8_t *theStatus = malloc(tox_get_statusmessage_size(owner.connection.m, friendNumber));
-        tox_copy_statusmessage(owner.connection.m, friendNumber, theStatus, tox_get_statusmessage_size(owner.connection.m, friendNumber));
+        uint8_t *theStatus = malloc(tox_get_statusmessage_size(self.owner.connection.m, friendNumber));
+        tox_copy_statusmessage(self.owner.connection.m, friendNumber, theStatus, tox_get_statusmessage_size(self.owner.connection.m, friendNumber));
         _userStatus = [NSString stringWithCString:(const char*)theStatus encoding:NSUTF8StringEncoding];
         free(theStatus);
         _dateReceived = nil;
         _requestInfo = nil;
         _chatContext = [[DESOneToOneChatContext alloc] initWithPartner:self];
-        [owner addContext:_chatContext];
+        [self.owner addContext:_chatContext];
         
     }
     return self;
@@ -82,7 +90,7 @@ const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
 - (void)dealloc {
     DESDebug(@"DESFriend %@ deallocated!", self.displayName);
     _chatContext = nil;
-    owner = nil;
+    self.owner = nil;
 }
 
 - (void)setDisplayName:(NSString *)displayName {
@@ -113,6 +121,12 @@ const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
     [self willChangeValueForKey:@"chatContext"];
     _chatContext = ctx;
     [self didChangeValueForKey:@"chatContext"];
+}
+
+- (void)setOwner:(DESFriendManager *)owner {
+    [self willChangeValueForKey:@"owner"];
+    _owner = owner;
+    [self didChangeValueForKey:@"owner"];
 }
 
 @end

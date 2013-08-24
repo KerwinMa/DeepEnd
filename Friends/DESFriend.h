@@ -12,27 +12,17 @@
  * Most properties on DESFriend are KVO-observable.
  */
 
-@interface DESFriend : NSObject {
-    @public
-    DESFriendManager *owner;
-    @protected
-    NSString *_displayName;
-    NSString *_userStatus;
-    NSString *_publicKey;
-    int _friendNumber;
-    DESFriendStatus _status;
-    DESStatusType _statusType;
-}
+@interface DESFriend : NSObject
 
 /* The friend number from Core. */
 @property (readonly) int friendNumber;
 
 /* The display name. */
-@property (strong, readonly) NSString *displayName;
+@property (strong, readonly, nonatomic) NSString *displayName;
 
 /* The user status. */
-@property (strong, readonly) NSString *userStatus;
-@property (readonly) DESStatusType statusType;
+@property (strong, readonly, nonatomic) NSString *userStatus;
+@property (readonly, nonatomic) DESStatusType statusType;
 
 /* The public key. */
 @property (strong, readonly) NSString *publicKey;
@@ -51,6 +41,10 @@
 @property (readonly) NSString *requestInfo;
 
 @property (readonly) id<DESChatContext> chatContext;
+
+/* The owning DESFriendManager of this friend object.
+ * It is typically the creator. */
+@property (readonly) DESFriendManager *owner;
 
 - (instancetype)initWithNumber:(int)friendNumber;
 - (instancetype)initWithNumber:(int)friendNumber owner:(DESFriendManager *)manager;

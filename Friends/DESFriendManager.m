@@ -158,7 +158,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
             }
         }
         theFriend.chatContext = nil;
-        theFriend->owner = nil;
+        theFriend.owner = nil;
     }
 }
 

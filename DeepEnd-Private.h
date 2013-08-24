@@ -14,6 +14,7 @@
 - (void)setStatus:(DESFriendStatus)status;
 - (void)setStatusType:(DESStatusType)kind;
 - (void)setChatContext:(id<DESChatContext>)ctx;
+- (void)setOwner:(DESFriendManager *)owner;
 + (instancetype)friendRequestWithAddress:(NSString *)aKey message:(NSString *)theMessage owner:(DESFriendManager *)theOwner;
 
 @end

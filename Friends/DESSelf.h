@@ -6,9 +6,9 @@
 + (DESFriend *)self;
 + (DESFriend *)selfWithConnection:(DESToxNetworkConnection *)connection;
 
-@property (strong, readwrite) NSString *displayName;
-@property (strong, readwrite) NSString *userStatus;
-@property (readwrite) DESStatusType statusType;
+@property (strong, readwrite, nonatomic) NSString *displayName;
+@property (strong, readwrite, nonatomic) NSString *userStatus;
+@property (readwrite, nonatomic) DESStatusType statusType;
 
 - (void)setUserStatus:(NSString *)userStatus kind:(DESStatusType)kind;
 

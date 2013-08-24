@@ -126,7 +126,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         tox_callback_userstatus(self.m, __DESCallbackUserStatusKind, (__bridge void*)self);
         tox_callback_action(self.m, __DESCallbackAction, (__bridge void*)self);
         _currentUser = [[DESSelf alloc] init];
-        _currentUser->owner = self.friendManager;
+        _currentUser.owner = self.friendManager;
     });
     [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidInitNotification object:self];
     dispatch_resume(messengerTick);
