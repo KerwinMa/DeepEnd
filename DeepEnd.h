@@ -44,8 +44,10 @@ FOUNDATION_EXPORT NSString *const DESConnectionDidTerminateNotification;
 FOUNDATION_EXPORT NSString *const DESDidPushMessageToContextNotification;
 
 /* Assigned in DESFriendManager.h */
+FOUNDATION_EXPORT NSString *const DESFriendAddErrorDomain;
 FOUNDATION_EXPORT NSString *const DESFriendRequestArrayDidChangeNotification;
 FOUNDATION_EXPORT NSString *const DESFriendArrayDidChangeNotification;
+
 /* Used in -userInfo of the above notifications. */
 FOUNDATION_EXPORT NSString *const DESArrayOperationKey;
 FOUNDATION_EXPORT NSString *const DESArrayOperationTypeAdd;
@@ -86,6 +88,17 @@ typedef NS_ENUM(NSInteger, DESSystemMessageType) {
     DESSystemMessageWarning,
     DESSystemMessageError,
     DESSystemMessageCritical,
+};
+
+typedef NS_ENUM(NSInteger, DESFriendAddResultCode) {
+    DESFriendAddResultMessageTooLong = TOX_FAERR_TOOLONG,
+    DESFriendAddResultNoMessage = TOX_FAERR_NOMESSAGE,
+    DESFriendAddResultOwnKey = TOX_FAERR_OWNKEY,
+    DESFriendAddResultAlreadySent = TOX_FAERR_ALREADYSENT,
+    DESFriendAddResultUnknown = TOX_FAERR_UNKNOWN,
+    DESFriendAddResultBadChecksum = TOX_FAERR_BADCHECKSUM,
+    DESFriendAddResultBadNospam = TOX_FAERR_SETNEWNOSPAM,
+    DESFriendAddResultMemoryError = TOX_FAERR_NOMEM,
 };
 
 /**** DEEPEND CORE CLASSES ****/

@@ -3,6 +3,7 @@
 #import "DESFriend.h"
 #import "tox.h"
 
+NSString *const DESFriendAddErrorDomain = @"DESFriendAddErrorDomain";
 NSString *const DESFriendRequestArrayDidChangeNotification = @"DESFriendRequestArrayDidChangeNotification";
 NSString *const DESFriendArrayDidChangeNotification = @"DESFriendArrayDidChangeNotification";
 
@@ -48,38 +49,85 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     return (NSArray*)[_blockedKeys copy];
 }
 
-- (void) CALLS_INTO_CORE_FUNCTIONS addFriendWithAddress:(NSString *)theKey message:(NSString *)theMessage {
+- (DESFriend *)addFriendWithAddress:(NSString *)theKey message:(NSString *)theMessage {
+    return [self addFriendWithAddress:theKey message:theMessage error:nil];
+}
+
+- (DESFriend *) CALLS_INTO_CORE_FUNCTIONS addFriendWithAddress:(NSString *)theKey message:(NSString *)theMessage error:(NSError *__autoreleasing *)err {
     theKey = [theKey uppercaseString];
     if ([self friendWithPublicKey:[theKey substringToIndex:DESPublicKeySize * 2]]) {
-        return;
+        if (err) {
+            *err = [[NSError alloc] initWithDomain:DESFriendAddErrorDomain code:DESFriendAddResultAlreadySent userInfo:@{@"theKey": theKey}];
+        }
+        return nil;
     }
-    DESFriend *existentRequest = nil;
     @synchronized(self) {
+        DESFriend *existentRequest = nil;
         for (DESFriend *theRequest in _requests) {
-            if ([theRequest.friendAddress isEqualToString:theKey]) {
+            if ([theRequest.publicKey isEqualToString:theKey]) {
                 existentRequest = theRequest;
                 break;
             }
         }
-    }
-    if (existentRequest) {
-        [self acceptRequestFromFriend:existentRequest];
-        return;
+        if (existentRequest) {
+            return [self acceptRequestFromFriend:existentRequest];
+        }
     }
     uint8_t *buffer = malloc(DESFriendAddressSize);
     DESConvertFriendAddressToData(theKey, buffer);
     int friendNumber = 0;
+    DESFriend *newFriend;
     @synchronized(self) {
         friendNumber = tox_addfriend(self.connection.m, buffer, (uint8_t*)[theMessage UTF8String], [theMessage lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
         if (friendNumber > -1) {
-            DESFriend *newFriend = [[DESFriend alloc] initWithNumber:friendNumber owner:self];
+            newFriend = [[DESFriend alloc] initWithNumber:friendNumber owner:self];
             newFriend.status = DESFriendStatusRequestSent;
             [_friends addObject:newFriend];
             NSNotification *theNotification = [NSNotification notificationWithName:DESFriendArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeAdd, DESArrayFriendKey: newFriend}];
             [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
+            if (err) {
+                *err = nil;
+            }
+        } else {
+            if (err) {
+                *err = [[NSError alloc] initWithDomain:DESFriendAddErrorDomain code:friendNumber userInfo:@{@"theKey": theKey}];
+            }
         }
     }
     free(buffer);
+    return newFriend;
+}
+
+- (DESFriend *)addFriendWithoutRequest:(NSString *)theKey {
+    if (!DESPublicKeyIsValid(theKey)) {
+        return nil;
+    }
+    @synchronized(self) {
+        DESFriend *existentRequest = nil;
+        for (DESFriend *theRequest in _requests) {
+            if ([theRequest.publicKey isEqualToString:theKey]) {
+                existentRequest = theRequest;
+                break;
+            }
+        }
+        if (existentRequest) {
+            return [self acceptRequestFromFriend:existentRequest];
+        }
+    }
+    uint8_t *buffer = malloc(DESPublicKeySize);
+    DESConvertPublicKeyToData(theKey, buffer);
+    int success = tox_addfriend_norequest(self.connection.m, buffer);
+    free(buffer);
+    if (success < 0) {
+        return nil;
+    } else {
+        DESFriend *newFriend = [[DESFriend alloc] initWithNumber:success owner:self];
+        newFriend.status = DESFriendStatusOffline;
+        [_friends addObject:newFriend];
+        NSNotification *theNotification = [NSNotification notificationWithName:DESFriendArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeAdd, DESArrayFriendKey: newFriend}];
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
+        return newFriend;
+    }
 }
 
 - (void)removeFriend:(DESFriend *)theFriend {
@@ -114,9 +162,9 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     }
 }
 
-- (void)acceptRequestFromFriend:(DESFriend *)theFriend {
+- (DESFriend *) CALLS_INTO_CORE_FUNCTIONS acceptRequestFromFriend:(DESFriend *)theFriend {
     if (theFriend.status != DESFriendStatusRequestReceived)
-        return; /* We can't accept this because it is not a request. */
+        return nil; /* We can't accept this because it is not a request. */
     uint8_t *buffer = malloc(DESPublicKeySize);
     DESConvertPublicKeyToData(theFriend.publicKey, buffer);
     @synchronized(self) {
@@ -131,6 +179,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     theNotification = [NSNotification notificationWithName:DESFriendArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeAdd, DESArrayFriendKey: theFriend}];
     [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
     free(buffer);
+    return theFriend;
 }
 
 - (void)rejectRequestFromFriend:(DESFriend *)theFriend {
@@ -165,6 +214,19 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
         for (DESFriend *theFriend in _friends) {
             if (theFriend.friendNumber == theNumber) {
                 return theFriend;
+            }
+        }
+        return nil;
+    }
+}
+
+- (DESFriend *)requestWithPublicKey:(NSString *)theKey {
+    if (!DESPublicKeyIsValid(theKey))
+        return nil;
+    @synchronized(self) {
+        for (DESFriend *theRequest in _requests) {
+            if ([theRequest.publicKey isEqualToString:theKey]) {
+                return theRequest;
             }
         }
         return nil;
