@@ -42,18 +42,13 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     BOOL wasConnected;
 }
 
-+ (void)initialize {
-    if (!sharedInstance) {
-        sharedInstance = [[DESToxNetworkConnection alloc] init];
-    }
-}
-
 - (instancetype) CALLS_INTO_CORE_FUNCTIONS init {
     self = [super init];
     if (self) {
         _messengerQueue = dispatch_queue_create("ca.kirara.DESRunLoop", NULL);
         messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, _messengerQueue);
-        dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), MESSENGER_TICK_RATE * NSEC_PER_SEC, 0.5 * NSEC_PER_SEC);
+        _runLoopSpeed = DEFAULT_MESSENGER_TICK_RATE;
+        dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), DEFAULT_MESSENGER_TICK_RATE * NSEC_PER_SEC, 0.5 * NSEC_PER_SEC);
         wasConnected = NO;
         _friendManager = [[DESFriendManager alloc] initWithConnection:self];
         dispatch_source_set_event_handler(messengerTick, ^{
@@ -90,6 +85,9 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 + (instancetype)sharedConnection {
+    if (!sharedInstance) {
+        sharedInstance = [[DESToxNetworkConnection alloc] init];
+    }
     return sharedInstance;
 }
 
@@ -105,6 +103,16 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     return tox_isconnected(self.m);
 }
 
+- (void)setRunLoopSpeed:(double)runLoopSpeed {
+    if (runLoopSpeed <= 0.0) {
+        [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"The runloop speed cannot be less than zero. You tried to set it to %f.", runLoopSpeed] userInfo:@{@"offendingValue": @(runLoopSpeed)}];
+        return;
+    }
+    _runLoopSpeed = runLoopSpeed;
+    dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), DEFAULT_MESSENGER_TICK_RATE * NSEC_PER_SEC, 0.5 * NSEC_PER_SEC);
+    DESDebug(@"%@: new runLoopSpeed is %f.", self, runLoopSpeed);
+}
+
 - (void) CALLS_INTO_CORE_FUNCTIONS setPrivateKey:(NSString *)thePrivateKey publicKey:(NSString *)thePublicKey {
     dispatch_sync(_messengerQueue, ^{
         [self willChangeValueForKey:@"privateKey"];
@@ -118,7 +126,11 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 
 - (void) CALLS_INTO_CORE_FUNCTIONS connect {
     dispatch_sync(_messengerQueue, ^{
+        #ifdef DES_DEBUG
+        NSDate *time = [NSDate date];
+        #endif
         _m = tox_new();
+        DESDebug(@"tox_new took %f sec to complete.", [[NSDate date] timeIntervalSinceDate:time]);
         tox_callback_friendmessage(self.m, __DESCallbackMessage, (__bridge void*)self);
         tox_callback_friendrequest(self.m, __DESCallbackFriendRequest, (__bridge void*)self);
         tox_callback_namechange(self.m, __DESCallbackNameChange, (__bridge void*)self);
@@ -159,6 +171,9 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 - (void)dealloc {
+    dispatch_source_cancel(messengerTick);
+    dispatch_release(messengerTick);
+    dispatch_release(_messengerQueue);
     tox_kill(_m);
 }
 

@@ -19,6 +19,10 @@
 
 @property (readonly) dispatch_queue_t messengerQueue;
 
+/* The speed at which the background thread runs tox_do, in fractions of a second.
+ * To get the number of times per second (0.005 -> 200 times/sec), divide 1 by this value. */
+@property (nonatomic) double runLoopSpeed;
+
 /* Set the public and private keys. They must be a valid pair or things will break. */
 - (void)setPrivateKey:(NSString *)thePrivateKey publicKey:(NSString *)thePublicKey;
 

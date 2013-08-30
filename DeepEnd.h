@@ -18,7 +18,8 @@
 #define CALLS_INTO_CORE_FUNCTIONS
 /* Adjust to make doMessenger run more or less. Lower second number = slower loop.
  * May help performance of slow systems. */
-#define MESSENGER_TICK_RATE (1.0 / 100.0)
+/* This can now be set at runtime, using -[DESToxNetworkConnection setRunLoopSpeed:]. */
+#define DEFAULT_MESSENGER_TICK_RATE (1.0 / 100.0)
 /* FIXME: Find out where that symbol went. */
 #define MAX_MESSAGE_LENGTH (65535 - 21)
 #define DES_FRIEND_INVALID -1
@@ -104,6 +105,7 @@ typedef NS_ENUM(NSInteger, DESFriendAddResultCode) {
 /**** DEEPEND CORE CLASSES ****/
 
 #import "DESToxNetworkConnection.h"
+#import "DESToxNetworkConnection+DHTReadOnly.h"
 #import "DESFriendManager.h"
 #import "DESFriend.h"
 #import "DESSelf.h"

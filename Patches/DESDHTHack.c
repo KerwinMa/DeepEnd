@@ -10,3 +10,21 @@ uint16_t __DESReallyGetNumberOfConnectedNodes(DHT *dht) {
     }
     return count;
 }
+
+void __DESEnumerateCloseDHTNodesWithBlock(DHT *dht, void(^block)(int ind, Client_data *cld)) {
+    int realindex = 0;
+    for (int i = 0; i < LCLIENT_LIST; ++i) {
+        /* Check if the IP is zero. If it is, then the node is a blank entry and can be skipped. */
+        if (dht->close_clientlist[i].ip_port.ip.i != 0) {
+            block(realindex++, &(dht->close_clientlist[i]));
+        }
+    }
+}
+
+void __DESEnumerateDHTFriendListWithBlock(DHT *dht, void(^block)(int ind, DHT_Friend *df)) {
+    int realindex = 0;
+    for (int i = 0; i < dht->num_friends; ++i) {
+        /* Check if the IP is zero. If it is, then the node is a blank entry and can be skipped. */
+        block(realindex++, &(dht->friends_list[i]));
+    }
+}

@@ -1,4 +1,5 @@
 #import "DeepEnd.h"
+#import "DHT.h"
 
 @interface DESToxNetworkConnection ()
 
@@ -38,8 +39,11 @@ BOOL DESHexStringIsValid(NSString *hex);
 int __DESSetNameOfFriend(Tox *m, int friendnumber, uint8_t * name);
 int __DESSetUserStatusOfFriend(Tox *m, int friendnumber, uint8_t * status, uint16_t length);
 void __DESEnumerateFriendStatusesUsingBlock(Tox *m, void(^block)(int idx, int status, char *stop));
-/* Private function implemented in DESDHTHack.c. */
+/* Private functions implemented in DESDHTHack.c. */
 uint16_t __DESGetNumberOfConnectedNodes(Tox *tox);
+/* Used in experimental DHTReadOnly API. */
+void __DESEnumerateCloseDHTNodesWithBlock(DHT *dht, void(^block)(int ind, Client_data *cld));
+void __DESEnumerateDHTFriendListWithBlock(DHT *dht, void(^block)(int ind, DHT_Friend *df));
 /* Private function implemented in DESToxNetworkConnection.m. */
 DESFriendStatus __DESCoreStatusToDESStatus(int theStatus);
 /* Private callbacks implemented in DESToxNetworkConnection.m */
