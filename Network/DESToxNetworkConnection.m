@@ -109,7 +109,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         return;
     }
     _runLoopSpeed = runLoopSpeed;
-    dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), DEFAULT_MESSENGER_TICK_RATE * NSEC_PER_SEC, 0.5 * NSEC_PER_SEC);
+    dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), runLoopSpeed * NSEC_PER_SEC, 0.5 * NSEC_PER_SEC);
     DESDebug(@"%@: new runLoopSpeed is %f.", self, runLoopSpeed);
 }
 
