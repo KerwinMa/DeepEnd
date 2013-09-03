@@ -18,7 +18,7 @@ NSString *const DESDHTNodeTimestampKey = @"DESDHTNodeTimestampKey";
 - (NSDictionary *)createClientInfoDictionaryWithCorePointer:(Client_data *)cld source:(NSInteger)source {
     NSString *publicKey = DESConvertPublicKeyToString(cld->client_id);
     NSMutableArray *addr = [[NSMutableArray alloc] initWithCapacity:4];
-    uint8_t *c = cld->ip_port.ip.c;
+    uint8_t *c = cld->ip_port.ip.uint8;
     for (int i = 0; i < 4; i++) {
         [addr addObject:[NSString stringWithFormat:@"%i", c[i]]];
     }

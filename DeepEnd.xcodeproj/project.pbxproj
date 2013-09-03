@@ -49,8 +49,8 @@
 		F5D4202717B72E4700587ABE /* DESMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D4202417B72E4700587ABE /* DESMessage.m */; };
 		F5E486CD17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */; };
 		F5E486CE17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */; };
-		F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */; };
-		F5E486D117AF2D1A00A0BF9F /* DESDHTHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */; };
+		F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F5E486D117AF2D1A00A0BF9F /* DESDHTHack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
 		F5E5826417AC0A4300D9409B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E5826317AC0A4300D9409B /* Foundation.framework */; };
 		F5E5826F17AC0A8F00D9409B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E5826317AC0A4300D9409B /* Foundation.framework */; };
 		F5E5827D17AC0ABB00D9409B /* DESKeyFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E5827117AC0ABB00D9409B /* DESKeyFunctions.m */; };
