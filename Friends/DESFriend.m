@@ -87,6 +87,10 @@ const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
     return nil;
 }
 
+- (BOOL)isOnline {
+    return self.status == DESFriendStatusOnline;
+}
+
 - (void)dealloc {
     DESDebug(@"DESFriend %@ deallocated!", self.displayName);
     _chatContext = nil;

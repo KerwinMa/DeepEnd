@@ -46,6 +46,10 @@
  * It is typically the creator. */
 @property (readonly) DESFriendManager *owner;
 
+/* Whether the friend is online (think of it as simplified friend
+ * status) */
+@property (readonly, getter = isOnline) BOOL online;
+
 - (instancetype)initWithNumber:(int)friendNumber;
 - (instancetype)initWithNumber:(int)friendNumber owner:(DESFriendManager *)manager;
 

@@ -50,6 +50,10 @@
     return DESFriendSelf;
 }
 
+- (BOOL)isOnline {
+    return YES;
+}
+
 - (NSUInteger)sendMessage:(NSString *)theMessage {
     return NO; /* We cannot send messages to ourself. */
 }
