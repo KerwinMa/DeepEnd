@@ -22,9 +22,6 @@
 #define DEFAULT_MESSENGER_TICK_RATE (1.0 / 100.0)
 /* FIXME: Find out where that symbol went. */
 #define MAX_MESSAGE_LENGTH (65535 - 21)
-#define DES_FRIEND_INVALID -1
-/* Alternatively: DES_FRIEND_VERY_INVALID */
-#define DES_FRIEND_SELF -2
 
 /* Assigned in DESFriend.m */
 FOUNDATION_EXPORT const size_t DESFriendAddressSize;

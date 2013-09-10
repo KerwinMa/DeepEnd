@@ -13,6 +13,10 @@
  * gets larger than this. */
 @property NSUInteger maximumBacklogSize;
 @property (assign) DESFriendManager *friendManager;
+/* A string that uniquely identifies this chat context in its friend manager.
+ * Even though the property is named UUID, implementors do not need to use an
+ * actual UUID. */
+@property (readonly) NSString *uuid;
 
 - (instancetype)initWithPartner:(DESFriend *)aFriend;
 - (instancetype)initWithParticipants:(NSArray *)participants;
@@ -23,6 +27,7 @@
 - (void)removeParticipant:(DESFriend *)theFriend;
 
 - (void)sendMessage:(NSString *)message;
+- (void)sendAction:(NSString *)message;
 - (void)pushMessage:(DESMessage *)aMessage;
 
 @end

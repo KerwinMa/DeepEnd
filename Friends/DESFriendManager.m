@@ -245,6 +245,17 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     }
 }
 
+- (id<DESChatContext>)chatContextWithUUID:(NSString *)uuid {
+    @synchronized(self) {
+        for (id<DESChatContext> i in _contexts) {
+            if ([i.uuid isEqualToString:uuid]) {
+                return i;
+            }
+        }
+    }
+    return nil;
+}
+
 - (void)addContext:(id<DESChatContext>)context {
     @synchronized(self) {
         context.friendManager = self;

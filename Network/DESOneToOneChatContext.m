@@ -9,6 +9,7 @@
 @synthesize maximumBacklogSize = _maximumBacklogSize;
 @synthesize backlog;
 @synthesize friendManager;
+@synthesize uuid;
 
 - (instancetype)initWithParticipants:(NSArray *)participants {
     return [self initWithPartner:participants[0]];
@@ -20,6 +21,13 @@
         partner = aFriend;
         _maximumBacklogSize = 1000;
         _backlog = [[NSMutableArray alloc] initWithCapacity:self.maximumBacklogSize];
+        /* NSUUID is only available in 10.8+, so we must use CF functions
+         * to maintain compatibility with 10.6. */
+        CFUUIDRef theUUID = CFUUIDCreateFromString(kCFAllocatorDefault, (__bridge CFStringRef)aFriend.publicKey);
+        CFStringRef s = CFUUIDCreateString(kCFAllocatorDefault, theUUID);
+        uuid = [(__bridge NSString*)s copy];
+        CFRelease(s);
+        CFRelease(theUUID);
     }
     return self;
 }
@@ -45,41 +53,25 @@
     NSLog(@"WARNING: DESOneToOneChatContext does not support multiple participants. Calling addParticipant and removeParticipant will fail and print this warning.");
 }
 
-/* TODO: support languages where spaces aren't used to separate words (e.g. hanzi-based systems) */
 - (void) CALLS_INTO_CORE_FUNCTIONS sendMessage:(NSString *)message {
     DESFriend *sender = [DESSelf selfWithConnection:self.friendManager.connection];
     if (partner.status != DESFriendStatusOnline) {
         return;
     }
-    NSArray *messageWords = [message componentsSeparatedByString:@" "];
-    NSMutableArray *partial = [[NSMutableArray alloc] initWithCapacity:[messageWords count]];
-    NSUInteger messageLength = 0;
-    for (NSString *word in messageWords) {
-        if (messageLength + [word lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1 > MAX_MESSAGE_LENGTH) {
-            NSString *payload = [partial componentsJoinedByString:@" "];
-            uint32_t returnValue = tox_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[payload UTF8String], (uint16_t)[payload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
-            if (returnValue != 0) {
-                DESMessage *constructed = [DESMessage messageFromSender:sender content:payload messageID:returnValue];
-                [self pushMessage:constructed];
-            } else {
-                // hmm
-            }
-            [partial removeAllObjects];
-            messageLength = 0;
-        }
-        [partial addObject:word];
-        messageLength += [word lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1;
+    int ret = tox_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    if (ret) {
+        [self pushMessage:[DESMessage messageFromSender:sender content:message messageID:-1]];
     }
-    if ([partial count] != 0) {
-        NSString *payload = [partial componentsJoinedByString:@" "];
-        uint32_t returnValue = tox_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[payload UTF8String], (uint16_t)[payload lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
-        if (returnValue != 0) {
-            DESMessage *constructed = [DESMessage messageFromSender:sender content:payload messageID:returnValue];
-            [self pushMessage:constructed];
-        } else {
-            // hmm
-        }
-        [partial removeAllObjects];
+}
+
+- (void) CALLS_INTO_CORE_FUNCTIONS sendAction:(NSString *)message {
+    DESFriend *sender = [DESSelf selfWithConnection:self.friendManager.connection];
+    if (partner.status != DESFriendStatusOnline) {
+        return;
+    }
+    int ret = tox_sendaction(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    if (ret) {
+        [self pushMessage:[DESMessage actionFromSender:sender content:message]];
     }
 }
 

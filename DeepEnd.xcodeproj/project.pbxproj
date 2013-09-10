@@ -118,6 +118,8 @@
 		F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESOneToOneChatContext.m; sourceTree = "<group>"; };
 		F5D4202317B72E4700587ABE /* DESMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESMessage.h; sourceTree = "<group>"; };
 		F5D4202417B72E4700587ABE /* DESMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESMessage.m; sourceTree = "<group>"; };
+		F5DD111217D7FE8C00123D8A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		F5DD111417D7FE9500123D8A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F5E486CC17AF2C1300A0BF9F /* DESMessengerHack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DESMessengerHack.c; sourceTree = "<group>"; };
 		F5E486CF17AF2D1A00A0BF9F /* DESDHTHack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DESDHTHack.c; sourceTree = "<group>"; };
 		F5E5824617AC095E00D9409B /* DeepEnd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeepEnd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,6 +213,8 @@
 		F5E5824817AC095E00D9409B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F5DD111417D7FE9500123D8A /* UIKit.framework */,
+				F5DD111217D7FE8C00123D8A /* AppKit.framework */,
 				F5E5826317AC0A4300D9409B /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -584,6 +588,10 @@
 		F5E5826D17AC0A4300D9409B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7s,
+					armv7,
+				);
 				DSTROOT = /tmp/DeepEnd_iOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
@@ -600,6 +608,10 @@
 		F5E5826E17AC0A4300D9409B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7s,
+					armv7,
+				);
 				DSTROOT = /tmp/DeepEnd_iOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;

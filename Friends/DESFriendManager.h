@@ -48,5 +48,6 @@
 
 - (id<DESChatContext>)chatContextForFriend:(DESFriend *)theFriend;
 - (NSArray *)chatContextsContainingFriend:(DESFriend *)theFriend;
+- (id<DESChatContext>)chatContextWithUUID:(NSString *)uuid;
 
 @end

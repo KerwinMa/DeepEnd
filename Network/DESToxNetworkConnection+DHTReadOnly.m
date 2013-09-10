@@ -46,9 +46,9 @@ NSString *const DESDHTNodeTimestampKey = @"DESDHTNodeTimestampKey";
     NSMutableArray *ret = [[NSMutableArray alloc] initWithCapacity:((Messenger*)self.m)->dht->num_friends * MAX_FRIEND_CLIENTS];
     __DESEnumerateDHTFriendListWithBlock(((Messenger*)self.m)->dht, ^(int ind, DHT_Friend *df) {
         for (int i = 0; i < MAX_FRIEND_CLIENTS; ++i) {
-            //if (df->client_list[i].ip_port.ip.i != 0) {
-            [ret addObject:[self createClientInfoDictionaryWithCorePointer:&(df->client_list[i]) source:ind]];
-            //}
+            if (df->client_list[i].ip_port.ip.uint32 != 0) {
+                [ret addObject:[self createClientInfoDictionaryWithCorePointer:&(df->client_list[i]) source:ind]];
+            }
         }
     });
     return ret;
