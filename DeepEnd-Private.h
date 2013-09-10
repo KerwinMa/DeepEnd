@@ -36,8 +36,8 @@
 
 BOOL DESHexStringIsValid(NSString *hex);
 /* Private functions implemented in DESMessengerHack.c. */
-int __DESSetNameOfFriend(Tox *m, int friendnumber, uint8_t * name);
-int __DESSetUserStatusOfFriend(Tox *m, int friendnumber, uint8_t * status, uint16_t length);
+int __DESSetNameOfFriend(Tox *m, int friendnumber, uint8_t *name, uint16_t length);
+int __DESSetUserStatusOfFriend(Tox *m, int friendnumber, uint8_t *status, uint16_t length);
 void __DESEnumerateFriendStatusesUsingBlock(Tox *m, void(^block)(int idx, int status, char *stop));
 /* Private functions implemented in DESDHTHack.c. */
 uint16_t __DESGetNumberOfConnectedNodes(Tox *tox);

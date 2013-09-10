@@ -2,8 +2,8 @@
 
 /* Yes. */
 
-int __DESSetNameOfFriend(Messenger *m, int friendnumber, uint8_t *name) {
-    return setfriendname(m, friendnumber, name);
+int __DESSetNameOfFriend(Messenger *m, int friendnumber, uint8_t *name, uint16_t length) {
+    return setfriendname(m, friendnumber, name, length);
 }
 
 int __DESSetUserStatusOfFriend(Messenger *m, int friendnumber, uint8_t *status, uint16_t length) {

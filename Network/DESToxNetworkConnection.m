@@ -21,13 +21,13 @@ NSString *const DESDidPushMessageToContextNotification = @"DESDidPushMessageToCo
 
 DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     switch (theStatus) {
-        case TOX_FRIEND_ONLINE:
+        case FRIEND_ONLINE:
             return DESFriendStatusOnline;
-        case TOX_FRIEND_CONFIRMED:
+        case FRIEND_CONFIRMED:
             return DESFriendStatusConfirmed;
-        case TOX_FRIEND_REQUESTED:
+        case FRIEND_REQUESTED:
             return DESFriendStatusRequestSent;
-        case TOX_FRIEND_ADDED:
+        case FRIEND_ADDED:
             return DESFriendStatusRequestSent;
         default:
             return DESFriendStatusOffline;
