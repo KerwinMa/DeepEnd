@@ -5,7 +5,7 @@
 #import "DESSelf.h"
 #import "tox.h"
 #import "Messenger.h"
-#include <arpa/inet.h>
+#include <netinet/in.h>
 
 static DESToxNetworkConnection *sharedInstance = nil;
 
@@ -35,7 +35,9 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 @implementation DESToxNetworkConnection {
+    #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
     dispatch_source_t messengerTick;
+    #endif
     DESFriendManager *_friendManager;
     DESSelf *_currentUser;
     NSDate *bootstrapStartTime;
@@ -46,11 +48,12 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     self = [super init];
     if (self) {
         _messengerQueue = dispatch_queue_create("ca.kirara.DESRunLoop", NULL);
-        messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, _messengerQueue);
         _runLoopSpeed = DEFAULT_MESSENGER_TICK_RATE;
-        dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), DEFAULT_MESSENGER_TICK_RATE * NSEC_PER_SEC, 0.5 * NSEC_PER_SEC);
         wasConnected = NO;
         _friendManager = [[DESFriendManager alloc] initWithConnection:self];
+        #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
+        messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, DISPATCH_TIMER_STRICT, _messengerQueue);
+        dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), DEFAULT_MESSENGER_TICK_RATE * NSEC_PER_SEC, (1.0 / 10.0) * NSEC_PER_SEC);
         dispatch_source_set_event_handler(messengerTick, ^{
             tox_do(self.m);
             if (!wasConnected && [self connected]) {
@@ -80,9 +83,56 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
                 }
             });
         });
+        #endif
     }
     return self;
 }
+
+#ifdef DES_USES_EXPERIMENTAL_RUN_LOOP
+- (void)runToxLoopIteration {
+    struct timeval waitTime;
+    waitTime.tv_sec = 0;
+    waitTime.tv_usec = 50000.0;
+    fd_set read_set;
+    FD_ZERO(&read_set);
+    FD_SET(((Messenger*)self.m)->net->sock, &read_set);
+    int ret = select(((Messenger*)self.m)->net->sock + 1, &read_set, NULL, NULL, &waitTime);
+    if (ret != -1) {
+        dispatch_async(self.messengerQueue, ^{
+            tox_do(self.m);
+            if (!wasConnected && [self connected]) {
+                /* DHT bootstrap succeeded... */
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidConnectNotification object:self];
+                });
+            } else if (![self connected] && floor([bootstrapStartTime timeIntervalSinceNow] * -1.0) > 5.0) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidFailNotification object:self];
+                });
+            }
+            NSInteger cn = __DESGetNumberOfConnectedNodes(self.m);
+            if (cn != [_connectedNodeCount integerValue]) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self willChangeValueForKey:@"connectedNodeCount"];
+                    _connectedNodeCount = [NSNumber numberWithInteger:cn];
+                    [self didChangeValueForKey:@"connectedNodeCount"];
+                });
+            }
+            __DESEnumerateFriendStatusesUsingBlock(self.m, ^(int idx, int status, char *stop) {
+                DESFriend *theFriend = [self.friendManager friendWithNumber:idx];
+                if (theFriend.status != __DESCoreStatusToDESStatus(status)) {
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        theFriend.status = __DESCoreStatusToDESStatus(status);
+                    });
+                }
+            });
+        });
+    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self runToxLoopIteration];
+    });
+}
+#endif
 
 + (instancetype)sharedConnection {
     if (!sharedInstance) {
@@ -104,6 +154,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 - (void)setRunLoopSpeed:(double)runLoopSpeed {
+    #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
     if (runLoopSpeed <= 0.0) {
         [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"The runloop speed cannot be less than zero. You tried to set it to %f.", runLoopSpeed] userInfo:@{@"offendingValue": @(runLoopSpeed)}];
         return;
@@ -111,6 +162,9 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     _runLoopSpeed = runLoopSpeed;
     dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), runLoopSpeed * NSEC_PER_SEC, 0.5 * NSEC_PER_SEC);
     DESDebug(@"%@: new runLoopSpeed is %f.", self, runLoopSpeed);
+    #else
+    DESDebug(@"Using experimental run loop, so not setting runLoopSpeed.");
+    #endif
 }
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setPrivateKey:(NSString *)thePrivateKey publicKey:(NSString *)thePublicKey {
@@ -126,11 +180,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 
 - (void) CALLS_INTO_CORE_FUNCTIONS connect {
     dispatch_sync(_messengerQueue, ^{
-        #ifdef DES_DEBUG
-        NSDate *time = [NSDate date];
-        #endif
-        _m = tox_new();
-        DESDebug(@"tox_new took %f sec to complete.", [[NSDate date] timeIntervalSinceDate:time]);
+        _m = tox_new(TOX_ENABLE_IPV6_DEFAULT);
         tox_callback_friendmessage(self.m, __DESCallbackMessage, (__bridge void*)self);
         tox_callback_friendrequest(self.m, __DESCallbackFriendRequest, (__bridge void*)self);
         tox_callback_namechange(self.m, __DESCallbackNameChange, (__bridge void*)self);
@@ -141,19 +191,30 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         _currentUser.owner = self.friendManager;
     });
     [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidInitNotification object:self];
+    #ifdef DES_USES_EXPERIMENTAL_RUN_LOOP
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self runToxLoopIteration];
+    });
+    #else
     dispatch_resume(messengerTick);
+    #endif
 }
 
 - (void) CALLS_INTO_CORE_FUNCTIONS bootstrapWithAddress:(NSString *)theAddress port:(NSInteger)thePort publicKey:(NSString *)theKey {
     dispatch_sync(_messengerQueue, ^{
         tox_IP_Port bootstrapInfo;
-        bootstrapInfo.ip.i = inet_addr([theAddress UTF8String]);
+        if ([theAddress rangeOfString:@":"].location == NSNotFound) {
+            bootstrapInfo.ip.family = AF_INET;
+            inet_pton(AF_INET, [theAddress UTF8String], &bootstrapInfo.ip.ip4.c);
+        } else {
+            bootstrapInfo.ip.family = AF_INET6;
+            inet_pton(AF_INET6, [theAddress UTF8String], &bootstrapInfo.ip.ip6.uint8);
+        }
         bootstrapInfo.port = htons(thePort);
-        bootstrapInfo.padding = 0;
         uint8_t *theData = malloc(DESPublicKeySize);
         DESConvertPublicKeyToData(theKey, theData);
         bootstrapStartTime = [NSDate date];
-        tox_bootstrap(self.m, bootstrapInfo, theData);
+        tox_bootstrap_from_ip(self.m, bootstrapInfo, theData);
         free(theData);
     });
 }
@@ -164,15 +225,19 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 - (void)disconnect {
+    #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
     dispatch_source_cancel(messengerTick);
+    #endif
     dispatch_sync(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidTerminateNotification object:self];
     });
 }
 
 - (void)dealloc {
+    #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
     dispatch_source_cancel(messengerTick);
     dispatch_release(messengerTick);
+    #endif
     dispatch_release(_messengerQueue);
     tox_kill(_m);
 }

@@ -1,11 +1,10 @@
-#import "DESOneToOneChatContext.h"
+#import "DESGroupChatContext.h"
 #import "DeepEnd-Private.h"
 
-NSString *const DESMessageKey = @"message";
-
-@implementation DESOneToOneChatContext {
-    DESFriend *partner;
+@implementation DESGroupChatContext {
+    NSMutableSet *_participants;
     NSMutableArray *_backlog;
+    NSInteger groupNumber;
 }
 
 @synthesize maximumBacklogSize = _maximumBacklogSize;
@@ -15,15 +14,15 @@ NSString *const DESMessageKey = @"message";
 @synthesize name;
 
 - (instancetype)initWithParticipants:(NSArray *)participants {
-    return [self initWithPartner:participants[0]];
+    [[NSException exceptionWithName:@"" reason:@"" userInfo:nil] raise];
+    return nil;
 }
 
-- (instancetype)initWithPartner:(DESFriend *)aFriend {
+- (instancetype)initWithParticipants:(NSArray *)participants groupNumber:(NSInteger)gcn {
     self = [super init];
     if (self) {
-        partner = aFriend;
-        name = aFriend.displayName;
-        [aFriend addObserver:self forKeyPath:@"displayName" options:NSKeyValueObservingOptionNew context:NULL];
+        _participants = [[NSMutableSet alloc] initWithArray:participants];
+        groupNumber = gcn;
         _maximumBacklogSize = 1000;
         _backlog = [[NSMutableArray alloc] initWithCapacity:self.maximumBacklogSize];
         /* NSUUID is only available in 10.8+, so we must use CF functions
@@ -37,8 +36,12 @@ NSString *const DESMessageKey = @"message";
     return self;
 }
 
+- (instancetype)initWithPartner:(DESFriend *)aFriend {
+    return [self initWithParticipants:@[aFriend]];
+}
+
 - (NSSet *)participants {
-    return [[NSSet alloc] initWithObjects:partner, nil];
+    return [_participants copy];
 }
 
 - (NSArray *)backlog {
@@ -51,39 +54,26 @@ NSString *const DESMessageKey = @"message";
 }
 
 - (void)addParticipant:(DESFriend *)theFriend {
-    NSLog(@"WARNING: DESOneToOneChatContext does not support multiple participants. Calling addParticipant and removeParticipant will fail and print this warning.");
+    [_participants addObject:theFriend];
 }
 
 - (void)removeParticipant:(DESFriend *)theFriend {
-    NSLog(@"WARNING: DESOneToOneChatContext does not support multiple participants. Calling addParticipant and removeParticipant will fail and print this warning.");
+    if (![_participants containsObject:theFriend]) {
+        NSLog(@"*** WARNING: You tried to remove %@ from the participant list, but it was never in the participant list.", theFriend);
+    }
+    [_participants removeObject:theFriend];
 }
 
 - (void) CALLS_INTO_CORE_FUNCTIONS sendMessage:(NSString *)message {
     DESFriend *sender = [DESSelf selfWithConnection:self.friendManager.connection];
-    if (partner.status != DESFriendStatusOnline) {
-        return;
-    }
-    int ret = tox_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
-    if (ret) {
+    int ret = tox_group_message_send(self.friendManager.connection.m, (int)groupNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    if (ret != 0) {
         [self pushMessage:[DESMessage messageFromSender:sender content:message messageID:-1]];
     }
 }
 
 - (void) CALLS_INTO_CORE_FUNCTIONS sendAction:(NSString *)message {
-    DESFriend *sender = [DESSelf selfWithConnection:self.friendManager.connection];
-    if (partner.status != DESFriendStatusOnline) {
-        return;
-    }
-    int ret = tox_sendaction(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
-    if (ret) {
-        [self pushMessage:[DESMessage actionFromSender:sender content:message]];
-    }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    [self willChangeValueForKey:@"name"];
-    name = change[NSKeyValueChangeNewKey];
-    [self didChangeValueForKey:@"name"];
+    return; /* FIXME: no implementation */
 }
 
 /* Put a message into this context. */
@@ -95,15 +85,13 @@ NSString *const DESMessageKey = @"message";
         NSLog(@"ChatContext pushed message %@.", aMessage);
         [_backlog addObject:aMessage];
     }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:DESDidPushMessageToContextNotification object:self userInfo:@{@"message":aMessage}];
     });
 }
 
 - (void)dealloc {
-    [partner removeObserver:self forKeyPath:@"displayName"];
-    DESDebug(@"O2OChatContext deallocated!");
+    DESDebug(@"GroupChatContext deallocated!");
 }
 
 @end

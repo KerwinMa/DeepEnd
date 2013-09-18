@@ -15,7 +15,8 @@ void __DESEnumerateCloseDHTNodesWithBlock(DHT *dht, void(^block)(int ind, Client
     int realindex = 0;
     for (int i = 0; i < LCLIENT_LIST; ++i) {
         /* Check if the IP is zero. If it is, then the node is a blank entry and can be skipped. */
-        if (dht->close_clientlist[i].ip_port.ip.uint32 != 0) {
+        uint8_t fam = dht->close_clientlist[i].ip_port.ip.family;
+        if (fam == AF_INET || fam == AF_INET6) {
             block(realindex++, &(dht->close_clientlist[i]));
         }
     }

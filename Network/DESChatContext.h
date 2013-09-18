@@ -17,6 +17,9 @@
  * Even though the property is named UUID, implementors do not need to use an
  * actual UUID. */
 @property (readonly) NSString *uuid;
+/* A human-readable name for this chat context, suitable for display on UI.
+ * For example, the name of a DESOneToOneChatContext is the friend's name. */
+@property (readonly) NSString *name;
 
 - (instancetype)initWithPartner:(DESFriend *)aFriend;
 - (instancetype)initWithParticipants:(NSArray *)participants;

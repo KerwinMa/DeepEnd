@@ -16,7 +16,6 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
 @implementation DESFriendManager {
     NSMutableArray *_friends;
     NSMutableArray *_requests;
-    NSMutableArray *_blockedKeys;
     NSMutableArray *_contexts;
 }
 
@@ -31,7 +30,6 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
         _connection = aConnection;
         _friends = [[NSMutableArray alloc] initWithCapacity:8];
         _requests = [[NSMutableArray alloc] initWithCapacity:8];
-        _blockedKeys = [[NSMutableArray alloc] initWithCapacity:8];
         _contexts = [[NSMutableArray alloc] initWithCapacity:8];
     }
     return self;
@@ -43,10 +41,6 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
 
 - (NSArray *)requests {
     return (NSArray*)_requests;
-}
-
-- (NSArray *)blockedKeys {
-    return (NSArray*)[_blockedKeys copy];
 }
 
 - (DESFriend *)addFriendWithAddress:(NSString *)theKey message:(NSString *)theMessage {
@@ -64,7 +58,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     @synchronized(self) {
         DESFriend *existentRequest = nil;
         for (DESFriend *theRequest in _requests) {
-            if ([theRequest.publicKey isEqualToString:theKey]) {
+            if ([theRequest.publicKey isEqualToString:[theKey substringToIndex:DESPublicKeySize * 2]]) {
                 existentRequest = theRequest;
                 break;
             }
@@ -263,7 +257,18 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     }
 }
 
+- (id<DESChatContext>)createNewGroupChatWithName:(NSString *)aName {
+    return nil;
+}
+
 - (void)didReceiveNewRequestWithAddress:(NSString *)theKey message:(NSString *)thePayload {
+    @synchronized (self) {
+        for (DESFriend *i in _friends) {
+            if ([i.publicKey isEqualToString:theKey]) {
+                return;
+            }
+        }
+    }
     DESFriend *newFriend = [DESFriend friendRequestWithAddress:theKey message:thePayload owner:self];
     [_requests addObject:newFriend];
     NSNotification *theNotification = [NSNotification notificationWithName:DESFriendRequestArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeAdd, DESArrayFriendKey: newFriend}];

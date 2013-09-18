@@ -41,6 +41,9 @@ FOUNDATION_EXPORT NSString *const DESConnectionDidTerminateNotification;
 /* Notification posted by classes implementing DESChatContext protocol. */
 FOUNDATION_EXPORT NSString *const DESDidPushMessageToContextNotification;
 
+/* Used in -userInfo of the above notifications. */
+FOUNDATION_EXPORT NSString *const DESMessageKey;
+
 /* Assigned in DESFriendManager.h */
 FOUNDATION_EXPORT NSString *const DESFriendAddErrorDomain;
 FOUNDATION_EXPORT NSString *const DESFriendRequestArrayDidChangeNotification;

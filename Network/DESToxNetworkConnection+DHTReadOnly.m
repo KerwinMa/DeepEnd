@@ -17,12 +17,17 @@ NSString *const DESDHTNodeTimestampKey = @"DESDHTNodeTimestampKey";
 
 - (NSDictionary *)createClientInfoDictionaryWithCorePointer:(Client_data *)cld source:(NSInteger)source {
     NSString *publicKey = DESConvertPublicKeyToString(cld->client_id);
-    NSMutableArray *addr = [[NSMutableArray alloc] initWithCapacity:4];
-    uint8_t *c = cld->ip_port.ip.uint8;
-    for (int i = 0; i < 4; i++) {
-        [addr addObject:[NSString stringWithFormat:@"%i", c[i]]];
+    uint8_t family = cld->ip_port.ip.family;
+    char *addr = NULL;
+    if (family == AF_INET) {
+        addr = malloc(INET_ADDRSTRLEN);
+        inet_ntop(AF_INET, &cld->ip_port.ip.ip4.uint8, addr, INET_ADDRSTRLEN);
+    } else {
+        addr = malloc(INET6_ADDRSTRLEN);
+        inet_ntop(AF_INET6, &cld->ip_port.ip.ip6.uint8, addr, INET6_ADDRSTRLEN);
     }
-    NSString *address = [addr componentsJoinedByString:@"."];
+    NSString *address = [NSString stringWithCString:addr encoding:NSASCIIStringEncoding];
+    free(addr);
     NSNumber *port = @(cld->ip_port.port);
     NSNumber *timestamp = @(cld->timestamp);
     return @{
@@ -46,7 +51,8 @@ NSString *const DESDHTNodeTimestampKey = @"DESDHTNodeTimestampKey";
     NSMutableArray *ret = [[NSMutableArray alloc] initWithCapacity:((Messenger*)self.m)->dht->num_friends * MAX_FRIEND_CLIENTS];
     __DESEnumerateDHTFriendListWithBlock(((Messenger*)self.m)->dht, ^(int ind, DHT_Friend *df) {
         for (int i = 0; i < MAX_FRIEND_CLIENTS; ++i) {
-            if (df->client_list[i].ip_port.ip.uint32 != 0) {
+            uint8_t fam = df->client_list[i].ip_port.ip.family;
+            if (fam == AF_INET || fam == AF_INET6) {
                 [ret addObject:[self createClientInfoDictionaryWithCorePointer:&(df->client_list[i]) source:ind]];
             }
         }

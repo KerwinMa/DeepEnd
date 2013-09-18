@@ -1,4 +1,7 @@
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
 #include "Messenger.c"
+#pragma clang diagnostic pop
 
 /* Yes. */
 
