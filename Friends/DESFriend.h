@@ -12,7 +12,15 @@
  * Most properties on DESFriend are KVO-observable.
  */
 
-@interface DESFriend : NSObject
+@interface DESFriend : NSObject {
+    @protected
+    NSString *_displayName;
+    NSString *_userStatus;
+    NSString *_publicKey;
+    int _friendNumber;
+    DESFriendStatus _status;
+    DESStatusType _statusType;
+}
 
 /* The friend number from Core. */
 @property (readonly) int friendNumber;

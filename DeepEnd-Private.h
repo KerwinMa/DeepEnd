@@ -1,4 +1,5 @@
 #import "DeepEnd.h"
+#import "DESGroupChat.h"
 #import "DHT.h"
 
 @interface DESToxNetworkConnection ()
@@ -23,7 +24,9 @@
 @interface DESFriendManager ()
 
 - (void)didReceiveNewRequestWithAddress:(NSString *)theKey message:(NSString *)thePayload;
+- (void)didReceiveNewGroupRequestWithKey:(NSString *)theKey inviter:(DESFriend *)inviter;
 - (void)addContext:(id<DESChatContext>)context;
+- (void)removeContext:(id<DESChatContext>)context;
 
 @end
 
@@ -31,6 +34,13 @@
 
 - (void)setRead:(BOOL)read;
 - (void)setSendFailure:(BOOL)fail;
+
+@end
+
+@interface DESGroupChat ()
+
+- (instancetype)initWithInvitingFriend:(DESFriend *)inviter owner:(DESFriendManager *)owner publicKey:(NSString *)publicKey;
+- (void)invalidate;
 
 @end
 
@@ -55,3 +65,5 @@ void __DESCallbackMessage(Tox *m, int friend, uint8_t *payload, uint16_t length,
 void __DESCallbackAction(Tox *m, int friend, uint8_t *payload, uint16_t length, void *context);
 void __DESCallbackFriendStatus(Tox *m, int friend, uint8_t newstatus, void *context);
 void __DESCallbackReadReceipt(Tox *m, int friend, uint32_t theid, void *context);
+void __DESCallbackGroupMessage(Tox *m, int groupnumber, int peernum, uint8_t *payload, uint16_t length, void *context);
+void __DESCallbackGroupInvite(Tox *tox, int friend, uint8_t *group_public_key, void *context);

@@ -3,6 +3,8 @@
 #import "DESToxNetworkConnection.h"
 #import "DESFriendManager.h"
 #import "DESSelf.h"
+#import "DESGroupChatContext.h"
+#import "DESGroupPeer.h"
 #import "tox.h"
 #import "Messenger.h"
 #include <netinet/in.h>
@@ -52,7 +54,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         wasConnected = NO;
         _friendManager = [[DESFriendManager alloc] initWithConnection:self];
         #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
-        messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, DISPATCH_TIMER_STRICT, _messengerQueue);
+        messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, _messengerQueue);
         dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), DEFAULT_MESSENGER_TICK_RATE * NSEC_PER_SEC, (1.0 / 10.0) * NSEC_PER_SEC);
         dispatch_source_set_event_handler(messengerTick, ^{
             tox_do(self.m);
@@ -187,6 +189,8 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         tox_callback_statusmessage(self.m, __DESCallbackUserStatus, (__bridge void*)self);
         tox_callback_userstatus(self.m, __DESCallbackUserStatusKind, (__bridge void*)self);
         tox_callback_action(self.m, __DESCallbackAction, (__bridge void*)self);
+        tox_callback_group_message(self.m, __DESCallbackGroupMessage, (__bridge void*)self);
+        tox_callback_group_invite(self.m, __DESCallbackGroupInvite, (__bridge void*)self);
         _currentUser = [[DESSelf alloc] init];
         _currentUser.owner = self.friendManager;
     });
@@ -290,4 +294,26 @@ void __DESCallbackAction(Tox *m, int friend, uint8_t *payload, uint16_t length, 
     DESFriend *theFriend = [((__bridge DESToxNetworkConnection*)context).friendManager friendWithNumber:friend];
     DESMessage *theMessage = [DESMessage actionFromSender:theFriend content:thePayload];
     [theFriend.chatContext pushMessage:theMessage];
+}
+
+void __DESCallbackGroupMessage(Tox *m, int groupnumber, int peernum, uint8_t *payload, uint16_t length, void *context) {
+    NSString *thePayload = [[[NSString alloc] initWithBytes:payload length:length encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\0"]]; /* Tox encodes strings with NULs for some reason. */
+    DESGroupChatContext *theGroup = nil;
+    for (id<DESChatContext> ctx in ((__bridge DESToxNetworkConnection*)context).friendManager.chatContexts) {
+        if ([ctx isKindOfClass:[DESGroupChatContext class]] && ((DESGroupChatContext*)ctx).groupNumber == groupnumber) {
+            theGroup = ctx;
+            break;
+        }
+    }
+    if (!theGroup)
+        return;
+    DESGroupPeer *friend = [theGroup peerWithID:peernum];
+    DESMessage *theMessage = [DESMessage messageFromSender:friend content:thePayload messageID:-1];
+    [theGroup pushMessage:theMessage];
+}
+
+void __DESCallbackGroupInvite(Tox *tox, int friend, uint8_t *group_public_key, void *context) {
+    NSString *theKey = DESConvertPublicKeyToString(group_public_key);
+    DESFriendManager *fm = ((__bridge DESToxNetworkConnection*)context).friendManager;
+    [fm didReceiveNewGroupRequestWithKey:theKey inviter:[fm friendWithNumber:friend]];
 }

@@ -9,15 +9,7 @@ const int DESFriendInvalid = -1;
 const int DESFriendSelf = -2;
 const size_t DESFriendAddressSize = TOX_FRIEND_ADDRESS_SIZE;
 
-@implementation DESFriend {
-    @protected
-    NSString *_displayName;
-    NSString *_userStatus;
-    NSString *_publicKey;
-    int _friendNumber;
-    DESFriendStatus _status;
-    DESStatusType _statusType;
-}
+@implementation DESFriend
 
 + (instancetype)friendRequestWithAddress:(NSString *)aKey message:(NSString *)theMessage owner:(DESFriendManager *)theOwner {
     DESFriend *req = [super alloc];

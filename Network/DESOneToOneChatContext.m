@@ -14,8 +14,8 @@ NSString *const DESMessageKey = @"message";
 @synthesize uuid;
 @synthesize name;
 
-- (instancetype)initWithParticipants:(NSArray *)participants {
-    return [self initWithPartner:participants[0]];
++ (DESContextType)type {
+    return DESContextTypeOneToOne;
 }
 
 - (instancetype)initWithPartner:(DESFriend *)aFriend {

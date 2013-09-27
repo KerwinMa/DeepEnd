@@ -48,12 +48,17 @@ FOUNDATION_EXPORT NSString *const DESMessageKey;
 FOUNDATION_EXPORT NSString *const DESFriendAddErrorDomain;
 FOUNDATION_EXPORT NSString *const DESFriendRequestArrayDidChangeNotification;
 FOUNDATION_EXPORT NSString *const DESFriendArrayDidChangeNotification;
+FOUNDATION_EXPORT NSString *const DESChatContextArrayDidChangeNotification;
+FOUNDATION_EXPORT NSString *const DESGroupRequestArrayDidChangeNotification;
 
 /* Used in -userInfo of the above notifications. */
 FOUNDATION_EXPORT NSString *const DESArrayOperationKey;
 FOUNDATION_EXPORT NSString *const DESArrayOperationTypeAdd;
 FOUNDATION_EXPORT NSString *const DESArrayOperationTypeRemove;
-FOUNDATION_EXPORT NSString *const DESArrayFriendKey;
+FOUNDATION_EXPORT NSString *const DESArrayObjectKey;
+
+#define DESArrayFriendKey DESArrayObjectKey
+#define DESArrayChatContextKey DESArrayObjectKey
 
 /* Status enum used by DESFriend. */
 typedef NS_ENUM(NSInteger, DESFriendStatus) {
@@ -102,6 +107,11 @@ typedef NS_ENUM(NSInteger, DESFriendAddResultCode) {
     DESFriendAddResultMemoryError = TOX_FAERR_NOMEM,
 };
 
+typedef NS_ENUM(NSInteger, DESContextType) {
+    DESContextTypeGroupChat,
+    DESContextTypeOneToOne,
+};
+
 /**** DEEPEND CORE CLASSES ****/
 
 #import "DESToxNetworkConnection.h"
@@ -111,6 +121,7 @@ typedef NS_ENUM(NSInteger, DESFriendAddResultCode) {
 #import "DESSelf.h"
 #import "DESChatContext.h"
 #import "DESMessage.h"
+#import "DESGroupChat.h"
 
 /**** KEY FUNCTIONS (DESKeyFunctions.m) ****/
 

@@ -21,9 +21,7 @@
  * For example, the name of a DESOneToOneChatContext is the friend's name. */
 @property (readonly) NSString *name;
 
-- (instancetype)initWithPartner:(DESFriend *)aFriend;
-- (instancetype)initWithParticipants:(NSArray *)participants;
-
++ (DESContextType)type;
 /* Add a friend to this chat context. Currently Tox only supports 1-1 chat,
  * but this will be useful once group chat is implemented. */
 - (void)addParticipant:(DESFriend *)theFriend;

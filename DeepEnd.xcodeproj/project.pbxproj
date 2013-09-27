@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		F500603317ADBD9800C864C4 /* libDeepEnd-iOS.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E5826217AC0A4300D9409B /* libDeepEnd-iOS.a */; };
-		F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; };
+		F53640FC17EFD040002298A5 /* DESGroupChat.h in Headers */ = {isa = PBXBuildFile; fileRef = F53640FA17EFD040002298A5 /* DESGroupChat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F53640FD17EFD040002298A5 /* DESGroupChat.h in Headers */ = {isa = PBXBuildFile; fileRef = F53640FA17EFD040002298A5 /* DESGroupChat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F53640FE17EFD040002298A5 /* DESGroupChat.m in Sources */ = {isa = PBXBuildFile; fileRef = F53640FB17EFD040002298A5 /* DESGroupChat.m */; };
+		F53640FF17EFD040002298A5 /* DESGroupChat.m in Sources */ = {isa = PBXBuildFile; fileRef = F53640FB17EFD040002298A5 /* DESGroupChat.m */; };
+		F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F55813EC17C7BA5E000D50CB /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; };
 		F55813ED17C7BA73000D50CB /* DESOneToOneChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */; };
 		F55813EE17C7BA8C000D50CB /* DeepEnd.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E5827417AC0ABB00D9409B /* DeepEnd.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,9 +33,9 @@
 		F55813FD17C7BA8C000D50CB /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E1A17B083E800BE87AC /* util.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5711E0617E5187A00F01477 /* group_chats.c in Sources */ = {isa = PBXBuildFile; fileRef = F5711E0417E5187A00F01477 /* group_chats.c */; settings = {COMPILER_FLAGS = "-Wno-unused-function"; }; };
 		F5711E0717E5187A00F01477 /* group_chats.c in Sources */ = {isa = PBXBuildFile; fileRef = F5711E0417E5187A00F01477 /* group_chats.c */; settings = {COMPILER_FLAGS = "-Wno-unused-function"; }; };
-		F5711E0817E5187A00F01477 /* group_chats.h in Headers */ = {isa = PBXBuildFile; fileRef = F5711E0517E5187A00F01477 /* group_chats.h */; };
-		F5711E0917E5187A00F01477 /* group_chats.h in Headers */ = {isa = PBXBuildFile; fileRef = F5711E0517E5187A00F01477 /* group_chats.h */; };
-		F5711E0D17E51C4600F01477 /* DESGroupChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5711E0B17E51C4600F01477 /* DESGroupChatContext.h */; };
+		F5711E0817E5187A00F01477 /* group_chats.h in Headers */ = {isa = PBXBuildFile; fileRef = F5711E0517E5187A00F01477 /* group_chats.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5711E0917E5187A00F01477 /* group_chats.h in Headers */ = {isa = PBXBuildFile; fileRef = F5711E0517E5187A00F01477 /* group_chats.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5711E0D17E51C4600F01477 /* DESGroupChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5711E0B17E51C4600F01477 /* DESGroupChatContext.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F5711E0E17E51C4600F01477 /* DESGroupChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5711E0B17E51C4600F01477 /* DESGroupChatContext.h */; };
 		F5711E0F17E51C4600F01477 /* DESGroupChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5711E0C17E51C4600F01477 /* DESGroupChatContext.m */; };
 		F5711E1017E51C4600F01477 /* DESGroupChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5711E0C17E51C4600F01477 /* DESGroupChatContext.m */; };
@@ -45,11 +49,15 @@
 		F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
 		F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
 		F5B9112F17B1B3BF00E29017 /* DESChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5B9112D17B1B3BF00E29017 /* DESChatContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5C4756417EE6CDC00768BAA /* DESGroupPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C4756217EE6CDC00768BAA /* DESGroupPeer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F5C4756517EE6CDC00768BAA /* DESGroupPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C4756217EE6CDC00768BAA /* DESGroupPeer.h */; };
+		F5C4756617EE6CDC00768BAA /* DESGroupPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C4756317EE6CDC00768BAA /* DESGroupPeer.m */; };
+		F5C4756717EE6CDC00768BAA /* DESGroupPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C4756317EE6CDC00768BAA /* DESGroupPeer.m */; };
 		F5CC768A17C801E500038BA3 /* tox.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CC768817C801E500038BA3 /* tox.c */; };
 		F5CC768B17C801E500038BA3 /* tox.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CC768817C801E500038BA3 /* tox.c */; };
 		F5CC768C17C801E500038BA3 /* tox.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CC768917C801E500038BA3 /* tox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5CC768D17C801E500038BA3 /* tox.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CC768917C801E500038BA3 /* tox.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5D4201F17B725E900587ABE /* DESOneToOneChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */; };
+		F5D4201F17B725E900587ABE /* DESOneToOneChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F5D4202017B725E900587ABE /* DESOneToOneChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */; };
 		F5D4202117B725E900587ABE /* DESOneToOneChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */; };
 		F5D4202517B72E4700587ABE /* DESMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4202317B72E4700587ABE /* DESMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -112,6 +120,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F53640FA17EFD040002298A5 /* DESGroupChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESGroupChat.h; sourceTree = "<group>"; };
+		F53640FB17EFD040002298A5 /* DESGroupChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESGroupChat.m; sourceTree = "<group>"; };
 		F552EFDB17B057800043E169 /* DeepEnd-Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeepEnd-Private.h"; sourceTree = "<group>"; };
 		F5711E0417E5187A00F01477 /* group_chats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = group_chats.c; sourceTree = "<group>"; };
 		F5711E0517E5187A00F01477 /* group_chats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = group_chats.h; sourceTree = "<group>"; };
@@ -124,6 +134,8 @@
 		F57B5E2317B0859E00BE87AC /* Messenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messenger.h; sourceTree = "<group>"; };
 		F5A3A86617B358690068AFA0 /* DESInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESInfo.m; sourceTree = "<group>"; };
 		F5B9112D17B1B3BF00E29017 /* DESChatContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESChatContext.h; sourceTree = "<group>"; };
+		F5C4756217EE6CDC00768BAA /* DESGroupPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESGroupPeer.h; sourceTree = "<group>"; };
+		F5C4756317EE6CDC00768BAA /* DESGroupPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESGroupPeer.m; sourceTree = "<group>"; };
 		F5CC768817C801E500038BA3 /* tox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tox.c; sourceTree = "<group>"; };
 		F5CC768917C801E500038BA3 /* tox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tox.h; sourceTree = "<group>"; };
 		F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESOneToOneChatContext.h; sourceTree = "<group>"; };
@@ -186,6 +198,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F53640F917EFCFD1002298A5 /* Group Chats */ = {
+			isa = PBXGroup;
+			children = (
+				F5C4756217EE6CDC00768BAA /* DESGroupPeer.h */,
+				F5C4756317EE6CDC00768BAA /* DESGroupPeer.m */,
+				F53640FA17EFD040002298A5 /* DESGroupChat.h */,
+				F53640FB17EFD040002298A5 /* DESGroupChat.m */,
+				F5711E0B17E51C4600F01477 /* DESGroupChatContext.h */,
+				F5711E0C17E51C4600F01477 /* DESGroupChatContext.m */,
+			);
+			name = "Group Chats";
+			path = GroupChats;
+			sourceTree = "<group>";
+		};
 		F5E486CB17AF2BAB00A0BF9F /* Core Patches */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +229,7 @@
 				F5E5827317AC0ABB00D9409B /* DeepEnd-Prefix.pch */,
 				F5E5827417AC0ABB00D9409B /* DeepEnd.h */,
 				F552EFDB17B057800043E169 /* DeepEnd-Private.h */,
+				F53640F917EFCFD1002298A5 /* Group Chats */,
 				F5E5827017AC0ABB00D9409B /* Common */,
 				F5E5827517AC0ABB00D9409B /* Friends */,
 				F5E5827A17AC0ABB00D9409B /* Network */,
@@ -262,8 +289,6 @@
 				F5ECC85117CEF0A1000E01D2 /* DESToxNetworkConnection+DHTReadOnly.h */,
 				F5ECC85217CEF0A1000E01D2 /* DESToxNetworkConnection+DHTReadOnly.m */,
 				F5B9112D17B1B3BF00E29017 /* DESChatContext.h */,
-				F5711E0B17E51C4600F01477 /* DESGroupChatContext.h */,
-				F5711E0C17E51C4600F01477 /* DESGroupChatContext.m */,
 				F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */,
 				F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */,
 				F5D4202317B72E4700587ABE /* DESMessage.h */,
@@ -309,6 +334,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F53640FD17EFD040002298A5 /* DESGroupChat.h in Headers */,
+				F5711E0917E5187A00F01477 /* group_chats.h in Headers */,
 				F55813EE17C7BA8C000D50CB /* DeepEnd.h in Headers */,
 				F55813EF17C7BA8C000D50CB /* DESFriend.h in Headers */,
 				F55813F017C7BA8C000D50CB /* DESSelf.h in Headers */,
@@ -321,7 +348,6 @@
 				F55813F617C7BA8C000D50CB /* LAN_discovery.h in Headers */,
 				F55813F717C7BA8C000D50CB /* Lossless_UDP.h in Headers */,
 				F55813F817C7BA8C000D50CB /* Messenger.h in Headers */,
-				F5711E0917E5187A00F01477 /* group_chats.h in Headers */,
 				F55813F917C7BA8C000D50CB /* friend_requests.h in Headers */,
 				F55813FA17C7BA8C000D50CB /* net_crypto.h in Headers */,
 				F5711E0E17E51C4600F01477 /* DESGroupChatContext.h in Headers */,
@@ -330,6 +356,7 @@
 				F55813FD17C7BA8C000D50CB /* util.h in Headers */,
 				F5CC768D17C801E500038BA3 /* tox.h in Headers */,
 				F55813EC17C7BA5E000D50CB /* DeepEnd-Private.h in Headers */,
+				F5C4756517EE6CDC00768BAA /* DESGroupPeer.h in Headers */,
 				F55813ED17C7BA73000D50CB /* DESOneToOneChatContext.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +365,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5711E0817E5187A00F01477 /* group_chats.h in Headers */,
+				F53640FC17EFD040002298A5 /* DESGroupChat.h in Headers */,
 				F5E5828117AC0ABB00D9409B /* DeepEnd.h in Headers */,
 				F5E5828217AC0ABB00D9409B /* DESFriend.h in Headers */,
 				F5E582B317AC288800D9409B /* DESSelf.h in Headers */,
@@ -350,16 +379,16 @@
 				F5E5829E17AC0BFB00D9409B /* DHT.h in Headers */,
 				F5E582A117AC0BFB00D9409B /* LAN_discovery.h in Headers */,
 				F5E582A417AC0BFB00D9409B /* Lossless_UDP.h in Headers */,
-				F5711E0817E5187A00F01477 /* group_chats.h in Headers */,
 				F5E582AA17AC0BFB00D9409B /* friend_requests.h in Headers */,
 				F5E582AD17AC0BFB00D9409B /* net_crypto.h in Headers */,
-				F5711E0D17E51C4600F01477 /* DESGroupChatContext.h in Headers */,
 				F5E582B017AC0BFB00D9409B /* network.h in Headers */,
 				F57B5E1D17B083E800BE87AC /* ping.h in Headers */,
 				F57B5E2017B083E800BE87AC /* util.h in Headers */,
-				F5CC768C17C801E500038BA3 /* tox.h in Headers */,
+				F5711E0D17E51C4600F01477 /* DESGroupChatContext.h in Headers */,
 				F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */,
+				F5C4756417EE6CDC00768BAA /* DESGroupPeer.h in Headers */,
 				F5D4201F17B725E900587ABE /* DESOneToOneChatContext.h in Headers */,
+				F5CC768C17C801E500038BA3 /* tox.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5C4756617EE6CDC00768BAA /* DESGroupPeer.m in Sources */,
 				F5E5827D17AC0ABB00D9409B /* DESKeyFunctions.m in Sources */,
 				F5711E0617E5187A00F01477 /* group_chats.c in Sources */,
 				F5E5828317AC0ABB00D9409B /* DESFriend.m in Sources */,
@@ -459,6 +489,7 @@
 				F5E486CD17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */,
 				F5711E0F17E51C4600F01477 /* DESGroupChatContext.m in Sources */,
 				F5E486D017AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
+				F53640FE17EFD040002298A5 /* DESGroupChat.m in Sources */,
 				F57B5E1B17B083E800BE87AC /* ping.c in Sources */,
 				F57B5E1E17B083E800BE87AC /* util.c in Sources */,
 				F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */,
@@ -472,6 +503,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5C4756717EE6CDC00768BAA /* DESGroupPeer.m in Sources */,
 				F5E5827E17AC0ABB00D9409B /* DESKeyFunctions.m in Sources */,
 				F5711E0717E5187A00F01477 /* group_chats.c in Sources */,
 				F5E5828417AC0ABB00D9409B /* DESFriend.m in Sources */,
@@ -487,6 +519,7 @@
 				F5E486CE17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */,
 				F5711E1017E51C4600F01477 /* DESGroupChatContext.m in Sources */,
 				F5E486D117AF2D1A00A0BF9F /* DESDHTHack.c in Sources */,
+				F53640FF17EFD040002298A5 /* DESGroupChat.m in Sources */,
 				F57B5E1C17B083E800BE87AC /* ping.c in Sources */,
 				F57B5E1F17B083E800BE87AC /* util.c in Sources */,
 				F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */,
@@ -589,7 +622,6 @@
 					"-Werror",
 					"-Wall",
 					"-DDES_DEBUG",
-					"-DDES_USES_EXPERIMENTAL_RUN_LOOP",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ProjectTox-Core/toxcore\"";

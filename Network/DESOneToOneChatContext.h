@@ -3,4 +3,6 @@
 
 @interface DESOneToOneChatContext : NSObject <DESChatContext>
 
+- (instancetype)initWithPartner:(DESFriend *)aFriend;
+
 @end

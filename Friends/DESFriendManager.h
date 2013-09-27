@@ -2,12 +2,14 @@
 #import "DeepEnd.h"
 #import "DESChatContext.h"
 
-@class DESToxNetworkConnection, DESFriend;
+@class DESToxNetworkConnection, DESFriend, DESGroupChat;
 @interface DESFriendManager : NSObject
 
 /* Not thread-safe! Use a copy or methods that wrap these arrays below! */
 @property (readonly) NSArray *friends;
 @property (readonly) NSArray *requests;
+@property (readonly) NSArray *chatContexts;
+@property (readonly) NSArray *groupRequests;
 
 /* The connection that owns this friend manager. */
 @property (readonly) DESToxNetworkConnection *connection;
@@ -43,8 +45,21 @@
 /* Find the friend object with theKey. Returns nil on failure. */
 - (DESFriend *)friendWithNumber:(int)theNumber;
 
-- (id<DESChatContext>)chatContextForFriend:(DESFriend *)theFriend;
-- (NSArray *)chatContextsContainingFriend:(DESFriend *)theFriend;
+/* Return the first chat context with the UUID uuid. If it's not found, return nil. */
 - (id<DESChatContext>)chatContextWithUUID:(NSString *)uuid;
+
+/* Create a new group chat. name is unused for now. */
+- (id<DESChatContext>)createGroupChatWithName:(NSString *)aName;
+
+/* Join a group chat you were previously invited to.
+ * On failure, it will return nil. */
+- (id<DESChatContext>)joinGroupChat:(DESGroupChat *)grp;
+
+/* Remove the group chat invitation from the manager's internal
+ * storage. */
+- (void)rejectGroupChatInvitation:(DESGroupChat *)grp;
+
+/* Leave the group chat. */
+- (void)removeGroupChat:(id<DESChatContext>)groupChat;
 
 @end

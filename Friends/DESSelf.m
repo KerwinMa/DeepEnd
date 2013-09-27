@@ -6,10 +6,6 @@
 
 @implementation DESSelf
 
-@synthesize displayName = _displayName;
-@synthesize userStatus = _userStatus;
-@synthesize statusType = _statusType;
-
 + (DESFriend *)self {
     return [[DESToxNetworkConnection sharedConnection] me];
 }

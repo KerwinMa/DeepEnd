@@ -28,7 +28,7 @@ NSString *const DESDHTNodeTimestampKey = @"DESDHTNodeTimestampKey";
     }
     NSString *address = [NSString stringWithCString:addr encoding:NSASCIIStringEncoding];
     free(addr);
-    NSNumber *port = @(cld->ip_port.port);
+    NSNumber *port = @(ntohs(cld->ip_port.port));
     NSNumber *timestamp = @(cld->timestamp);
     return @{
         DESDHTNodeSourceKey: @(source),
