@@ -13,7 +13,7 @@
 @synthesize uuid;
 @synthesize name;
 
-+ (DESContextType)type {
+- (DESContextType)type {
     return DESContextTypeGroupChat;
 }
 

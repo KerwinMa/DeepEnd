@@ -14,7 +14,7 @@ NSString *const DESMessageKey = @"message";
 @synthesize uuid;
 @synthesize name;
 
-+ (DESContextType)type {
+- (DESContextType)type {
     return DESContextTypeOneToOne;
 }
 
