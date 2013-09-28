@@ -100,9 +100,11 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
             }
         }
     }
+    free(buffer);
+    if (!newFriend)
+        return nil;
     NSNotification *theNotification = [NSNotification notificationWithName:DESFriendArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeAdd, DESArrayObjectKey: newFriend}];
     [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:theNotification waitUntilDone:YES];
-    free(buffer);
     return newFriend;
 }
 
