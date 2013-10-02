@@ -9,6 +9,11 @@
 #import "Messenger.h"
 #include <netinet/in.h>
 
+/* SDK < 10.9 */
+#ifndef DISPATCH_TIMER_STRICT
+#define DISPATCH_TIMER_STRICT 0x1
+#endif
+
 static DESToxNetworkConnection *sharedInstance = nil;
 
 /* Declaration of constants in DeepEnd.h. */
@@ -54,7 +59,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         wasConnected = NO;
         _friendManager = [[DESFriendManager alloc] initWithConnection:self];
         #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
-        messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, _messengerQueue);
+        messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, DISPATCH_TIMER_STRICT, _messengerQueue);
         dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), DEFAULT_MESSENGER_TICK_RATE * NSEC_PER_SEC, (1.0 / 10.0) * NSEC_PER_SEC);
         dispatch_source_set_event_handler(messengerTick, ^{
             tox_do(self.m);
