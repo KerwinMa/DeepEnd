@@ -52,7 +52,7 @@ void __DESEnumerateFriendStatusesUsingBlock(Tox *m, void(^block)(int idx, int st
 /* Private functions implemented in DESDHTHack.c. */
 uint16_t __DESGetNumberOfConnectedNodes(Tox *tox);
 /* Used in experimental DHTReadOnly API. */
-void __DESEnumerateCloseDHTNodesWithBlock(DHT *dht, void(^block)(int ind, Client_data *cld));
+void __DESEnumerateCloseDHTNodesWithBlock(DHT *dht, void(^block)(int ind, Client_data *cld, int ipv6));
 void __DESEnumerateDHTFriendListWithBlock(DHT *dht, void(^block)(int ind, DHT_Friend *df));
 /* Private function implemented in DESToxNetworkConnection.m. */
 DESFriendStatus __DESCoreStatusToDESStatus(int theStatus);
