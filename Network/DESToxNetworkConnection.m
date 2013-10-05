@@ -57,7 +57,6 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         _messengerQueue = dispatch_queue_create("ca.kirara.DESRunLoop", NULL);
         _runLoopSpeed = DEFAULT_MESSENGER_TICK_RATE;
         wasConnected = NO;
-        _friendManager = [[DESFriendManager alloc] initWithConnection:self];
         #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
         if (!messengerTick)
             [self createTick];
@@ -162,7 +161,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 - (BOOL)connected {
-    return tox_isconnected(self.m);
+    return [self.connectedNodeCount integerValue] > 0;
 }
 
 - (void)setRunLoopSpeed:(double)runLoopSpeed {
@@ -203,6 +202,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         tox_callback_action(self.m, __DESCallbackAction, (__bridge void*)self);
         tox_callback_group_message(self.m, __DESCallbackGroupMessage, (__bridge void*)self);
         tox_callback_group_invite(self.m, __DESCallbackGroupInvite, (__bridge void*)self);
+        _friendManager = [[DESFriendManager alloc] initWithConnection:self];
         _currentUser = [[DESSelf alloc] init];
         _currentUser.owner = self.friendManager;
     });
@@ -246,6 +246,17 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
     dispatch_release(messengerTick);
     messengerTick = nil;
     #endif
+    [[self.friendManager.friends copy] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [self.friendManager removeFriend:obj];
+    }];
+    [[self.friendManager.chatContexts copy] enumerateObjectsUsingBlock:^(id<DESChatContext> obj, NSUInteger idx, BOOL *stop) {
+        if ([obj type] == DESContextTypeGroupChat) {
+            [self.friendManager removeGroupChat:obj];
+        }
+    }];
+    _friendManager = nil;
+    _currentUser = nil;
+    _connectedNodeCount = @(0);
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidTerminateNotification object:self];
     });
