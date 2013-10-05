@@ -59,40 +59,45 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         wasConnected = NO;
         _friendManager = [[DESFriendManager alloc] initWithConnection:self];
         #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
-        messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, DISPATCH_TIMER_STRICT, _messengerQueue);
-        dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), DEFAULT_MESSENGER_TICK_RATE * NSEC_PER_SEC, (1.0 / 10.0) * NSEC_PER_SEC);
-        dispatch_source_set_event_handler(messengerTick, ^{
-            tox_do(self.m);
-            if (!wasConnected && [self connected]) {
-                /* DHT bootstrap succeeded... */
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidConnectNotification object:self];
-                });
-            } else if (![self connected] && floor([bootstrapStartTime timeIntervalSinceNow] * -1.0) > 5.0) {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidFailNotification object:self];
-                });
-            }
-            NSInteger cn = __DESGetNumberOfConnectedNodes(self.m);
-            if (cn != [_connectedNodeCount integerValue]) {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [self willChangeValueForKey:@"connectedNodeCount"];
-                    _connectedNodeCount = [NSNumber numberWithInteger:cn];
-                    [self didChangeValueForKey:@"connectedNodeCount"];
-                });
-            }
-            __DESEnumerateFriendStatusesUsingBlock(self.m, ^(int idx, int status, char *stop) {
-                DESFriend *theFriend = [self.friendManager friendWithNumber:idx];
-                if (theFriend.status != __DESCoreStatusToDESStatus(status)) {
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        theFriend.status = __DESCoreStatusToDESStatus(status);
-                    });
-                }
-            });
-        });
+        if (!messengerTick)
+            [self createTick];
         #endif
     }
     return self;
+}
+
+- (void)createTick {
+    messengerTick = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, DISPATCH_TIMER_STRICT, _messengerQueue);
+    dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), DEFAULT_MESSENGER_TICK_RATE * NSEC_PER_SEC, (1.0 / 10.0) * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(messengerTick, ^{
+        tox_do(self.m);
+        if (!wasConnected && [self connected]) {
+            /* DHT bootstrap succeeded... */
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidConnectNotification object:self];
+            });
+        } else if (![self connected] && floor([bootstrapStartTime timeIntervalSinceNow] * -1.0) > 5.0) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidFailNotification object:self];
+            });
+        }
+        NSInteger cn = __DESGetNumberOfConnectedNodes(self.m);
+        if (cn != [_connectedNodeCount integerValue]) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self willChangeValueForKey:@"connectedNodeCount"];
+                _connectedNodeCount = [NSNumber numberWithInteger:cn];
+                [self didChangeValueForKey:@"connectedNodeCount"];
+            });
+        }
+        __DESEnumerateFriendStatusesUsingBlock(self.m, ^(int idx, int status, char *stop) {
+            DESFriend *theFriend = [self.friendManager friendWithNumber:idx];
+            if (theFriend.status != __DESCoreStatusToDESStatus(status)) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    theFriend.status = __DESCoreStatusToDESStatus(status);
+                });
+            }
+        });
+    });
 }
 
 #ifdef DES_USES_EXPERIMENTAL_RUN_LOOP
@@ -167,6 +172,8 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         return;
     }
     _runLoopSpeed = runLoopSpeed;
+    if (!messengerTick)
+        [self createTick];
     dispatch_source_set_timer(messengerTick, dispatch_walltime(NULL, 0), runLoopSpeed * NSEC_PER_SEC, 0.5 * NSEC_PER_SEC);
     DESDebug(@"%@: new runLoopSpeed is %f.", self, runLoopSpeed);
     #else
@@ -236,8 +243,10 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 - (void)disconnect {
     #ifndef DES_USES_EXPERIMENTAL_RUN_LOOP
     dispatch_source_cancel(messengerTick);
+    dispatch_release(messengerTick);
+    messengerTick = nil;
     #endif
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:DESConnectionDidTerminateNotification object:self];
     });
 }
