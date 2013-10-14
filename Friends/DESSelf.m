@@ -61,7 +61,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setDisplayName:(NSString *)displayName {
     [self willChangeValueForKey:@"displayName"];
-    int fail = setname(self.owner.connection.m, (uint8_t*)[displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    int fail = setname((Messenger*)self.owner.connection.m, (uint8_t*)[displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (!fail) {
         _displayName = displayName;
         [self didChangeValueForKey:@"displayName"];
@@ -70,7 +70,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setUserStatus:(NSString *)userStatus {
     [self willChangeValueForKey:@"userStatus"];
-    int fail = m_set_statusmessage(self.owner.connection.m, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    int fail = tox_set_statusmessage(self.owner.connection.m, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (!fail) {
         _userStatus = userStatus;
         [self didChangeValueForKey:@"userStatus"];
@@ -79,7 +79,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setStatusType:(DESStatusType)statusType {
     [self willChangeValueForKey:@"statusType"];
-    int fail = m_set_userstatus(self.owner.connection.m, (USERSTATUS)statusType);
+    int fail = tox_set_userstatus(self.owner.connection.m, (TOX_USERSTATUS)statusType);
     if (!fail) {
         _statusType = statusType;
         [self didChangeValueForKey:@"statusType"];
