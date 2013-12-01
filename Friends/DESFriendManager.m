@@ -86,7 +86,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     int friendNumber = 0;
     DESFriend *newFriend;
     @synchronized(self) {
-        friendNumber = tox_addfriend(self.connection.m, buffer, (uint8_t*)[theMessage UTF8String], [theMessage lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+        friendNumber = tox_add_friend(self.connection.m, buffer, (uint8_t*)[theMessage UTF8String], [theMessage lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
         if (friendNumber > -1) {
             newFriend = [[DESFriend alloc] initWithNumber:friendNumber owner:self];
             newFriend.status = DESFriendStatusRequestSent;
@@ -126,7 +126,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     }
     uint8_t *buffer = malloc(DESPublicKeySize);
     DESConvertPublicKeyToData(theKey, buffer);
-    int success = tox_addfriend_norequest(self.connection.m, buffer);
+    int success = tox_add_friend_norequest(self.connection.m, buffer);
     free(buffer);
     if (success < 0) {
         return nil;
@@ -150,7 +150,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     }
     if ([_friends containsObject:theFriend]) {
         @synchronized(self) {
-            tox_delfriend(self.connection.m, theFriend.friendNumber);
+            tox_del_friend(self.connection.m, theFriend.friendNumber);
             [_friends removeObject:theFriend];
         }
         NSNotification *theNotification = [NSNotification notificationWithName:DESFriendArrayDidChangeNotification object:self userInfo:@{DESArrayOperationKey: DESArrayOperationTypeRemove, DESArrayObjectKey: theFriend}];
@@ -191,7 +191,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     DESConvertPublicKeyToData(theFriend.publicKey, buffer);
     int friendID = -1;
     @synchronized(self) {
-        friendID = tox_addfriend_norequest(self.connection.m, buffer);
+        friendID = tox_add_friend_norequest(self.connection.m, buffer);
         if ([_requests containsObject:theFriend]) {
             [_requests removeObject:theFriend];
         }
@@ -222,7 +222,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     DESConvertPublicKeyToData(theKey, buffer);
     int friendID = DESFriendInvalid;
     @synchronized(self) {
-        friendID = tox_getfriend_id(self.connection.m, buffer);
+        friendID = tox_get_friend_id(self.connection.m, buffer);
     }
     free(buffer);
     return [self friendWithNumber:friendID];

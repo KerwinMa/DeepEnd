@@ -63,7 +63,7 @@ NSString *const DESMessageKey = @"message";
     if (partner.status != DESFriendStatusOnline) {
         return;
     }
-    int ret = tox_sendmessage(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    int ret = tox_send_message(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (ret) {
         [self pushMessage:[DESMessage messageFromSender:sender content:message messageID:-1]];
     }
@@ -74,7 +74,7 @@ NSString *const DESMessageKey = @"message";
     if (partner.status != DESFriendStatusOnline) {
         return;
     }
-    int ret = tox_sendaction(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    int ret = tox_send_action(self.friendManager.connection.m, partner.friendNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (ret) {
         [self pushMessage:[DESMessage actionFromSender:sender content:message]];
     }

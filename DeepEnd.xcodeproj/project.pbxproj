@@ -39,8 +39,8 @@
 		F5711E0E17E51C4600F01477 /* DESGroupChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5711E0B17E51C4600F01477 /* DESGroupChatContext.h */; };
 		F5711E0F17E51C4600F01477 /* DESGroupChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5711E0C17E51C4600F01477 /* DESGroupChatContext.m */; };
 		F5711E1017E51C4600F01477 /* DESGroupChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5711E0C17E51C4600F01477 /* DESGroupChatContext.m */; };
-		F57B5E1B17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
-		F57B5E1C17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; };
+		F57B5E1B17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F57B5E1C17B083E800BE87AC /* ping.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1717B083E700BE87AC /* ping.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
 		F57B5E1D17B083E800BE87AC /* ping.h in Headers */ = {isa = PBXBuildFile; fileRef = F57B5E1817B083E700BE87AC /* ping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F57B5E1E17B083E800BE87AC /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1917B083E800BE87AC /* util.c */; };
 		F57B5E1F17B083E800BE87AC /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = F57B5E1917B083E800BE87AC /* util.c */; };
@@ -49,6 +49,10 @@
 		F5A3A86717B358690068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
 		F5A3A86817B358990068AFA0 /* DESInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3A86617B358690068AFA0 /* DESInfo.m */; };
 		F5B9112F17B1B3BF00E29017 /* DESChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5B9112D17B1B3BF00E29017 /* DESChatContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5BD6C8F184BBDFB002EB7F0 /* assoc.c in Sources */ = {isa = PBXBuildFile; fileRef = F5BD6C8D184BBDFB002EB7F0 /* assoc.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F5BD6C90184BBDFB002EB7F0 /* assoc.c in Sources */ = {isa = PBXBuildFile; fileRef = F5BD6C8D184BBDFB002EB7F0 /* assoc.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F5BD6C91184BBDFB002EB7F0 /* assoc.h in Headers */ = {isa = PBXBuildFile; fileRef = F5BD6C8E184BBDFB002EB7F0 /* assoc.h */; };
+		F5BD6C92184BBDFB002EB7F0 /* assoc.h in Headers */ = {isa = PBXBuildFile; fileRef = F5BD6C8E184BBDFB002EB7F0 /* assoc.h */; };
 		F5C4756417EE6CDC00768BAA /* DESGroupPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C4756217EE6CDC00768BAA /* DESGroupPeer.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F5C4756517EE6CDC00768BAA /* DESGroupPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C4756217EE6CDC00768BAA /* DESGroupPeer.h */; };
 		F5C4756617EE6CDC00768BAA /* DESGroupPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C4756317EE6CDC00768BAA /* DESGroupPeer.m */; };
@@ -134,6 +138,8 @@
 		F57B5E2317B0859E00BE87AC /* Messenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messenger.h; sourceTree = "<group>"; };
 		F5A3A86617B358690068AFA0 /* DESInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESInfo.m; sourceTree = "<group>"; };
 		F5B9112D17B1B3BF00E29017 /* DESChatContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESChatContext.h; sourceTree = "<group>"; };
+		F5BD6C8D184BBDFB002EB7F0 /* assoc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = assoc.c; sourceTree = "<group>"; };
+		F5BD6C8E184BBDFB002EB7F0 /* assoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assoc.h; sourceTree = "<group>"; };
 		F5C4756217EE6CDC00768BAA /* DESGroupPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESGroupPeer.h; sourceTree = "<group>"; };
 		F5C4756317EE6CDC00768BAA /* DESGroupPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESGroupPeer.m; sourceTree = "<group>"; };
 		F5CC768817C801E500038BA3 /* tox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tox.c; sourceTree = "<group>"; };
@@ -300,6 +306,8 @@
 		F5E5828B17AC0BFB00D9409B /* ToxCore */ = {
 			isa = PBXGroup;
 			children = (
+				F5BD6C8D184BBDFB002EB7F0 /* assoc.c */,
+				F5BD6C8E184BBDFB002EB7F0 /* assoc.h */,
 				F5E5828D17AC0BFB00D9409B /* DHT.c */,
 				F5E5828E17AC0BFB00D9409B /* DHT.h */,
 				F5E5828F17AC0BFB00D9409B /* LAN_discovery.c */,
@@ -346,6 +354,7 @@
 				F5ECC85417CEF0A1000E01D2 /* DESToxNetworkConnection+DHTReadOnly.h in Headers */,
 				F55813F517C7BA8C000D50CB /* DHT.h in Headers */,
 				F55813F617C7BA8C000D50CB /* LAN_discovery.h in Headers */,
+				F5BD6C92184BBDFB002EB7F0 /* assoc.h in Headers */,
 				F55813F717C7BA8C000D50CB /* Lossless_UDP.h in Headers */,
 				F55813F817C7BA8C000D50CB /* Messenger.h in Headers */,
 				F55813F917C7BA8C000D50CB /* friend_requests.h in Headers */,
@@ -377,6 +386,7 @@
 				F5ECC85317CEF0A1000E01D2 /* DESToxNetworkConnection+DHTReadOnly.h in Headers */,
 				F57B5E2417B0859E00BE87AC /* Messenger.h in Headers */,
 				F5E5829E17AC0BFB00D9409B /* DHT.h in Headers */,
+				F5BD6C91184BBDFB002EB7F0 /* assoc.h in Headers */,
 				F5E582A117AC0BFB00D9409B /* LAN_discovery.h in Headers */,
 				F5E582A417AC0BFB00D9409B /* Lossless_UDP.h in Headers */,
 				F5E582AA17AC0BFB00D9409B /* friend_requests.h in Headers */,
@@ -399,6 +409,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5E5825B17AC095E00D9409B /* Build configuration list for PBXNativeTarget "DeepEnd" */;
 			buildPhases = (
+				F5A3C67F1812327800869994 /* ShellScript */,
 				F5E5824117AC095E00D9409B /* Sources */,
 				F5E5824217AC095E00D9409B /* Frameworks */,
 				F5E5824317AC095E00D9409B /* Headers */,
@@ -468,6 +479,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F5A3C67F1812327800869994 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rev=$(git rev-list HEAD --count)\nhash=$(git log -n 1 --pretty=format:%h)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $rev\" \"$INFOPLIST_FILE\"\n/usr/libexec/PlistBuddy -c \"Add :DESGitRef string $hash\" \"$INFOPLIST_FILE\" || /usr/libexec/PlistBuddy -c \"Set :DESGitRef $hash\" \"$INFOPLIST_FILE\"\n\ncd ProjectTox-Core\ncrev=$(git rev-list HEAD --count)\nchash=$(git log -n 1 --pretty=format:%h)\ncd ..\n\n/usr/libexec/PlistBuddy -c \"Add :CFBundleShortVersionString string '$rev Core: $chash-b$crev'\" \"$INFOPLIST_FILE\" || /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString '$rev Core: $chash-b$crev'\" \"$INFOPLIST_FILE\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F5E5824117AC095E00D9409B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -482,6 +509,7 @@
 				F5E5828917AC0ABB00D9409B /* DESToxNetworkConnection.m in Sources */,
 				F5E5829F17AC0BFB00D9409B /* LAN_discovery.c in Sources */,
 				F5E582A217AC0BFB00D9409B /* Lossless_UDP.c in Sources */,
+				F5BD6C8F184BBDFB002EB7F0 /* assoc.c in Sources */,
 				F5E582A817AC0BFB00D9409B /* friend_requests.c in Sources */,
 				F5E582AB17AC0BFB00D9409B /* net_crypto.c in Sources */,
 				F5E582AE17AC0BFB00D9409B /* network.c in Sources */,
@@ -512,6 +540,7 @@
 				F5E5828A17AC0ABB00D9409B /* DESToxNetworkConnection.m in Sources */,
 				F5E582A017AC0BFB00D9409B /* LAN_discovery.c in Sources */,
 				F5E582A317AC0BFB00D9409B /* Lossless_UDP.c in Sources */,
+				F5BD6C90184BBDFB002EB7F0 /* assoc.c in Sources */,
 				F5E582A917AC0BFB00D9409B /* friend_requests.c in Sources */,
 				F5E582AC17AC0BFB00D9409B /* net_crypto.c in Sources */,
 				F5E582AF17AC0BFB00D9409B /* network.c in Sources */,
@@ -613,6 +642,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "DeepEnd-Info.plist";
@@ -636,6 +666,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "DeepEnd-Info.plist";
@@ -659,6 +690,7 @@
 					armv7,
 				);
 				DSTROOT = /tmp/DeepEnd_iOS.dst;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -684,6 +716,7 @@
 					armv7,
 				);
 				DSTROOT = /tmp/DeepEnd_iOS.dst;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;

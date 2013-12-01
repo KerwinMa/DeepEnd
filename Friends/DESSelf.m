@@ -16,7 +16,7 @@
 
 - (NSString *)friendAddress {
     uint8_t *theData = malloc(DESFriendAddressSize);
-    tox_getaddress(self.owner.connection.m, theData);
+    tox_get_address(self.owner.connection.m, theData);
     NSString *theString = DESConvertFriendAddressToString(theData);
     free(theData);
     return theString;
@@ -61,7 +61,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setDisplayName:(NSString *)displayName {
     [self willChangeValueForKey:@"displayName"];
-    int fail = tox_setname(self.owner.connection.m, (uint8_t*)[displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    int fail = tox_set_name(self.owner.connection.m, (uint8_t*)[displayName UTF8String], [displayName lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (!fail) {
         _displayName = displayName;
         [self didChangeValueForKey:@"displayName"];
@@ -70,7 +70,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setUserStatus:(NSString *)userStatus {
     [self willChangeValueForKey:@"userStatus"];
-    int fail = tox_set_statusmessage(self.owner.connection.m, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    int fail = tox_set_status_message(self.owner.connection.m, (uint8_t*)[userStatus UTF8String], [userStatus lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
     if (!fail) {
         _userStatus = userStatus;
         [self didChangeValueForKey:@"userStatus"];

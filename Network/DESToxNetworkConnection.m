@@ -196,11 +196,11 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 - (void) CALLS_INTO_CORE_FUNCTIONS connect {
     dispatch_sync(_messengerQueue, ^{
         _m = tox_new(TOX_ENABLE_IPV6_DEFAULT);
-        tox_callback_friendmessage(self.m, __DESCallbackMessage, (__bridge void*)self);
-        tox_callback_friendrequest(self.m, __DESCallbackFriendRequest, (__bridge void*)self);
-        tox_callback_namechange(self.m, __DESCallbackNameChange, (__bridge void*)self);
-        tox_callback_statusmessage(self.m, __DESCallbackUserStatus, (__bridge void*)self);
-        tox_callback_userstatus(self.m, __DESCallbackUserStatusKind, (__bridge void*)self);
+        tox_callback_friend_message(self.m, __DESCallbackMessage, (__bridge void*)self);
+        tox_callback_friend_request(self.m, __DESCallbackFriendRequest, (__bridge void*)self);
+        tox_callback_name_change(self.m, __DESCallbackNameChange, (__bridge void*)self);
+        tox_callback_status_message(self.m, __DESCallbackUserStatus, (__bridge void*)self);
+        tox_callback_user_status(self.m, __DESCallbackUserStatusKind, (__bridge void*)self);
         tox_callback_action(self.m, __DESCallbackAction, (__bridge void*)self);
         tox_callback_group_message(self.m, __DESCallbackGroupMessage, (__bridge void*)self);
         tox_callback_group_invite(self.m, __DESCallbackGroupInvite, (__bridge void*)self);
