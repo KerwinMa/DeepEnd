@@ -201,7 +201,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         tox_callback_name_change(self.m, __DESCallbackNameChange, (__bridge void*)self);
         tox_callback_status_message(self.m, __DESCallbackUserStatus, (__bridge void*)self);
         tox_callback_user_status(self.m, __DESCallbackUserStatusKind, (__bridge void*)self);
-        tox_callback_action(self.m, __DESCallbackAction, (__bridge void*)self);
+        tox_callback_friend_action(self.m, __DESCallbackAction, (__bridge void*)self);
         tox_callback_group_message(self.m, __DESCallbackGroupMessage, (__bridge void*)self);
         tox_callback_group_invite(self.m, __DESCallbackGroupInvite, (__bridge void*)self);
         _friendManager = [[DESFriendManager alloc] initWithConnection:self];

@@ -79,7 +79,7 @@
 
 - (void) CALLS_INTO_CORE_FUNCTIONS setStatusType:(DESStatusType)statusType {
     [self willChangeValueForKey:@"statusType"];
-    int fail = tox_set_userstatus(self.owner.connection.m, (TOX_USERSTATUS)statusType);
+    int fail = tox_set_user_status(self.owner.connection.m, (TOX_USERSTATUS)statusType);
     if (!fail) {
         _statusType = statusType;
         [self didChangeValueForKey:@"statusType"];
