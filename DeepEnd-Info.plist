@@ -17,13 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>48 Core: e0a7565-b1780</string>
+	<string>49 Core: 0c0cc3d-b1885</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>48</string>
+	<string>49</string>
 	<key>DESGitRef</key>
-	<string>c944341</string>
+	<string>6777ddf</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 </dict>

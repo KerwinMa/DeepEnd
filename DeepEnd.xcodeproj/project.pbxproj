@@ -61,6 +61,18 @@
 		F5CC768B17C801E500038BA3 /* tox.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CC768817C801E500038BA3 /* tox.c */; };
 		F5CC768C17C801E500038BA3 /* tox.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CC768917C801E500038BA3 /* tox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5CC768D17C801E500038BA3 /* tox.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CC768917C801E500038BA3 /* tox.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5D0CA2F1890D464006899CE /* onion_announce.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D0CA291890D464006899CE /* onion_announce.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F5D0CA301890D464006899CE /* onion_announce.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D0CA291890D464006899CE /* onion_announce.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F5D0CA311890D464006899CE /* onion_announce.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0CA2A1890D464006899CE /* onion_announce.h */; };
+		F5D0CA321890D464006899CE /* onion_announce.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0CA2A1890D464006899CE /* onion_announce.h */; };
+		F5D0CA331890D464006899CE /* onion_client.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D0CA2B1890D464006899CE /* onion_client.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F5D0CA341890D464006899CE /* onion_client.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D0CA2B1890D464006899CE /* onion_client.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F5D0CA351890D464006899CE /* onion_client.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0CA2C1890D464006899CE /* onion_client.h */; };
+		F5D0CA361890D464006899CE /* onion_client.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0CA2C1890D464006899CE /* onion_client.h */; };
+		F5D0CA371890D464006899CE /* onion.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D0CA2D1890D464006899CE /* onion.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F5D0CA381890D464006899CE /* onion.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D0CA2D1890D464006899CE /* onion.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
+		F5D0CA391890D464006899CE /* onion.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0CA2E1890D464006899CE /* onion.h */; };
+		F5D0CA3A1890D464006899CE /* onion.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D0CA2E1890D464006899CE /* onion.h */; };
 		F5D4201F17B725E900587ABE /* DESOneToOneChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F5D4202017B725E900587ABE /* DESOneToOneChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */; };
 		F5D4202117B725E900587ABE /* DESOneToOneChatContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */; };
@@ -144,6 +156,12 @@
 		F5C4756317EE6CDC00768BAA /* DESGroupPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESGroupPeer.m; sourceTree = "<group>"; };
 		F5CC768817C801E500038BA3 /* tox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tox.c; sourceTree = "<group>"; };
 		F5CC768917C801E500038BA3 /* tox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tox.h; sourceTree = "<group>"; };
+		F5D0CA291890D464006899CE /* onion_announce.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = onion_announce.c; sourceTree = "<group>"; };
+		F5D0CA2A1890D464006899CE /* onion_announce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = onion_announce.h; sourceTree = "<group>"; };
+		F5D0CA2B1890D464006899CE /* onion_client.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = onion_client.c; sourceTree = "<group>"; };
+		F5D0CA2C1890D464006899CE /* onion_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = onion_client.h; sourceTree = "<group>"; };
+		F5D0CA2D1890D464006899CE /* onion.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = onion.c; sourceTree = "<group>"; };
+		F5D0CA2E1890D464006899CE /* onion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = onion.h; sourceTree = "<group>"; };
 		F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESOneToOneChatContext.h; sourceTree = "<group>"; };
 		F5D4201E17B725E900587ABE /* DESOneToOneChatContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESOneToOneChatContext.m; sourceTree = "<group>"; };
 		F5D4202317B72E4700587ABE /* DESMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESMessage.h; sourceTree = "<group>"; };
@@ -330,6 +348,12 @@
 				F57B5E1A17B083E800BE87AC /* util.h */,
 				F5CC768817C801E500038BA3 /* tox.c */,
 				F5CC768917C801E500038BA3 /* tox.h */,
+				F5D0CA291890D464006899CE /* onion_announce.c */,
+				F5D0CA2A1890D464006899CE /* onion_announce.h */,
+				F5D0CA2B1890D464006899CE /* onion_client.c */,
+				F5D0CA2C1890D464006899CE /* onion_client.h */,
+				F5D0CA2D1890D464006899CE /* onion.c */,
+				F5D0CA2E1890D464006899CE /* onion.h */,
 			);
 			name = ToxCore;
 			path = "ProjectTox-Core/toxcore";
@@ -350,9 +374,11 @@
 				F55813F117C7BA8C000D50CB /* DESFriendManager.h in Headers */,
 				F55813F217C7BA8C000D50CB /* DESToxNetworkConnection.h in Headers */,
 				F55813F317C7BA8C000D50CB /* DESChatContext.h in Headers */,
+				F5D0CA3A1890D464006899CE /* onion.h in Headers */,
 				F55813F417C7BA8C000D50CB /* DESMessage.h in Headers */,
 				F5ECC85417CEF0A1000E01D2 /* DESToxNetworkConnection+DHTReadOnly.h in Headers */,
 				F55813F517C7BA8C000D50CB /* DHT.h in Headers */,
+				F5D0CA361890D464006899CE /* onion_client.h in Headers */,
 				F55813F617C7BA8C000D50CB /* LAN_discovery.h in Headers */,
 				F5BD6C92184BBDFB002EB7F0 /* assoc.h in Headers */,
 				F55813F717C7BA8C000D50CB /* Lossless_UDP.h in Headers */,
@@ -361,6 +387,7 @@
 				F55813FA17C7BA8C000D50CB /* net_crypto.h in Headers */,
 				F5711E0E17E51C4600F01477 /* DESGroupChatContext.h in Headers */,
 				F55813FB17C7BA8C000D50CB /* network.h in Headers */,
+				F5D0CA321890D464006899CE /* onion_announce.h in Headers */,
 				F55813FC17C7BA8C000D50CB /* ping.h in Headers */,
 				F55813FD17C7BA8C000D50CB /* util.h in Headers */,
 				F5CC768D17C801E500038BA3 /* tox.h in Headers */,
@@ -382,9 +409,11 @@
 				F5E5828517AC0ABB00D9409B /* DESFriendManager.h in Headers */,
 				F5E5828817AC0ABB00D9409B /* DESToxNetworkConnection.h in Headers */,
 				F5B9112F17B1B3BF00E29017 /* DESChatContext.h in Headers */,
+				F5D0CA391890D464006899CE /* onion.h in Headers */,
 				F5D4202517B72E4700587ABE /* DESMessage.h in Headers */,
 				F5ECC85317CEF0A1000E01D2 /* DESToxNetworkConnection+DHTReadOnly.h in Headers */,
 				F57B5E2417B0859E00BE87AC /* Messenger.h in Headers */,
+				F5D0CA351890D464006899CE /* onion_client.h in Headers */,
 				F5E5829E17AC0BFB00D9409B /* DHT.h in Headers */,
 				F5BD6C91184BBDFB002EB7F0 /* assoc.h in Headers */,
 				F5E582A117AC0BFB00D9409B /* LAN_discovery.h in Headers */,
@@ -393,6 +422,7 @@
 				F5E582AD17AC0BFB00D9409B /* net_crypto.h in Headers */,
 				F5E582B017AC0BFB00D9409B /* network.h in Headers */,
 				F57B5E1D17B083E800BE87AC /* ping.h in Headers */,
+				F5D0CA311890D464006899CE /* onion_announce.h in Headers */,
 				F57B5E2017B083E800BE87AC /* util.h in Headers */,
 				F5711E0D17E51C4600F01477 /* DESGroupChatContext.h in Headers */,
 				F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */,
@@ -510,9 +540,12 @@
 				F5E5829F17AC0BFB00D9409B /* LAN_discovery.c in Sources */,
 				F5E582A217AC0BFB00D9409B /* Lossless_UDP.c in Sources */,
 				F5BD6C8F184BBDFB002EB7F0 /* assoc.c in Sources */,
+				F5D0CA331890D464006899CE /* onion_client.c in Sources */,
+				F5D0CA2F1890D464006899CE /* onion_announce.c in Sources */,
 				F5E582A817AC0BFB00D9409B /* friend_requests.c in Sources */,
 				F5E582AB17AC0BFB00D9409B /* net_crypto.c in Sources */,
 				F5E582AE17AC0BFB00D9409B /* network.c in Sources */,
+				F5D0CA371890D464006899CE /* onion.c in Sources */,
 				F5E582B417AC288800D9409B /* DESSelf.m in Sources */,
 				F5E486CD17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */,
 				F5711E0F17E51C4600F01477 /* DESGroupChatContext.m in Sources */,
@@ -541,9 +574,12 @@
 				F5E582A017AC0BFB00D9409B /* LAN_discovery.c in Sources */,
 				F5E582A317AC0BFB00D9409B /* Lossless_UDP.c in Sources */,
 				F5BD6C90184BBDFB002EB7F0 /* assoc.c in Sources */,
+				F5D0CA341890D464006899CE /* onion_client.c in Sources */,
+				F5D0CA301890D464006899CE /* onion_announce.c in Sources */,
 				F5E582A917AC0BFB00D9409B /* friend_requests.c in Sources */,
 				F5E582AC17AC0BFB00D9409B /* net_crypto.c in Sources */,
 				F5E582AF17AC0BFB00D9409B /* network.c in Sources */,
+				F5D0CA381890D464006899CE /* onion.c in Sources */,
 				F5E582B517AC288800D9409B /* DESSelf.m in Sources */,
 				F5E486CE17AF2C1300A0BF9F /* DESMessengerHack.c in Sources */,
 				F5711E1017E51C4600F01477 /* DESGroupChatContext.m in Sources */,
