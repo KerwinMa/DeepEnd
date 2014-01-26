@@ -194,6 +194,8 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 - (void) CALLS_INTO_CORE_FUNCTIONS connect {
+    if (!messengerTick)
+        [self createTick];
     dispatch_sync(_messengerQueue, ^{
         _m = tox_new(TOX_ENABLE_IPV6_DEFAULT);
         tox_callback_friend_message(self.m, __DESCallbackMessage, (__bridge void*)self);
