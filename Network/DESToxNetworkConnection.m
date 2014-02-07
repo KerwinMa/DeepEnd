@@ -221,7 +221,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 }
 
 - (void) CALLS_INTO_CORE_FUNCTIONS bootstrapWithAddress:(NSString *)theAddress port:(NSInteger)thePort publicKey:(NSString *)theKey {
-    dispatch_sync(_messengerQueue, ^{
+    dispatch_async(_messengerQueue, ^{
         tox_IP_Port bootstrapInfo;
         if ([theAddress rangeOfString:@":"].location == NSNotFound) {
             bootstrapInfo.ip.family = AF_INET;

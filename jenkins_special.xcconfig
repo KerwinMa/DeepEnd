@@ -1,0 +1,2 @@
+// Special values for tox CI
+SODIUM_A_PATH = sodium_root
