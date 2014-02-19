@@ -72,7 +72,11 @@
 }
 
 - (void) CALLS_INTO_CORE_FUNCTIONS sendAction:(NSString *)message {
-    return; /* FIXME: no implementation */
+    DESFriend *sender = [DESSelf selfWithConnection:self.friendManager.connection];
+    int ret = tox_group_action_send(self.friendManager.connection.m, (int)self.groupNumber, (uint8_t*)[message UTF8String], (uint32_t)[message lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1);
+    if (ret != 0) {
+        [self pushMessage:[DESMessage actionFromSender:sender content:message]];
+    }
 }
 
 /* Put a message into this context. */
