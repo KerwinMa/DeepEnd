@@ -205,6 +205,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
         tox_callback_user_status(self.m, __DESCallbackUserStatusKind, (__bridge void*)self);
         tox_callback_friend_action(self.m, __DESCallbackAction, (__bridge void*)self);
         tox_callback_group_message(self.m, __DESCallbackGroupMessage, (__bridge void*)self);
+        tox_callback_group_action(self.m, __DESCallbackGroupAction, (__bridge void*)self);
         tox_callback_group_invite(self.m, __DESCallbackGroupInvite, (__bridge void*)self);
         _friendManager = [[DESFriendManager alloc] initWithConnection:self];
         _currentUser = [[DESSelf alloc] init];
@@ -338,6 +339,22 @@ void __DESCallbackGroupMessage(Tox *m, int groupnumber, int peernum, uint8_t *pa
         return;
     DESGroupPeer *friend = [theGroup peerWithID:peernum];
     DESMessage *theMessage = [DESMessage messageFromSender:friend content:thePayload messageID:-1];
+    [theGroup pushMessage:theMessage];
+}
+
+void __DESCallbackGroupAction(Tox *tox, int groupnumber, int peernum, uint8_t *payload, uint16_t length, void *context) {
+    NSString *thePayload = [[[NSString alloc] initWithBytes:payload length:length encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\0"]]; /* Tox encodes strings with NULs for some reason. */
+    DESGroupChatContext *theGroup = nil;
+    for (id<DESChatContext> ctx in ((__bridge DESToxNetworkConnection*)context).friendManager.chatContexts) {
+        if ([ctx isKindOfClass:[DESGroupChatContext class]] && ((DESGroupChatContext*)ctx).groupNumber == groupnumber) {
+            theGroup = ctx;
+            break;
+        }
+    }
+    if (!theGroup)
+        return;
+    DESGroupPeer *friend = [theGroup peerWithID:peernum];
+    DESMessage *theMessage = [DESMessage actionFromSender:friend content:thePayload];
     [theGroup pushMessage:theMessage];
 }
 

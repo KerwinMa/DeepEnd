@@ -66,4 +66,5 @@ void __DESCallbackAction(Tox *m, int friend, uint8_t *payload, uint16_t length, 
 void __DESCallbackFriendStatus(Tox *m, int friend, uint8_t newstatus, void *context);
 void __DESCallbackReadReceipt(Tox *m, int friend, uint32_t theid, void *context);
 void __DESCallbackGroupMessage(Tox *m, int groupnumber, int peernum, uint8_t *payload, uint16_t length, void *context);
+void __DESCallbackGroupAction(Tox *tox, int groupnumber, int peernum, uint8_t *payload, uint16_t length, void *context);
 void __DESCallbackGroupInvite(Tox *tox, int friend, uint8_t *group_public_key, void *context);
