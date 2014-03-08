@@ -59,7 +59,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus);
 /* Private callbacks implemented in DESToxNetworkConnection.m */
 void __DESCallbackFriendRequest(uint8_t *publicKey, uint8_t *payload, uint16_t length, void *context);
 void __DESCallbackNameChange(Tox *m, int friend, uint8_t *payload, uint16_t length, void *context);
-void __DESCallbackUserStatusKind(Tox *m, int friend, TOX_USERSTATUS kind, void *context);
+void __DESCallbackUserStatusKind(Tox *m, int32_t friend, TOX_USERSTATUS kind, void *context);
 void __DESCallbackUserStatus(Tox *m, int friend, uint8_t *payload, uint16_t length, void *context);
 void __DESCallbackMessage(Tox *m, int friend, uint8_t *payload, uint16_t length, void *context);
 void __DESCallbackAction(Tox *m, int friend, uint8_t *payload, uint16_t length, void *context);

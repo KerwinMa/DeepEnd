@@ -295,7 +295,7 @@ void __DESCallbackNameChange(Tox *m, int friend, uint8_t *payload, uint16_t leng
     });
 }
 
-void __DESCallbackUserStatusKind(Tox *m, int friend, TOX_USERSTATUS kind, void *context) {
+void __DESCallbackUserStatusKind(Tox *m, int32_t friend, TOX_USERSTATUS kind, void *context) {
     DESFriend *theFriend = [((__bridge DESToxNetworkConnection*)context).friendManager friendWithNumber:friend];
     [theFriend.chatContext pushMessage:[DESMessage userStatusTypeChangeFromSender:theFriend newStatusType:(DESStatusType)kind]];
     dispatch_sync(dispatch_get_main_queue(), ^{
