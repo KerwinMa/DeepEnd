@@ -8,7 +8,6 @@
 }
 
 @synthesize maximumBacklogSize = _maximumBacklogSize;
-@synthesize backlog;
 @synthesize friendManager;
 @synthesize uuid;
 @synthesize name;
