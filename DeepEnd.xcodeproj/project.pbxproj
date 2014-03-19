@@ -57,7 +57,7 @@
 		F5C4756517EE6CDC00768BAA /* DESGroupPeer.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C4756217EE6CDC00768BAA /* DESGroupPeer.h */; };
 		F5C4756617EE6CDC00768BAA /* DESGroupPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C4756317EE6CDC00768BAA /* DESGroupPeer.m */; };
 		F5C4756717EE6CDC00768BAA /* DESGroupPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C4756317EE6CDC00768BAA /* DESGroupPeer.m */; };
-		F5CC768A17C801E500038BA3 /* tox.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CC768817C801E500038BA3 /* tox.c */; settings = {COMPILER_FLAGS = "-Wno-error"; }; };
+		F5CC768A17C801E500038BA3 /* tox.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CC768817C801E500038BA3 /* tox.c */; };
 		F5CC768B17C801E500038BA3 /* tox.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CC768817C801E500038BA3 /* tox.c */; };
 		F5CC768C17C801E500038BA3 /* tox.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CC768917C801E500038BA3 /* tox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5CC768D17C801E500038BA3 /* tox.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CC768917C801E500038BA3 /* tox.h */; settings = {ATTRIBUTES = (Public, ); }; };

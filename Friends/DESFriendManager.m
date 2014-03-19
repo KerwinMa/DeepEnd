@@ -222,7 +222,7 @@ NSString *const DESArrayOperationTypeRemove = @"remove";
     DESConvertPublicKeyToData(theKey, buffer);
     int friendID = DESFriendInvalid;
     @synchronized(self) {
-        friendID = tox_get_friend_id(self.connection.m, buffer);
+        friendID = tox_get_friend_number(self.connection.m, buffer);
     }
     free(buffer);
     return [self friendWithNumber:friendID];

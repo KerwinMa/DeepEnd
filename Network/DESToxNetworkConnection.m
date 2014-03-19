@@ -280,7 +280,7 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 
 /* Callbacks begin */
 
-void __DESCallbackFriendRequest(uint8_t *publicKey, uint8_t *payload, uint16_t length, void *context) {
+void __DESCallbackFriendRequest(Tox *m, uint8_t *publicKey, uint8_t *payload, uint16_t length, void *context) {
     NSString *theKey = DESConvertPublicKeyToString(publicKey);
     NSString *thePayload = [[[NSString alloc] initWithBytes:payload length:length encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\0"]]; /* Tox encodes strings with NULs for some reason. */
     [((__bridge DESToxNetworkConnection*)context).friendManager didReceiveNewRequestWithAddress:theKey message:thePayload];
@@ -295,7 +295,7 @@ void __DESCallbackNameChange(Tox *m, int friend, uint8_t *payload, uint16_t leng
     });
 }
 
-void __DESCallbackUserStatusKind(Tox *m, int32_t friend, TOX_USERSTATUS kind, void *context) {
+void __DESCallbackUserStatusKind(Tox *m, int32_t friend, uint8_t kind, void *context) {
     DESFriend *theFriend = [((__bridge DESToxNetworkConnection*)context).friendManager friendWithNumber:friend];
     [theFriend.chatContext pushMessage:[DESMessage userStatusTypeChangeFromSender:theFriend newStatusType:(DESStatusType)kind]];
     dispatch_sync(dispatch_get_main_queue(), ^{
