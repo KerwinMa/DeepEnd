@@ -223,19 +223,10 @@ DESFriendStatus __DESCoreStatusToDESStatus(int theStatus) {
 
 - (void) CALLS_INTO_CORE_FUNCTIONS bootstrapWithAddress:(NSString *)theAddress port:(NSInteger)thePort publicKey:(NSString *)theKey {
     dispatch_async(_messengerQueue, ^{
-        tox_IP_Port bootstrapInfo;
-        if ([theAddress rangeOfString:@":"].location == NSNotFound) {
-            bootstrapInfo.ip.family = AF_INET;
-            inet_pton(AF_INET, [theAddress UTF8String], &bootstrapInfo.ip.ip4.c);
-        } else {
-            bootstrapInfo.ip.family = AF_INET6;
-            inet_pton(AF_INET6, [theAddress UTF8String], &bootstrapInfo.ip.ip6.uint8);
-        }
-        bootstrapInfo.port = htons(thePort);
         uint8_t *theData = malloc(DESPublicKeySize);
         DESConvertPublicKeyToData(theKey, theData);
         bootstrapStartTime = [NSDate date];
-        tox_bootstrap_from_ip(self.m, bootstrapInfo, theData);
+        tox_bootstrap_from_address(self.m, [theAddress UTF8String], 1, htons(thePort), theData);
         free(theData);
     });
 }
