@@ -12,6 +12,8 @@
 		F53640FD17EFD040002298A5 /* DESGroupChat.h in Headers */ = {isa = PBXBuildFile; fileRef = F53640FA17EFD040002298A5 /* DESGroupChat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F53640FE17EFD040002298A5 /* DESGroupChat.m in Sources */ = {isa = PBXBuildFile; fileRef = F53640FB17EFD040002298A5 /* DESGroupChat.m */; };
 		F53640FF17EFD040002298A5 /* DESGroupChat.m in Sources */ = {isa = PBXBuildFile; fileRef = F53640FB17EFD040002298A5 /* DESGroupChat.m */; };
+		F54B951D192FFEEF004EA4AD /* list.c in Sources */ = {isa = PBXBuildFile; fileRef = F54B951B192FFEEF004EA4AD /* list.c */; };
+		F54B951E192FFEEF004EA4AD /* list.h in Headers */ = {isa = PBXBuildFile; fileRef = F54B951C192FFEEF004EA4AD /* list.h */; };
 		F552EFDC17B057800043E169 /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F55813EC17C7BA5E000D50CB /* DeepEnd-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F552EFDB17B057800043E169 /* DeepEnd-Private.h */; };
 		F55813ED17C7BA73000D50CB /* DESOneToOneChatContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D4201D17B725E900587ABE /* DESOneToOneChatContext.h */; };
@@ -144,6 +146,8 @@
 		F50E942E18A467CB00ABB69D /* jenkins_special.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = jenkins_special.xcconfig; sourceTree = "<group>"; };
 		F53640FA17EFD040002298A5 /* DESGroupChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DESGroupChat.h; sourceTree = "<group>"; };
 		F53640FB17EFD040002298A5 /* DESGroupChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DESGroupChat.m; sourceTree = "<group>"; };
+		F54B951B192FFEEF004EA4AD /* list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = list.c; sourceTree = "<group>"; };
+		F54B951C192FFEEF004EA4AD /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
 		F552EFDB17B057800043E169 /* DeepEnd-Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeepEnd-Private.h"; sourceTree = "<group>"; };
 		F5711E0417E5187A00F01477 /* group_chats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = group_chats.c; sourceTree = "<group>"; };
 		F5711E0517E5187A00F01477 /* group_chats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = group_chats.h; sourceTree = "<group>"; };
@@ -374,6 +378,8 @@
 				F5816FE3192958B100460DA9 /* ping_array.h */,
 				F5816FE6192958BA00460DA9 /* crypto_core.c */,
 				F5816FE7192958BA00460DA9 /* crypto_core.h */,
+				F54B951B192FFEEF004EA4AD /* list.c */,
+				F54B951C192FFEEF004EA4AD /* list.h */,
 			);
 			name = ToxCore;
 			path = "ProjectTox-Core/toxcore";
@@ -444,6 +450,7 @@
 				F57B5E1D17B083E800BE87AC /* ping.h in Headers */,
 				F5D0CA311890D464006899CE /* onion_announce.h in Headers */,
 				F57B5E2017B083E800BE87AC /* util.h in Headers */,
+				F54B951E192FFEEF004EA4AD /* list.h in Headers */,
 				F5711E0D17E51C4600F01477 /* DESGroupChatContext.h in Headers */,
 				F5816FE5192958B100460DA9 /* ping_array.h in Headers */,
 				F5816FE1192958A700460DA9 /* TCP_client.h in Headers */,
@@ -553,6 +560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5C4756617EE6CDC00768BAA /* DESGroupPeer.m in Sources */,
+				F54B951D192FFEEF004EA4AD /* list.c in Sources */,
 				F5816FE4192958B100460DA9 /* ping_array.c in Sources */,
 				F5E5827D17AC0ABB00D9409B /* DESKeyFunctions.m in Sources */,
 				F5711E0617E5187A00F01477 /* group_chats.c in Sources */,
